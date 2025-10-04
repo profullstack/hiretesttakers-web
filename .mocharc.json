@@ -1,0 +1,11 @@
+{
+  "spec": "tests/**/*.test.js",
+  "timeout": 5000,
+  "recursive": true,
+  "reporter": "spec",
+  "color": true,
+  "exit": true,
+  "node-option": [
+    "experimental-vm-modules"
+  ]
+}

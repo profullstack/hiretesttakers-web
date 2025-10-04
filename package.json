@@ -1,0 +1,71 @@
+{
+  "name": "hiretesttakers-web",
+  "version": "0.1.0",
+  "description": "A marketplace platform connecting test hirers with test takers, featuring cryptocurrency payments",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "NODE_OPTIONS=--experimental-vm-modules mocha 'tests/**/*.test.js'",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules mocha 'tests/**/*.test.js' --watch",
+    "test:coverage": "c8 pnpm test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:setup": "node scripts/db-setup.js",
+    "db:export": "node scripts/db-export.js",
+    "db:import": "node scripts/db-import.js",
+    "supabase:start": "pnpx supabase start",
+    "supabase:stop": "pnpx supabase stop",
+    "supabase:status": "pnpx supabase status",
+    "supabase:migration": "pnpx supabase migration new",
+    "supabase:push": "pnpx supabase db push",
+    "supabase:reset": "pnpx supabase db reset",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "autoprefixer": "^10.4.16",
+    "c8": "^9.0.0",
+    "chai": "^5.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-svelte": "^2.35.1",
+    "mocha": "^10.2.0",
+    "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "prettier-plugin-svelte": "^3.1.2",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "tailwindcss": "^3.4.0",
+    "vite": "^5.0.3"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "keywords": [
+    "marketplace",
+    "test-taking",
+    "cryptocurrency",
+    "payments",
+    "sveltekit",
+    "supabase"
+  ],
+  "author": "HireTestTakers Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/hiretesttakers-web.git"
+  }
+}
