@@ -4,54 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 💰 Prompt 6: Payment System UI
-
-```
-Build the payment UI for HireTestTakers.com using TDD.
-
-Requirements:
-- Payment initiation when test is completed
-- QR code display for crypto payments
-- Payment status tracking
-- 3% commission automatically handled
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Payment initiation page (/payments/[testId])
-2. Payment status page (/payments/[id]/status)
-3. Payment history page (/payments/history)
-4. QR code generation
-5. Payment webhook handler
-6. Payment API routes
-
-Database tables already exist:
-- payments table with commission fields
-- commission_payments table
-- Automatic commission calculation triggers
-
-Services already implemented:
-- src/lib/services/cryptapi.js (payment address generation)
-- src/lib/services/tatum.js (exchange rates)
-- src/lib/utils/commission.js (commission calculation)
-
-Deliverables:
-- Tests for payment UI logic
-- Payment API routes
-- Payment pages
-- PaymentForm component
-- QRCode component
-- PaymentStatus component
-- PaymentHistory component
-- Webhook handler (/api/webhooks/cryptapi)
-
-Use existing:
-- CryptAPI service for address generation
-- Tatum service for USD conversion
-- Commission utilities for calculations
-```
-
----
-
 ## 🏆 Prompt 7: Leaderboard & Ratings
 
 ```
