@@ -102,31 +102,26 @@ docker compose up -d
 cd ../../hiretesttakers-web
 ```
 
-4. Set up environment variables:
+4. Run the automated setup script:
 ```bash
+pnpm run setup
+```
+
+This will:
+- Copy `.env.example` to `.env`
+- Prompt you for required environment variables
+- Initialize Supabase CLI
+- Run database migrations
+- Set up the database schema
+
+Alternatively, you can set up manually:
+
+```bash
+# Copy environment file
 cp .env.example .env
-```
 
-Edit `.env` with your credentials:
-```env
-# Supabase (Self-Hosted)
-PUBLIC_SUPABASE_URL=http://localhost:8000
-PUBLIC_SUPABASE_ANON_KEY=your_anon_key_from_docker_env
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_from_docker_env
-
-# Database Connection (for backups)
-DATABASE_URL=postgresql://postgres:your_postgres_password@localhost:5432/postgres
-
-# CryptAPI.io
-CRYPTAPI_CALLBACK_URL=your_callback_url
-CRYPTAPI_DESTINATION_ADDRESS=your_crypto_address
-
-# Tatum.io
-TATUM_API_KEY=your_tatum_api_key
-```
-
-5. Initialize Supabase CLI and run migrations:
-```bash
+# Edit .env with your credentials
+# Then initialize Supabase
 pnpx supabase init
 pnpx supabase db push
 ```
