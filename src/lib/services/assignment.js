@@ -1,0 +1,444 @@
+/**
+ * Assignment Service
+ * 
+ * Service for managing assignment writing requests using Supabase.
+ * Provides functions for creating, reading, updating assignments, submissions, revisions, and quality reports.
+ */
+
+import { getSupabaseClient } from '../supabaseClient.js';
+
+/**
+ * Valid status values for assignment requests
+ */
+const VALID_STATUSES = [
+  'pending',
+  'assigned',
+  'in_progress',
+  'submitted',
+  'revision_requested',
+  'completed',
+  'cancelled'
+];
+
+/**
+ * Get all academic levels
+ * @returns {Promise<Array>} List of academic levels
+ * @throws {Error} If fetch fails
+ */
+export async function getAcademicLevels() {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from('academic_levels')
+    .select('*')
+    .order('name');
+
+  if (error) {
+    throw new Error(`Failed to fetch academic levels: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
+ * Get all citation styles
+ * @returns {Promise<Array>} List of citation styles
+ * @throws {Error} If fetch fails
+ */
+export async function getCitationStyles() {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from('citation_styles')
+    .select('*')
+    .order('name');
+
+  if (error) {
+    throw new Error(`Failed to fetch citation styles: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
+ * Create a new assignment request
+ * @param {Object} params - Request parameters
+ * @param {string} params.user_id - User ID
+ * @param {string} params.title - Assignment title
+ * @param {string} params.description - Assignment description
+ * @param {string} params.topic - Assignment topic
+ * @param {string} [params.academic_level_id] - Academic level ID
+ * @param {string} [params.citation_style_id] - Citation style ID
+ * @param {number} params.word_count - Word count
+ * @param {string} params.deadline - Deadline (ISO string)
+ * @param {number} params.price - Price
+ * @param {boolean} [params.plagiarism_check_requested] - Whether plagiarism check is requested
+ * @returns {Promise<Object>} Created assignment request
+ * @throws {Error} If validation fails or creation fails
+ */
+export async function createAssignmentRequest({
+  user_id,
+  title,
+  description,
+  topic,
+  academic_level_id,
+  citation_style_id,
+  word_count,
+  deadline,
+  price,
+  plagiarism_check_requested = false
+}) {
+  // Validation
+  if (!user_id || user_id.trim() === '') {
+    throw new Error('User ID is required');
+  }
+
+  if (!title || title.trim() === '') {
+    throw new Error('Title is required');
+  }
+
+  if (!description || description.trim() === '') {
+    throw new Error('Description is required');
+  }
+
+  if (!topic || topic.trim() === '') {
+    throw new Error('Topic is required');
+  }
+
+  if (!word_count) {
+    throw new Error('Word count is required');
+  }
+
+  if (word_count <= 0) {
+    throw new Error('Word count must be positive');
+  }
+
+  if (!deadline) {
+    throw new Error('Deadline is required');
+  }
+
+  const deadlineDate = new Date(deadline);
+  if (deadlineDate <= new Date()) {
+    throw new Error('Deadline must be in the future');
+  }
+
+  if (price === undefined || price === null) {
+    throw new Error('Price is required');
+  }
+
+  if (price < 0) {
+    throw new Error('Price must be non-negative');
+  }
+
+  const supabase = getSupabaseClient();
+
+  const requestData = {
+    user_id,
+    title: title.trim(),
+    description: description.trim(),
+    topic: topic.trim(),
+    word_count,
+    deadline,
+    price,
+    status: 'pending',
+    plagiarism_check_requested
+  };
+
+  if (academic_level_id) {
+    requestData.academic_level_id = academic_level_id;
+  }
+
+  if (citation_style_id) {
+    requestData.citation_style_id = citation_style_id;
+  }
+
+  const { data, error } = await supabase
+    .from('assignment_requests')
+    .insert(requestData)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to create assignment request: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
+ * Get assignment requests with optional filters
+ * @param {Object} [filters] - Filter options
+ * @param {string} [filters.status] - Filter by status
+ * @param {string} [filters.user_id] - Filter by user
+ * @param {string} [filters.assigned_to] - Filter by assigned user
+ * @param {number} [filters.limit] - Limit results
+ * @returns {Promise<Array>} List of assignment requests
+ * @throws {Error} If fetch fails
+ */
+export async function getAssignmentRequests(filters = {}) {
+  const supabase = getSupabaseClient();
+
+  let query = supabase
+    .from('assignment_requests')
+    .select('*, academic_levels(name), citation_styles(name)');
+
+  if (filters.status) {
+    query = query.eq('status', filters.status);
+  }
+
+  if (filters.user_id) {
+    query = query.eq('user_id', filters.user_id);
+  }
+
+  if (filters.assigned_to) {
+    query = query.eq('assigned_to', filters.assigned_to);
+  }
+
+  if (filters.limit) {
+    query = query.limit(filters.limit);
+  }
+
+  query = query.order('created_at', { ascending: false });
+
+  const { data, error } = await query;
+
+  if (error) {
+    throw new Error(`Failed to fetch assignment requests: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
+ * Get assignment request by ID
+ * @param {string} id - Request ID
+ * @returns {Promise<Object|null>} Assignment request or null
+ * @throws {Error} If validation fails or fetch fails
+ */
+export async function getAssignmentRequestById(id) {
+  if (!id || id.trim() === '') {
+    throw new Error('Assignment request ID is required');
+  }
+
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from('assignment_requests')
+    .select(`
+      *,
+      academic_levels(name),
+      citation_styles(name),
+      assignment_submissions(*),
+      assignment_revisions(*),
+      quality_reports(*),
+      plagiarism_reports(*)
+    `)
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') {
+      return null;
+    }
+    throw new Error(`Failed to fetch assignment request: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
+ * Submit assignment for a request
+ * @param {string} requestId - Assignment request ID
+ * @param {Object} params - Submission parameters
+ * @param {string} params.content - Assignment content
+ * @param {string} params.submitted_by - User ID of submitter
+ * @param {string} [params.file_url] - URL to uploaded file
+ * @returns {Promise<Object>} Created submission
+ * @throws {Error} If validation fails or creation fails
+ */
+export async function submitAssignment(requestId, { content, submitted_by, file_url }) {
+  if (!requestId || requestId.trim() === '') {
+    throw new Error('Assignment request ID is required');
+  }
+
+  if (!content || content.trim() === '') {
+    throw new Error('Content is required');
+  }
+
+  if (!submitted_by || submitted_by.trim() === '') {
+    throw new Error('Submitted by user ID is required');
+  }
+
+  // Calculate word count
+  const wordCount = content.trim().split(/\s+/).length;
+
+  const supabase = getSupabaseClient();
+
+  const submissionData = {
+    assignment_request_id: requestId,
+    content: content.trim(),
+    word_count: wordCount,
+    submitted_by
+  };
+
+  if (file_url) {
+    submissionData.file_url = file_url;
+  }
+
+  const { data, error } = await supabase
+    .from('assignment_submissions')
+    .insert(submissionData)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to submit assignment: ${error.message}`);
+  }
+
+  // Update assignment request status to submitted
+  await supabase
+    .from('assignment_requests')
+    .update({ status: 'submitted' })
+    .eq('id', requestId);
+
+  return data;
+}
+
+/**
+ * Request revision for an assignment
+ * @param {string} requestId - Assignment request ID
+ * @param {Object} params - Revision parameters
+ * @param {string} params.requested_by - User ID of requester
+ * @param {string} params.notes - Revision notes
+ * @returns {Promise<Object>} Created revision request
+ * @throws {Error} If validation fails or creation fails
+ */
+export async function requestRevision(requestId, { requested_by, notes }) {
+  if (!requestId || requestId.trim() === '') {
+    throw new Error('Assignment request ID is required');
+  }
+
+  if (!requested_by || requested_by.trim() === '') {
+    throw new Error('Requested by user ID is required');
+  }
+
+  if (!notes || notes.trim() === '') {
+    throw new Error('Revision notes are required');
+  }
+
+  const supabase = getSupabaseClient();
+
+  const revisionData = {
+    assignment_request_id: requestId,
+    requested_by,
+    notes: notes.trim(),
+    status: 'pending'
+  };
+
+  const { data, error } = await supabase
+    .from('assignment_revisions')
+    .insert(revisionData)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to request revision: ${error.message}`);
+  }
+
+  // Update assignment request status to revision_requested
+  await supabase
+    .from('assignment_requests')
+    .update({ status: 'revision_requested' })
+    .eq('id', requestId);
+
+  return data;
+}
+
+/**
+ * Generate quality report for an assignment
+ * @param {string} requestId - Assignment request ID
+ * @returns {Promise<Object>} Generated quality report
+ * @throws {Error} If validation fails or creation fails
+ */
+export async function generateQualityReport(requestId) {
+  if (!requestId || requestId.trim() === '') {
+    throw new Error('Assignment request ID is required');
+  }
+
+  // In a real implementation, this would analyze the assignment content
+  // For now, we'll generate mock scores
+  const grammarScore = Math.floor(Math.random() * 21) + 80; // 80-100
+  const citationScore = Math.floor(Math.random() * 21) + 80; // 80-100
+  const contentQualityScore = Math.floor(Math.random() * 21) + 80; // 80-100
+  const overallScore = Math.floor((grammarScore + citationScore + contentQualityScore) / 3);
+
+  const supabase = getSupabaseClient();
+
+  const reportData = {
+    assignment_request_id: requestId,
+    grammar_score: grammarScore,
+    citation_score: citationScore,
+    content_quality_score: contentQualityScore,
+    overall_score: overallScore,
+    feedback: 'Quality analysis completed. Overall performance is excellent.'
+  };
+
+  const { data, error } = await supabase
+    .from('quality_reports')
+    .insert(reportData)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to generate quality report: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
+ * Check plagiarism for assignment content
+ * @param {string} requestId - Assignment request ID
+ * @param {string} content - Content to check
+ * @returns {Promise<Object>} Plagiarism report
+ * @throws {Error} If validation fails or creation fails
+ */
+export async function checkPlagiarism(requestId, content) {
+  if (!requestId || requestId.trim() === '') {
+    throw new Error('Assignment request ID is required');
+  }
+
+  if (!content || content.trim() === '') {
+    throw new Error('Content is required');
+  }
+
+  // In a real implementation, this would use an external plagiarism detection API
+  // For now, we'll generate a mock report
+  const similarityScore = Math.floor(Math.random() * 15); // 0-14% similarity
+  const sourcesFound = Math.floor(Math.random() * 3); // 0-2 sources
+
+  const supabase = getSupabaseClient();
+
+  const reportData = {
+    assignment_request_id: requestId,
+    similarity_score: similarityScore,
+    sources_found: sourcesFound,
+    details: {
+      checked_at: new Date().toISOString(),
+      content_length: content.length,
+      word_count: content.trim().split(/\s+/).length
+    }
+  };
+
+  const { data, error } = await supabase
+    .from('plagiarism_reports')
+    .insert(reportData)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to check plagiarism: ${error.message}`);
+  }
+
+  return data;
+}
