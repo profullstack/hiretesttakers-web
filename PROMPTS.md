@@ -4,7 +4,767 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 🧪 Prompt 9: Integration & E2E Testing
+## 📚 Prompt 1: Homework Help Service System
+
+```
+Build the Homework Help service system for HireTestTakers.com using TDD.
+
+Requirements:
+- Service request creation and management
+- Subject categorization (Math, Science, English, History, etc.)
+- Difficulty level selection (Elementary → Graduate)
+- File upload support (PDFs, DOCX, images)
+- Deadline management
+- Price range specification
+
+Database Schema:
+- Extend services table with homework-specific fields
+- Add subjects table for categorization
+- Add service_files table for attachments
+
+Features to implement:
+1. Create homework help request
+2. Browse homework requests by subject
+3. Filter by difficulty level and deadline
+4. Upload and manage file attachments
+5. Set price range or fixed price
+6. View request details
+7. Edit/delete requests
+
+Service Layer (src/lib/services/homework.js):
+- createHomeworkRequest(data)
+- getHomeworkRequests(filters)
+- getHomeworkRequestById(id)
+- updateHomeworkRequest(id, data)
+- deleteHomeworkRequest(id)
+- uploadHomeworkFiles(requestId, files)
+
+API Routes:
+- POST /api/homework - Create request
+- GET /api/homework - List requests
+- GET /api/homework/[id] - Get request
+- PUT /api/homework/[id] - Update request
+- DELETE /api/homework/[id] - Delete request
+- POST /api/homework/[id]/files - Upload files
+
+UI Components:
+- HomeworkRequestForm.svelte
+- HomeworkRequestCard.svelte
+- HomeworkFilters.svelte
+- SubjectSelector.svelte
+- DifficultySelector.svelte
+
+Pages:
+- /homework - Browse homework requests
+- /homework/new - Create request
+- /homework/[id] - View request details
+- /homework/[id]/edit - Edit request
+
+Follow TDD:
+1. Write tests first (tests/services/homework.test.js)
+2. Implement service layer
+3. Create API routes with tests
+4. Build UI components
+5. Test end-to-end flow
+
+Deliverables:
+- Complete homework service system
+- All tests passing
+- File upload working
+- Subject filtering working
+```
+
+---
+
+## 💻 Prompt 2: Programming Help Service System
+
+```
+Build the Programming Help service system for HireTestTakers.com using TDD.
+
+Requirements:
+- Programming request creation
+- Language selection (C, C++, Java, Python, JavaScript, etc.)
+- Project type (homework, debugging, mini-project)
+- Code file uploads
+- Annotated code delivery
+- Quality reports
+
+Database Schema:
+- Add programming_languages table
+- Add project_types table
+- Extend services table for programming fields
+- Add code_submissions table
+
+Features to implement:
+1. Create programming help request
+2. Select programming language
+3. Specify project type and requirements
+4. Upload code files
+5. Set deadline (urgent/standard)
+6. Request debugging/optimization
+7. Receive annotated code with explanations
+
+Service Layer (src/lib/services/programming.js):
+- createProgrammingRequest(data)
+- getProgrammingRequests(filters)
+- getProgrammingRequestById(id)
+- updateProgrammingRequest(id, data)
+- submitCode(requestId, code, annotations)
+- getCodeSubmission(requestId)
+
+API Routes:
+- POST /api/programming - Create request
+- GET /api/programming - List requests
+- GET /api/programming/[id] - Get request
+- PUT /api/programming/[id] - Update request
+- POST /api/programming/[id]/submit - Submit code
+- GET /api/programming/[id]/submission - Get submission
+
+UI Components:
+- ProgrammingRequestForm.svelte
+- LanguageSelector.svelte
+- CodeEditor.svelte (with syntax highlighting)
+- CodeSubmissionViewer.svelte
+- AnnotationDisplay.svelte
+
+Pages:
+- /programming - Browse programming requests
+- /programming/new - Create request
+- /programming/[id] - View request
+- /programming/[id]/submit - Submit code
+
+Features:
+- Syntax highlighting for code display
+- Code annotation system
+- Quality metrics display
+- Debugging notes
+- Step-by-step explanations
+
+Follow TDD:
+1. Write service tests
+2. Implement services
+3. Create API routes
+4. Build UI components
+5. Test file uploads
+6. Test code submission flow
+
+Deliverables:
+- Programming service system
+- Code editor integration
+- Annotation system
+- All tests passing
+```
+
+---
+
+## 📝 Prompt 3: Assignment Writing Service System
+
+```
+Build the Assignment Writing service system for HireTestTakers.com using TDD.
+
+Requirements:
+- Assignment request creation
+- Academic level selection
+- Citation style selection (APA, MLA, Chicago, Harvard)
+- Word count specification
+- Plagiarism checking integration
+- Quality reports
+- Revision system
+
+Database Schema:
+- Add assignment_types table
+- Add citation_styles table
+- Extend services table for assignment fields
+- Add quality_reports table
+- Enhance revisions table
+
+Features to implement:
+1. Create assignment request
+2. Specify topic and requirements
+3. Select academic level
+4. Choose citation style
+5. Set word count
+6. Request plagiarism report
+7. Submit assignment
+8. Request revisions
+9. Generate quality report
+
+Service Layer (src/lib/services/assignment.js):
+- createAssignmentRequest(data)
+- getAssignmentRequests(filters)
+- getAssignmentRequestById(id)
+- submitAssignment(requestId, content)
+- requestRevision(requestId, notes)
+- generateQualityReport(requestId)
+- checkPlagiarism(content)
+
+API Routes:
+- POST /api/assignments - Create request
+- GET /api/assignments - List requests
+- GET /api/assignments/[id] - Get request
+- POST /api/assignments/[id]/submit - Submit work
+- POST /api/assignments/[id]/revisions - Request revision
+- GET /api/assignments/[id]/quality-report - Get report
+- POST /api/assignments/[id]/plagiarism-check - Check plagiarism
+
+UI Components:
+- AssignmentRequestForm.svelte
+- AcademicLevelSelector.svelte
+- CitationStyleSelector.svelte
+- WordCountInput.svelte
+- PlagiarismReport.svelte
+- QualityReportCard.svelte
+- RevisionRequestForm.svelte
+
+Pages:
+- /assignments - Browse assignments
+- /assignments/new - Create request
+- /assignments/[id] - View assignment
+- /assignments/[id]/revisions - Manage revisions
+- /assignments/[id]/quality - View quality report
+
+Features:
+- Plagiarism detection (integrate external API or build basic)
+- Quality scoring system
+- Citation verification
+- Grammar checking
+- Revision tracking
+- Unlimited free revisions
+
+Follow TDD:
+1. Write service tests
+2. Implement services
+3. Create API routes
+4. Build revision system
+5. Integrate plagiarism checking
+6. Build quality report generator
+7. Test complete workflow
+
+Deliverables:
+- Assignment service system
+- Revision workflow
+- Quality assurance features
+- Plagiarism checking
+- All tests passing
+```
+
+---
+
+## 🔄 Prompt 4: Unified Service Management System
+
+```
+Refactor and unify all service types (homework, programming, assignments, test-taking) 
+into a cohesive service management system using TDD.
+
+Requirements:
+- Single services table with type discrimination
+- Unified service browsing
+- Cross-service search and filtering
+- Consistent application workflow
+- Service type-specific features
+
+Database Migration:
+- Create unified services table
+- Add service_type enum
+- Migrate existing test data
+- Add polymorphic relationships
+
+Service Layer (src/lib/services/service.js):
+- createService(type, data)
+- getServices(filters)
+- getServiceById(id)
+- updateService(id, data)
+- deleteService(id)
+- getServicesByType(type, filters)
+- searchServices(query, filters)
+
+Features to implement:
+1. Unified service creation flow
+2. Service type selector
+3. Type-specific form fields
+4. Cross-service search
+5. Unified application system
+6. Service status management
+7. Service completion workflow
+
+API Routes:
+- POST /api/services - Create any service type
+- GET /api/services - List all services
+- GET /api/services/[id] - Get service
+- PUT /api/services/[id] - Update service
+- DELETE /api/services/[id] - Delete service
+- GET /api/services/type/[type] - Get by type
+
+UI Components:
+- ServiceTypeSelector.svelte
+- UnifiedServiceForm.svelte
+- ServiceCard.svelte (polymorphic)
+- ServiceFilters.svelte
+- ServiceSearch.svelte
+
+Pages:
+- /services - Browse all services
+- /services/new - Create service (with type selection)
+- /services/[id] - View service details
+- /services/[id]/edit - Edit service
+
+Follow TDD:
+1. Write migration tests
+2. Create database migration
+3. Write service tests
+4. Implement unified services
+5. Refactor existing code
+6. Build unified UI
+7. Test all service types
+
+Deliverables:
+- Unified service system
+- Database migration
+- Refactored codebase
+- All tests passing
+- Backward compatibility
+```
+
+---
+
+## 📊 Prompt 5: Enhanced Leaderboard & Reputation System
+
+```
+Enhance the leaderboard system with reputation, badges, and detailed metrics using TDD.
+
+Requirements:
+- Comprehensive performance metrics
+- Subject expertise tracking
+- Badge/achievement system
+- Reputation scoring
+- Service type specialization
+- Response time tracking
+
+Database Schema:
+- Add user_metrics table
+- Add badges table
+- Add user_badges table
+- Add expertise_areas table
+- Enhance leaderboard calculations
+
+Features to implement:
+1. Calculate reputation score
+2. Track subject expertise
+3. Award badges for achievements
+4. Display specializations
+5. Track response times
+6. Show success rates by service type
+7. Display earnings by category
+
+Service Layer (src/lib/services/reputation.js):
+- calculateReputationScore(userId)
+- getUserMetrics(userId)
+- awardBadge(userId, badgeId)
+- getUserBadges(userId)
+- trackExpertise(userId, subject, performance)
+- getTopPerformers(filters)
+- getSpecialists(serviceType)
+
+Badges to implement:
+- Quick Responder (< 1 hour avg response)
+- Perfect Score (10 consecutive 5-star ratings)
+- Subject Master (50+ services in one subject)
+- Top Earner (highest monthly earnings)
+- Reliable (100+ completed services)
+- Helpful (most helpful reviews)
+
+API Routes:
+- GET /api/reputation/[userId] - Get reputation
+- GET /api/reputation/[userId]/metrics - Get metrics
+- GET /api/reputation/[userId]/badges - Get badges
+- GET /api/reputation/specialists/[type] - Get specialists
+- GET /api/reputation/top-performers - Get top performers
+
+UI Components:
+- ReputationScore.svelte
+- BadgeDisplay.svelte
+- ExpertiseChart.svelte
+- PerformanceMetrics.svelte
+- SpecializationTags.svelte
+- EnhancedLeaderboardTable.svelte
+
+Pages:
+- /leaderboard - Enhanced leaderboard
+- /leaderboard/specialists/[type] - Type specialists
+- /reputation/[userId] - User reputation page
+
+Follow TDD:
+1. Write reputation calculation tests
+2. Implement scoring algorithm
+3. Create badge system
+4. Build expertise tracking
+5. Enhance leaderboard
+6. Build UI components
+7. Test complete system
+
+Deliverables:
+- Enhanced leaderboard
+- Reputation system
+- Badge system
+- Expertise tracking
+- All tests passing
+```
+
+---
+
+## 💰 Prompt 6: Enhanced Payment & Commission System
+
+```
+Build enhanced payment system with commission splits, payment methods, and transaction history using TDD.
+
+Requirements:
+- Multiple payment methods (crypto, PayPal, cards)
+- Platform commission calculation
+- Automatic commission splits
+- Payment history
+- Refund system
+- Earnings dashboard
+
+Database Schema:
+- Enhance payments table
+- Add commission_rates table
+- Add payment_methods table
+- Add refunds table
+- Add earnings_summary table
+
+Features to implement:
+1. Configure commission rates by service type
+2. Calculate platform commission
+3. Split payments automatically
+4. Support multiple payment methods
+5. Track payment history
+6. Generate earnings reports
+7. Handle refunds
+8. Display payment status
+
+Service Layer (src/lib/services/payment-enhanced.js):
+- calculateCommission(amount, serviceType)
+- splitPayment(paymentId)
+- processPayment(data)
+- getPaymentHistory(userId, filters)
+- requestRefund(paymentId, reason)
+- getEarningsSummary(userId, period)
+- getPaymentMethods(userId)
+
+Commission Structure:
+- Homework Help: 15%
+- Programming Help: 20%
+- Assignment Writing: 15%
+- Test Taking: 25%
+- Configurable per service type
+
+API Routes:
+- POST /api/payments/process - Process payment
+- GET /api/payments/history - Payment history
+- GET /api/payments/earnings - Earnings summary
+- POST /api/payments/[id]/refund - Request refund
+- GET /api/payments/commission-rates - Get rates
+- PUT /api/payments/commission-rates - Update rates (admin)
+
+UI Components:
+- PaymentMethodSelector.svelte
+- CommissionDisplay.svelte
+- EarningsDashboard.svelte
+- PaymentHistoryTable.svelte
+- RefundRequestForm.svelte
+- TransactionDetails.svelte
+
+Pages:
+- /payments/methods - Manage payment methods
+- /payments/earnings - Earnings dashboard
+- /payments/history - Payment history
+- /payments/[id]/refund - Request refund
+
+Follow TDD:
+1. Write commission calculation tests
+2. Implement commission system
+3. Build payment splitting
+4. Create refund system
+5. Build earnings dashboard
+6. Test payment flows
+7. Test commission accuracy
+
+Deliverables:
+- Enhanced payment system
+- Commission calculation
+- Multiple payment methods
+- Earnings dashboard
+- All tests passing
+```
+
+---
+
+## 🎓 Prompt 7: Learning Resources & Sample Library
+
+```
+Build a learning resources system with sample papers, blogs, and study guides using TDD.
+
+Requirements:
+- Sample paper library
+- Blog system
+- Study guides
+- Tutorial videos
+- Subject-specific resources
+- Search and filtering
+- User contributions
+
+Database Schema:
+- Add resources table
+- Add resource_types table
+- Add resource_categories table
+- Add resource_tags table
+- Add user_contributions table
+
+Features to implement:
+1. Upload sample papers
+2. Create blog posts
+3. Add study guides
+4. Embed tutorial videos
+5. Categorize by subject
+6. Tag resources
+7. Search resources
+8. User ratings for resources
+9. Download tracking
+
+Service Layer (src/lib/services/resources.js):
+- createResource(data)
+- getResources(filters)
+- getResourceById(id)
+- searchResources(query)
+- rateResource(resourceId, rating)
+- trackDownload(resourceId)
+- getUserContributions(userId)
+
+Resource Types:
+- Sample Papers (PDF, DOCX)
+- Blog Articles (Markdown)
+- Study Guides (PDF, HTML)
+- Tutorial Videos (YouTube embeds)
+- Code Examples (GitHub gists)
+- Practice Tests
+
+API Routes:
+- POST /api/resources - Create resource
+- GET /api/resources - List resources
+- GET /api/resources/[id] - Get resource
+- GET /api/resources/search - Search resources
+- POST /api/resources/[id]/rate - Rate resource
+- POST /api/resources/[id]/download - Track download
+
+UI Components:
+- ResourceCard.svelte
+- ResourceFilters.svelte
+- ResourceUploadForm.svelte
+- BlogEditor.svelte
+- VideoEmbed.svelte
+- ResourceRating.svelte
+
+Pages:
+- /resources - Browse resources
+- /resources/samples - Sample papers
+- /resources/blog - Blog articles
+- /resources/guides - Study guides
+- /resources/videos - Tutorial videos
+- /resources/[id] - View resource
+- /resources/contribute - Contribute resource
+
+Follow TDD:
+1. Write resource service tests
+2. Implement resource management
+3. Build search functionality
+4. Create upload system
+5. Build blog system
+6. Implement rating system
+7. Test complete workflow
+
+Deliverables:
+- Resource library system
+- Blog platform
+- Search functionality
+- User contributions
+- All tests passing
+```
+
+---
+
+## 🎁 Prompt 8: Referral & Rewards System
+
+```
+Build a comprehensive referral and rewards system using TDD.
+
+Requirements:
+- Unique referral codes
+- Referral tracking
+- Bonus calculation
+- Reward tiers
+- Referral dashboard
+- Automatic bonus credits
+
+Database Schema:
+- Enhance referrals table
+- Add reward_tiers table
+- Add bonus_transactions table
+- Add referral_stats table
+
+Features to implement:
+1. Generate unique referral codes
+2. Track referral signups
+3. Calculate referral bonuses
+4. Award bonus credits
+5. Display referral stats
+6. Create reward tiers
+7. Send referral notifications
+
+Service Layer (src/lib/services/referral.js):
+- generateReferralCode(userId)
+- trackReferral(referralCode, newUserId)
+- calculateBonus(referrerId, referredId)
+- awardBonus(userId, amount, reason)
+- getReferralStats(userId)
+- getRewardTier(userId)
+- getReferralHistory(userId)
+
+Reward Tiers:
+- Bronze: 1-5 referrals (5% bonus)
+- Silver: 6-15 referrals (10% bonus)
+- Gold: 16-30 referrals (15% bonus)
+- Platinum: 31+ referrals (20% bonus)
+
+Bonus Structure:
+- Referrer: $10 credit per successful referral
+- Referred: $5 welcome bonus
+- Milestone bonuses at 5, 10, 25, 50 referrals
+
+API Routes:
+- GET /api/referrals/code - Get user's referral code
+- POST /api/referrals/track - Track referral
+- GET /api/referrals/stats - Get referral stats
+- GET /api/referrals/history - Get referral history
+- GET /api/referrals/rewards - Get reward tier
+
+UI Components:
+- ReferralCodeDisplay.svelte
+- ReferralStats.svelte
+- RewardTierBadge.svelte
+- ReferralHistory.svelte
+- ShareButtons.svelte
+
+Pages:
+- /referrals - Referral dashboard
+- /referrals/history - Referral history
+- /referrals/rewards - Reward tiers
+
+Follow TDD:
+1. Write referral tracking tests
+2. Implement referral system
+3. Build bonus calculation
+4. Create reward tiers
+5. Build dashboard
+6. Test bonus awards
+7. Test tier progression
+
+Deliverables:
+- Referral system
+- Bonus calculation
+- Reward tiers
+- Referral dashboard
+- All tests passing
+```
+
+---
+
+## 🔔 Prompt 9: Notification & Alert System
+
+```
+Build a comprehensive notification system for all user activities using TDD.
+
+Requirements:
+- Real-time notifications
+- Email notifications
+- In-app notifications
+- Notification preferences
+- Notification history
+- Push notifications (future)
+
+Database Schema:
+- Add notifications table
+- Add notification_preferences table
+- Add notification_types table
+- Add notification_templates table
+
+Features to implement:
+1. Create notifications for key events
+2. Send email notifications
+3. Display in-app notifications
+4. Mark notifications as read
+5. Configure notification preferences
+6. Batch notifications
+7. Notification history
+
+Notification Types:
+- New application received
+- Application approved/rejected
+- Service completed
+- Payment received
+- New message
+- Rating received
+- Revision requested
+- Job offer received
+- Referral bonus earned
+
+Service Layer (src/lib/services/notification.js):
+- createNotification(userId, type, data)
+- getNotifications(userId, filters)
+- markAsRead(notificationId)
+- markAllAsRead(userId)
+- getUnreadCount(userId)
+- updatePreferences(userId, preferences)
+- sendEmailNotification(userId, type, data)
+
+API Routes:
+- GET /api/notifications - Get notifications
+- GET /api/notifications/unread-count - Get unread count
+- PUT /api/notifications/[id]/read - Mark as read
+- PUT /api/notifications/mark-all-read - Mark all read
+- GET /api/notifications/preferences - Get preferences
+- PUT /api/notifications/preferences - Update preferences
+
+UI Components:
+- NotificationBell.svelte
+- NotificationList.svelte
+- NotificationItem.svelte
+- NotificationPreferences.svelte
+- NotificationToast.svelte
+
+Pages:
+- /notifications - Notification center
+- /notifications/preferences - Notification settings
+
+Follow TDD:
+1. Write notification service tests
+2. Implement notification system
+3. Build email integration
+4. Create preference system
+5. Build UI components
+6. Test real-time updates
+7. Test email delivery
+
+Deliverables:
+- Notification system
+- Email integration
+- Preference management
+- Real-time updates
+- All tests passing
+```
+
+---
+
+## 🧪 Prompt 10: Integration & E2E Testing
 
 ```
 Build comprehensive integration and end-to-end tests for HireTestTakers.com.
@@ -16,13 +776,18 @@ Requirements:
 - Follow TDD principles
 
 Test scenarios:
-1. Complete hirer journey (signup → post test → hire → pay)
-2. Complete test taker journey (signup → apply → complete → get paid)
-3. Payment flow with commission split
-4. Leaderboard updates
-5. Job offer workflow
-6. Message exchange
-7. Avatar upload
+1. Complete student journey (signup → request service → hire → pay → rate)
+2. Complete tutor journey (signup → apply → complete → get paid)
+3. Homework help workflow
+4. Programming help workflow
+5. Assignment writing workflow
+6. Payment flow with commission split
+7. Leaderboard updates
+8. Job offer workflow
+9. Message exchange
+10. Referral system
+11. Notification delivery
+12. Resource access
 
 Deliverables:
 - Integration tests in tests/integration/
@@ -39,7 +804,7 @@ Tools:
 
 ---
 
-## 🎨 Prompt 10: UI Polish & Components
+## 🎨 Prompt 11: UI Polish & Components
 
 ```
 Build reusable UI components and polish the interface for HireTestTakers.com.
@@ -66,6 +831,9 @@ Components to build:
 12. Navigation header
 13. Footer
 14. Sidebar
+15. File upload
+16. Code editor
+17. Rich text editor
 
 Deliverables:
 - Component library in src/lib/components/
@@ -83,7 +851,7 @@ Use:
 
 ---
 
-## 🚀 Prompt 11: Production Deployment
+## 🚀 Prompt 12: Production Deployment
 
 ```
 Deploy HireTestTakers.com to production on Railway.
@@ -135,16 +903,19 @@ Verify:
 ### Recommended Order:
 
 1. ✅ Authentication (COMPLETE)
-2. 👤 Profiles & Onboarding (Prompt 2)
-3. 📝 Test Listings (Prompt 3)
-4. 📋 Applications (Prompt 4)
-5. ✅ Messaging (COMPLETE)
-6. 💰 Payments UI (Prompt 6)
-7. 🏆 Leaderboard (Prompt 7)
-8. 💼 Job Offers (Prompt 8)
-9. 🧪 Testing (Prompt 9)
-10. 🎨 UI Polish (Prompt 10)
-11. 🚀 Deployment (Prompt 11)
+2. 👤 Profiles & Onboarding (COMPLETE)
+3. 📚 Homework Help System (Prompt 1)
+4. 💻 Programming Help System (Prompt 2)
+5. 📝 Assignment Writing System (Prompt 3)
+6. 🔄 Unified Service Management (Prompt 4)
+7. 📊 Enhanced Leaderboard (Prompt 5)
+8. 💰 Enhanced Payment System (Prompt 6)
+9. 🎓 Learning Resources (Prompt 7)
+10. 🎁 Referral System (Prompt 8)
+11. 🔔 Notification System (Prompt 9)
+12. 🧪 Testing (Prompt 10)
+13. 🎨 UI Polish (Prompt 11)
+14. 🚀 Deployment (Prompt 12)
 
 ### Tips:
 
@@ -159,9 +930,10 @@ Verify:
 
 When starting a new session, mention:
 - "Continue HireTestTakers.com development"
-- "Authentication is complete (see PROGRESS.md)"
+- "Authentication and profiles are complete (see PROGRESS.md)"
 - "Follow existing code patterns"
 - "Use TDD, KISS, DRY principles"
+- "Reference PRD-v2.md for full requirements"
 
 ---
 
@@ -170,18 +942,19 @@ When starting a new session, mention:
 **Prompt for next session:**
 
 ```
-Continue building HireTestTakers.com. Authentication is complete.
+Continue building HireTestTakers.com. Authentication and profiles are complete.
 
-Next task: Build the user profiles and onboarding system using TDD.
+Next task: Build the Homework Help service system using TDD.
 
-[Paste Prompt 2 from PROMPTS.md]
+[Paste Prompt 1 from PROMPTS.md]
 
 Follow the existing code patterns from:
 - tests/services/auth.test.js (test style)
 - src/lib/services/auth.js (service style)
 - Keep code DRY and KISS
+- Reference PRD-v2.md for requirements
 ```
 
 ---
 
-**Each prompt is designed to be a focused 1-2 hour development session!**
+**Each prompt is designed to be a focused 1-3 hour development session!**
