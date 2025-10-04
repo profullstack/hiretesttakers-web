@@ -4,48 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 📝 Prompt 3: Test Listings CRUD
-
-```
-Build the test listing system for HireTestTakers.com using TDD.
-
-Requirements:
-- Full CRUD for test listings
-- Price in cryptocurrency (single or range)
-- USD equivalent display using Tatum exchange rates
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Browse tests page (/tests)
-2. Create test page (/tests/new)
-3. Test details page (/tests/[id])
-4. Edit test page (/tests/[id]/edit)
-5. My tests page (/tests/my-tests)
-6. Test filtering and search
-7. Test API routes
-
-Database tables already exist:
-- tests table with RLS policies
-- Supports BTC, ETH, DOGE, SOL
-- Price can be fixed or range
-
-Deliverables:
-- Tests for test service
-- Test service implementation
-- Test CRUD API routes
-- Test listing pages
-- TestCard component
-- TestForm component
-- TestFilters component
-- PriceInput component (with USD conversion)
-
-Use existing services:
-- src/lib/services/tatum.js for exchange rates
-- src/lib/utils/commission.js for price calculations
-```
-
----
-
 ## 📋 Prompt 4: Application System
 
 ```
