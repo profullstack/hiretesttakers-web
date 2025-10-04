@@ -1,61 +1,67 @@
 /**
- * Theme CSS Variables
+ * Theme CSS Variables - Modern Color Palette
  * 
  * All colors are defined as CSS variables to avoid hardcoding.
  * This file should be the single source of truth for all colors.
+ * 
+ * Based on modern-color-palette.png and COLOR_PALETTE.md
  */
 
 :root {
-  /* Primary Colors */
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-primary-light: #60a5fa;
-  --color-primary-dark: #1e40af;
+  /* Primary Colors - Modern Blue */
+  --color-primary: #3A6FF8;
+  --color-primary-hover: #2450C7;
+  --color-primary-light: #82A9FB;
+  --color-primary-dark: #2450C7;
   
   /* Semantic Colors */
-  --color-success: #10b981;
-  --color-success-hover: #059669;
-  --color-success-light: #34d399;
+  --color-success: #15C77E;
+  --color-success-hover: #09915A;
+  --color-success-light: #15C77E;
+  --color-success-dark: #09915A;
   
-  --color-warning: #f59e0b;
-  --color-warning-hover: #d97706;
-  --color-warning-light: #fbbf24;
+  --color-warning: #F7B322;
+  --color-warning-hover: #C8840F;
+  --color-warning-light: #F7B322;
+  --color-warning-dark: #C8840F;
   
-  --color-error: #ef4444;
-  --color-error-hover: #dc2626;
-  --color-error-light: #f87171;
+  --color-error: #F14646;
+  --color-error-hover: #C72A2A;
+  --color-error-light: #F14646;
+  --color-error-dark: #C72A2A;
   
-  --color-info: #06b6d4;
-  --color-info-hover: #0891b2;
-  --color-info-light: #22d3ee;
+  --color-info: #0AB6C9;
+  --color-info-hover: #078A99;
+  --color-info-light: #0AB6C9;
+  --color-info-dark: #078A99;
   
   /* Neutral Colors - Light Mode */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f9fafb;
-  --color-bg-tertiary: #f3f4f6;
+  --color-bg: #FFFFFF;
+  --color-bg-secondary: #F8FAFC;
+  --color-bg-tertiary: #F1F4F9;
   
-  --color-text: #111827;
-  --color-text-secondary: #6b7280;
-  --color-text-tertiary: #9ca3af;
+  --color-text: #121521;
+  --color-text-secondary: #677184;
+  --color-text-tertiary: #98A1B2;
   
-  --color-border: #e5e7eb;
-  --color-border-hover: #d1d5db;
+  --color-border: #E3E8F0;
+  --color-border-hover: #CBD2DE;
   
   /* Surface Colors */
-  --color-surface: #ffffff;
-  --color-surface-hover: #f9fafb;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F8FAFC;
   
-  /* Gray Scale */
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  /* Gray Scale - Modern Cool Grays */
+  --color-gray-50: #F8FAFC;
+  --color-gray-100: #F1F4F9;
+  --color-gray-200: #E3E8F0;
+  --color-gray-300: #CBD2DE;
+  --color-gray-400: #98A1B2;
+  --color-gray-500: #677184;
+  --color-gray-600: #4C5569;
+  --color-gray-700: #363E52;
+  --color-gray-800: #1E2435;
+  --color-gray-900: #121521;
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -86,19 +92,19 @@
 
 /* Dark Mode */
 .dark {
-  --color-bg: #111827;
-  --color-bg-secondary: #1f2937;
-  --color-bg-tertiary: #374151;
+  --color-bg: #121521;
+  --color-bg-secondary: #1E2435;
+  --color-bg-tertiary: #363E52;
   
-  --color-text: #f9fafb;
-  --color-text-secondary: #9ca3af;
-  --color-text-tertiary: #6b7280;
+  --color-text: #F8FAFC;
+  --color-text-secondary: #98A1B2;
+  --color-text-tertiary: #677184;
   
-  --color-border: #374151;
-  --color-border-hover: #4b5563;
+  --color-border: #363E52;
+  --color-border-hover: #4C5569;
   
-  --color-surface: #1f2937;
-  --color-surface-hover: #374151;
+  --color-surface: #1E2435;
+  --color-surface-hover: #363E52;
   
   /* Adjust shadows for dark mode */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);

@@ -1,101 +1,144 @@
 # Color Palette
 
-This document describes the color scheme for the HireTestTakers platform.
+This document describes the **modernized** color scheme for the HireTestTakers platform (optimized for accessibility and clean light/dark themes).
 
 ## Primary Colors
 
-### Blue Palette (Primary)
-- **Primary**: `#3b82f6` (Blue-500) - Main brand color, buttons, links
-- **Primary Dark**: `#2563eb` (Blue-600) - Hover states
-- **Primary Light**: `#60a5fa` (Blue-400) - Accents, highlights
+### Primary (Modern Blue)
 
-### Gray Palette (Neutral)
-- **Gray-50**: `#f9fafb` - Light backgrounds
-- **Gray-100**: `#f3f4f6` - Subtle backgrounds
-- **Gray-200**: `#e5e7eb` - Borders, dividers
-- **Gray-300**: `#d1d5db` - Disabled states
-- **Gray-400**: `#9ca3af` - Placeholder text
-- **Gray-500**: `#6b7280` - Secondary text
-- **Gray-600**: `#4b5563` - Body text
-- **Gray-700**: `#374151` - Headings
-- **Gray-800**: `#1f2937` - Dark backgrounds
-- **Gray-900**: `#111827` - Darkest backgrounds
+* **Primary**: `#3A6FF8` – Main brand color, buttons, links
+* **Primary Dark**: `#2450C7` – Hover states
+* **Primary Light**: `#82A9FB` – Accents, highlights
+
+### Gray Palette (Neutral, cool)
+
+* **Gray-50**: `#F8FAFC` – Light backgrounds
+* **Gray-100**: `#F1F4F9` – Subtle backgrounds
+* **Gray-200**: `#E3E8F0` – Borders, dividers
+* **Gray-300**: `#CBD2DE` – Disabled states
+* **Gray-400**: `#98A1B2` – Placeholder text
+* **Gray-500**: `#677184` – Secondary text
+* **Gray-600**: `#4C5569` – Body text
+* **Gray-700**: `#363E52` – Headings
+* **Gray-800**: `#1E2435` – Dark backgrounds
+* **Gray-900**: `#121521` – Darkest backgrounds
 
 ## Semantic Colors
 
 ### Success
-- **Success**: `#10b981` (Green-500) - Success messages, completed states
-- **Success Dark**: `#059669` (Green-600) - Hover states
+
+* **Success**: `#15C77E` – Success messages, completed states
+* **Success Dark**: `#09915A` – Hover states
 
 ### Warning
-- **Warning**: `#f59e0b` (Amber-500) - Warning messages, pending states
-- **Warning Dark**: `#d97706` (Amber-600) - Hover states
+
+* **Warning**: `#F7B322` – Warning messages, pending states
+* **Warning Dark**: `#C8840F` – Hover states
 
 ### Error
-- **Error**: `#ef4444` (Red-500) - Error messages, destructive actions
-- **Error Dark**: `#dc2626` (Red-600) - Hover states
+
+* **Error**: `#F14646` – Error messages, destructive actions
+* **Error Dark**: `#C72A2A` – Hover states
 
 ### Info
-- **Info**: `#06b6d4` (Cyan-500) - Informational messages
-- **Info Dark**: `#0891b2` (Cyan-600) - Hover states
+
+* **Info**: `#0AB6C9` – Informational messages
+* **Info Dark**: `#078A99` – Hover states
 
 ## Theme Modes
 
 ### Light Mode
-- **Background**: `#ffffff` (White)
-- **Surface**: `#f9fafb` (Gray-50)
-- **Text Primary**: `#111827` (Gray-900)
-- **Text Secondary**: `#6b7280` (Gray-500)
-- **Border**: `#e5e7eb` (Gray-200)
+
+* **Background**: `#FFFFFF`
+* **Surface**: `#F8FAFC` (Gray-50)
+* **Text Primary**: `#121521` (Gray-900)
+* **Text Secondary**: `#677184` (Gray-500)
+* **Border**: `#E3E8F0` (Gray-200)
 
 ### Dark Mode
-- **Background**: `#111827` (Gray-900)
-- **Surface**: `#1f2937` (Gray-800)
-- **Text Primary**: `#f9fafb` (Gray-50)
-- **Text Secondary**: `#9ca3af` (Gray-400)
-- **Border**: `#374151` (Gray-700)
+
+* **Background**: `#121521` (Gray-900)
+* **Surface**: `#1E2435` (Gray-800)
+* **Text Primary**: `#F8FAFC` (Gray-50)
+* **Text Secondary**: `#98A1B2` (Gray-400)
+* **Border**: `#363E52` (Gray-700)
 
 ## Usage Guidelines
 
 ### Buttons
-- **Primary Button**: Blue-500 background, white text
-- **Secondary Button**: Gray-200 background, Gray-900 text
-- **Danger Button**: Red-500 background, white text
+
+* **Primary Button**: `#3A6FF8` background, white text; hover `#2450C7`
+* **Secondary Button**: `#E3E8F0` background, `#121521` text
+* **Danger Button**: `#F14646` background, white text; hover `#C72A2A`
 
 ### Links
-- **Default**: Blue-500
-- **Hover**: Blue-600
-- **Visited**: Blue-700
+
+* **Default**: `#3A6FF8`
+* **Hover/Visited**: `#2450C7`
 
 ### Status Indicators
-- **Pending**: Amber-500
-- **Accepted**: Green-500
-- **Rejected**: Red-500
-- **Completed**: Blue-500
+
+* **Pending**: `#F7B322`
+* **Accepted**: `#15C77E`
+* **Rejected**: `#F14646`
+* **Completed**: `#3A6FF8`
 
 ## Accessibility
 
-All color combinations meet WCAG 2.1 Level AA standards for contrast ratios:
-- Normal text: 4.5:1 minimum
-- Large text: 3:1 minimum
-- UI components: 3:1 minimum
+Colors were chosen to meet WCAG 2.1 Level AA contrast ratios where applicable:
+
+* Normal text: 4.5:1 minimum
+* Large text (≥18pt or ≥14pt bold): 3:1 minimum
+* UI components/graphics: 3:1 minimum
 
 ## Implementation
 
-Colors are implemented using Tailwind CSS utility classes. Custom colors can be added to `tailwind.config.js` if needed.
+Colors can be implemented via Tailwind CSS utility classes. Add custom tokens to `tailwind.config.js`:
 
 ```javascript
-// Example Tailwind config
+// tailwind.config.js (excerpt)
 module.exports = {
   theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#3b82f6',
-          dark: '#2563eb',
-          light: '#60a5fa'
-        }
+          DEFAULT: '#3A6FF8',
+          dark: '#2450C7',
+          light: '#82A9FB',
+        },
+        success: {
+          DEFAULT: '#15C77E',
+          dark: '#09915A',
+        },
+        warning: {
+          DEFAULT: '#F7B322',
+          dark: '#C8840F',
+        },
+        error: {
+          DEFAULT: '#F14646',
+          dark: '#C72A2A',
+        },
+        info: {
+          DEFAULT: '#0AB6C9',
+          dark: '#078A99',
+        },
+        // Optional: map neutrals if you want utility names
+        neutral: {
+          50:  '#F8FAFC',
+          100: '#F1F4F9',
+          200: '#E3E8F0',
+          300: '#CBD2DE',
+          400: '#98A1B2',
+          500: '#677184',
+          600: '#4C5569',
+          700: '#363E52',
+          800: '#1E2435',
+          900: '#121521',
+        },
       }
     }
   }
 }
+```
+
+> Tip: For light/dark theming, pair these with `@media (prefers-color-scheme)` or a `.dark` class strategy (`darkMode: 'class'` in Tailwind).
