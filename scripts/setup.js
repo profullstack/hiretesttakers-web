@@ -105,17 +105,29 @@ const setup = async () => {
       console.log('✅ Dependencies already installed');
     }
     
-    // Step 3: Set up Supabase and environment
-    console.log('\n🗄️  Step 3: Setting up Supabase and environment...\n');
+    // Step 3: Set up environment
+    console.log('\n🗄️  Step 3: Setting up environment...\n');
     
-    const dbSetupPath = path.join(__dirname, 'db-setup.js');
-    const dbSetupSuccess = await runScript(dbSetupPath, 'Database Setup');
-    
-    if (!dbSetupSuccess) {
-      console.error('\n❌ Database setup failed');
-      console.error('   Please check the error messages above');
-      process.exit(1);
+    // Check if .env exists
+    const envPath = path.join(projectRoot, '.env');
+    if (!existsSync(envPath)) {
+      console.log('Creating .env file from template...');
+      const envExamplePath = path.join(projectRoot, '.env.example');
+      if (existsSync(envExamplePath)) {
+        const { copyFile } = await import('fs/promises');
+        await copyFile(envExamplePath, envPath);
+        console.log('✅ .env file created');
+        console.log('⚠️  Please edit .env and add your API keys');
+      } else {
+        console.warn('⚠️  .env.example not found, skipping .env creation');
+      }
+    } else {
+      console.log('✅ .env file already exists');
     }
+    
+    console.log('\n💡 Note: If you need to set up Supabase with Docker,');
+    console.log('   run: pnpm run db:setup');
+    console.log('   Or follow SETUP.md for manual setup');
     
     // Step 4: Initialize Supabase CLI
     console.log('\n🔧 Step 4: Initializing Supabase CLI...\n');
@@ -157,8 +169,8 @@ const setup = async () => {
     console.log('   pnpm run dev\n');
     
     console.log('3. Access your services:');
-    console.log('   - App: http://localhost:5173');
-    console.log('   - Supabase Studio: http://localhost:8000\n');
+    console.log('   - App: http://localhost:8080');
+    console.log('   - Supabase Studio: http://localhost:8000 (if using Docker)\n');
     
     console.log('4. Useful commands:');
     console.log('   - pnpm run db:export  (backup database)');
