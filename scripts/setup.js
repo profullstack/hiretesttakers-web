@@ -1,158 +1,128 @@
 #!/usr/bin/env node
 
 /**
- * Master Setup Script
+ * Setup Script for HireTestTakers.com
  * 
- * Orchestrates the complete project setup:
- * 1. Installs dependencies
- * 2. Sets up Supabase with Docker
- * 3. Configures environment variables
- * 4. Initializes database
+ * Uses Supabase CLI for local development.
+ * Prompts for API keys and creates working .env file.
  * 
  * Usage: pnpm run setup
  */
 
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import readline from 'readline';
 
 const execAsync = promisify(exec);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(__dirname, '..');
 
-// Check if command exists
-const commandExists = async (command) => {
-  try {
-    await execAsync(`which ${command}`);
-    return true;
-  } catch {
-    return false;
-  }
-};
+const question = (rl, query) => new Promise((resolve) => rl.question(query, resolve));
 
-// Run a script and display output
-const runScript = async (scriptPath, description) => {
-  console.log(`\n${'='.repeat(60)}`);
-  console.log(`🚀 ${description}`);
-  console.log('='.repeat(60) + '\n');
-  
-  try {
-    const { stdout, stderr } = await execAsync(`node ${scriptPath}`, {
-      cwd: projectRoot,
-      env: process.env
-    });
-    
-    if (stdout) {
-      console.log(stdout);
-    }
-    if (stderr) {
-      console.error(stderr);
-    }
-    
-    return true;
-  } catch (error) {
-    console.error(`❌ Error: ${error.message}`);
-    return false;
-  }
-};
-
-// Main setup function
 const setup = async () => {
   console.log('\n' + '='.repeat(60));
-  console.log('🎉 HireTestTakers.com - Complete Project Setup');
+  console.log('🎉 HireTestTakers.com - Setup');
   console.log('='.repeat(60) + '\n');
   
   try {
-    // Step 1: Check prerequisites
+    // Check prerequisites
     console.log('📋 Step 1: Checking prerequisites...\n');
     
-    const hasNode = await commandExists('node');
-    const hasPnpm = await commandExists('pnpm');
-    const hasDocker = await commandExists('docker');
-    
-    if (!hasNode) {
-      console.error('❌ Node.js is not installed');
-      console.error('   Download from: https://nodejs.org/');
+    try {
+      await execAsync('node --version');
+      console.log('✅ Node.js installed');
+    } catch {
+      console.error('❌ Node.js not found. Install from: https://nodejs.org/');
       process.exit(1);
     }
-    console.log('✅ Node.js is installed');
     
-    if (!hasPnpm) {
-      console.error('❌ pnpm is not installed');
-      console.error('   Install with: npm install -g pnpm');
+    try {
+      await execAsync('pnpm --version');
+      console.log('✅ pnpm installed');
+    } catch {
+      console.error('❌ pnpm not found. Install with: npm install -g pnpm');
       process.exit(1);
     }
-    console.log('✅ pnpm is installed');
     
-    if (!hasDocker) {
-      console.error('❌ Docker is not installed');
-      console.error('   Download from: https://www.docker.com/products/docker-desktop');
-      process.exit(1);
-    }
-    console.log('✅ Docker is installed');
-    
-    // Step 2: Install dependencies
-    console.log('\n📦 Step 2: Installing project dependencies...\n');
-    
+    // Install dependencies
+    console.log('\n📦 Step 2: Installing dependencies...\n');
     if (!existsSync(path.join(projectRoot, 'node_modules'))) {
-      console.log('Installing dependencies with pnpm...');
-      const { stdout } = await execAsync('pnpm install', { cwd: projectRoot });
-      console.log(stdout);
+      await execAsync('pnpm install', { cwd: projectRoot });
       console.log('✅ Dependencies installed');
     } else {
       console.log('✅ Dependencies already installed');
     }
     
-    // Step 3: Set up environment
-    console.log('\n🗄️  Step 3: Setting up environment...\n');
-    
-    // Check if .env exists
-    const envPath = path.join(projectRoot, '.env');
-    if (!existsSync(envPath)) {
-      console.log('Creating .env file from template...');
-      const envExamplePath = path.join(projectRoot, '.env.example');
-      if (existsSync(envExamplePath)) {
-        const { copyFile } = await import('fs/promises');
-        await copyFile(envExamplePath, envPath);
-        console.log('✅ .env file created');
-        console.log('⚠️  Please edit .env and add your API keys');
-      } else {
-        console.warn('⚠️  .env.example not found, skipping .env creation');
-      }
-    } else {
-      console.log('✅ .env file already exists');
-    }
-    
-    console.log('\n💡 Note: If you need to set up Supabase with Docker,');
-    console.log('   run: pnpm run db:setup');
-    console.log('   Or follow SETUP.md for manual setup');
-    
-    // Step 4: Initialize Supabase CLI
-    console.log('\n🔧 Step 4: Initializing Supabase CLI...\n');
-    
+    // Initialize Supabase
+    console.log('\n🗄️  Step 3: Initializing Supabase...\n');
     if (!existsSync(path.join(projectRoot, 'supabase', 'config.toml'))) {
-      console.log('Initializing Supabase...');
       await execAsync('pnpx supabase init', { cwd: projectRoot });
-      console.log('✅ Supabase CLI initialized');
+      console.log('✅ Supabase initialized');
     } else {
-      console.log('✅ Supabase CLI already initialized');
+      console.log('✅ Supabase already initialized');
     }
     
-    // Step 5: Apply migrations
-    console.log('\n📊 Step 5: Applying database migrations...\n');
+    // Prompt for API keys
+    console.log('\n🔑 Step 4: API Configuration\n');
+    console.log('Press Enter to skip optional keys\n');
     
-    try {
-      console.log('Pushing migrations to database...');
-      const { stdout } = await execAsync('pnpx supabase db push', { cwd: projectRoot });
-      console.log(stdout);
-      console.log('✅ Migrations applied successfully');
-    } catch (error) {
-      console.warn('⚠️  Could not apply migrations automatically');
-      console.warn('   You may need to run: pnpx supabase db push');
-      console.warn('   Error:', error.message);
-    }
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    
+    const tatumKey = await question(rl, 'Tatum.io API Key (optional): ');
+    const openaiKey = await question(rl, 'OpenAI API Key (optional): ');
+    
+    console.log('\n💰 Platform Wallet Addresses (for 3% commission)\n');
+    const btcWallet = await question(rl, 'Bitcoin (BTC) wallet (optional): ');
+    const ethWallet = await question(rl, 'Ethereum (ETH) wallet (optional): ');
+    const dogeWallet = await question(rl, 'Dogecoin (DOGE) wallet (optional): ');
+    const solWallet = await question(rl, 'Solana (SOL) wallet (optional): ');
+    
+    rl.close();
+    
+    // Create .env file
+    console.log('\n📝 Step 5: Creating .env file...\n');
+    
+    const envContent = `# Supabase Configuration (Local CLI)
+# These are the default local development keys
+PUBLIC_SUPABASE_URL=http://localhost:54321
+PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
+
+# Database Connection (Local)
+DATABASE_URL=postgresql://postgres:postgres@localhost:54322/postgres
+
+# CryptAPI Configuration
+CRYPTAPI_CALLBACK_URL=http://localhost:8080/api/webhooks/cryptapi
+
+# Platform Commission (3%)
+COMMISSION_RATE=0.03
+
+# Platform Wallet Addresses
+PLATFORM_WALLET_BTC=${btcWallet || 'your_bitcoin_address_here'}
+PLATFORM_WALLET_ETH=${ethWallet || 'your_ethereum_address_here'}
+PLATFORM_WALLET_DOGE=${dogeWallet || 'your_dogecoin_address_here'}
+PLATFORM_WALLET_SOL=${solWallet || 'your_solana_address_here'}
+
+# External APIs
+TATUM_API_URL=https://api.tatum.io/v3
+TATUM_API_KEY=${tatumKey || 'your_tatum_api_key_here'}
+OPENAI_API_KEY=${openaiKey || 'your_openai_api_key_here'}
+
+# Application Configuration
+NODE_ENV=development
+PORT=8080
+PUBLIC_APP_URL=http://localhost:8080
+`;
+    
+    await writeFile(path.join(projectRoot, '.env'), envContent);
+    console.log('✅ .env file created with Supabase CLI defaults');
     
     // Final summary
     console.log('\n' + '='.repeat(60));
@@ -160,43 +130,45 @@ const setup = async () => {
     console.log('='.repeat(60));
     
     console.log('\n📍 Next Steps:\n');
-    console.log('1. Review your .env file and add any missing API keys:');
-    console.log('   - Tatum.io API key (for exchange rates)');
-    console.log('   - OpenAI API key (for free tools)');
-    console.log('   - CryptAPI credentials (for payments)\n');
+    console.log('1. Start Supabase (local):');
+    console.log('   pnpx supabase start\n');
     
-    console.log('2. Start the development server:');
+    console.log('2. Apply database migrations:');
+    console.log('   pnpx supabase db push\n');
+    
+    console.log('3. Start development server:');
     console.log('   pnpm run dev\n');
     
-    console.log('3. Access your services:');
+    console.log('4. Access your services:');
     console.log('   - App: http://localhost:8080');
-    console.log('   - Supabase Studio: http://localhost:8000 (if using Docker)\n');
+    console.log('   - Supabase Studio: http://localhost:54323');
+    console.log('   - Database: localhost:54322\n');
     
-    console.log('4. Useful commands:');
-    console.log('   - pnpm run db:export  (backup database)');
-    console.log('   - pnpm run db:import  (restore database)');
-    console.log('   - pnpm test           (run tests)');
-    console.log('   - pnpm run lint       (check code quality)\n');
+    console.log('5. Run tests:');
+    console.log('   pnpm test  (38 tests should pass)\n');
+    
+    if (!tatumKey || !openaiKey) {
+      console.log('💡 Tip: Add missing API keys to .env later:');
+      if (!tatumKey) console.log('   - Tatum.io key (for exchange rates)');
+      if (!openaiKey) console.log('   - OpenAI key (for free tools)');
+      console.log('');
+    }
     
     console.log('📚 Documentation:');
-    console.log('   - README.md          (project overview)');
-    console.log('   - SETUP.md           (detailed setup guide)');
-    console.log('   - PRD.md             (product requirements)');
-    console.log('   - TODO.md            (development tasks)');
-    console.log('   - FREE_TOOLS.md      (free tools strategy)\n');
+    console.log('   - PROMPTS.md  (13 feature development prompts)');
+    console.log('   - PROGRESS.md (current status)');
+    console.log('   - README.md   (project overview)\n');
     
     console.log('='.repeat(60) + '\n');
     
   } catch (error) {
     console.error('\n❌ Setup failed:', error.message);
     console.error('\n💡 Troubleshooting:');
-    console.error('   1. Ensure Docker is running');
-    console.error('   2. Check if ports 5432 and 8000 are available');
-    console.error('   3. Review error messages above');
-    console.error('   4. See SETUP.md for detailed instructions\n');
+    console.error('   1. Ensure Node.js and pnpm are installed');
+    console.error('   2. Check error message above');
+    console.error('   3. See SETUP.md for manual setup\n');
     process.exit(1);
   }
 };
 
-// Run setup
 setup();
