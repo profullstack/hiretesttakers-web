@@ -4,48 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 💼 Prompt 8: Job Offers System
-
-```
-Build the job offers system for HireTestTakers.com using TDD.
-
-Requirements:
-- Employers can make direct job offers to test takers
-- "Hire Me" button on leaderboard profiles
-- Offer management workflow
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Job offers page (/job-offers)
-2. Job offer details (/job-offers/[id])
-3. Create job offer (from leaderboard)
-4. Accept/reject offers
-5. Offer expiration
-6. Job offer API routes
-
-Database tables already exist:
-- job_offers table with RLS policies
-- Status: pending, accepted, rejected, withdrawn, expired
-- Employment types: full_time, part_time, contract, freelance
-- Auto-expire trigger
-
-Deliverables:
-- Tests for job offer service
-- Job offer API routes
-- Job offer pages
-- JobOfferForm component
-- JobOfferCard component
-- HireMeButton component
-- Offer status management
-
-Integration:
-- Link from leaderboard profiles
-- Require employer account
-- Email notifications (optional)
-```
-
----
-
 ## 🧪 Prompt 9: Integration & E2E Testing
 
 ```

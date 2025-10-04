@@ -1,12 +1,14 @@
 import { describe, it, before, after } from 'mocha';
 import { expect } from 'chai';
-import { supabase } from '../../src/lib/supabaseClient.js';
+import { getSupabaseClient } from '../../src/lib/supabaseClient.js';
 import {
   getLeaderboard,
   getLeaderboardWithFilters,
   getUserStats,
   updateLeaderboardVisibility,
 } from '../../src/lib/services/leaderboard.js';
+
+const supabase = getSupabaseClient();
 
 describe('Leaderboard Service', () => {
   let testUser;

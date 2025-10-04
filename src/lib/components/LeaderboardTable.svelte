@@ -1,7 +1,13 @@
 <script>
+  import HireMeButton from './HireMeButton.svelte';
+  import JobOfferForm from './JobOfferForm.svelte';
+
   export let leaderboard = [];
   export let sortBy = 'tests_completed';
   export let onSort = () => {};
+
+  let showOfferModal = false;
+  let selectedTestTaker = null;
 
   const formatNumber = (num) => {
     if (num === null || num === undefined) return 'N/A';
@@ -33,6 +39,25 @@
   const getSortIcon = (field) => {
     return sortBy === field ? '▼' : '';
   };
+
+  const handleHire = (event) => {
+    selectedTestTaker = {
+      id: event.detail.testTakerId,
+      name: event.detail.testTakerName
+    };
+    showOfferModal = true;
+  };
+
+  const handleOfferSuccess = () => {
+    showOfferModal = false;
+    selectedTestTaker = null;
+    alert('Job offer sent successfully!');
+  };
+
+  const handleOfferCancel = () => {
+    showOfferModal = false;
+    selectedTestTaker = null;
+  };
 </script>
 
 <div class="leaderboard-table">
@@ -63,6 +88,7 @@
         </th>
         <th>Location</th>
         <th>Skills</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -103,15 +129,37 @@
               N/A
             {/if}
           </td>
+          <td>
+            <HireMeButton
+              testTakerId={user.id}
+              testTakerName={user.full_name}
+              size="small"
+              on:hire={handleHire}
+            />
+          </td>
         </tr>
       {:else}
         <tr>
-          <td colspan="8" class="no-data">No test takers found</td>
+          <td colspan="9" class="no-data">No test takers found</td>
         </tr>
       {/each}
     </tbody>
   </table>
 </div>
+
+{#if showOfferModal && selectedTestTaker}
+  <div class="modal-overlay" on:click={handleOfferCancel}>
+    <div class="modal-content" on:click|stopPropagation>
+      <button class="modal-close" on:click={handleOfferCancel}>×</button>
+      <JobOfferForm
+        testTakerId={selectedTestTaker.id}
+        testTakerName={selectedTestTaker.name}
+        on:success={handleOfferSuccess}
+        on:cancel={handleOfferCancel}
+      />
+    </div>
+  </div>
+{/if}
 
 <style>
   .leaderboard-table {

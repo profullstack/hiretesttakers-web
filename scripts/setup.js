@@ -11,7 +11,7 @@
 
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { writeFile } from 'fs/promises';
+import { writeFile, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -22,6 +22,22 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(__dirname, '..');
 
 const question = (rl, query) => new Promise((resolve) => rl.question(query, resolve));
+
+// Parse existing .env file
+const parseEnvFile = (content) => {
+  const env = {};
+  const lines = content.split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed && !trimmed.startsWith('#')) {
+      const [key, ...valueParts] = trimmed.split('=');
+      if (key) {
+        env[key.trim()] = valueParts.join('=').trim();
+      }
+    }
+  }
+  return env;
+};
 
 const setup = async () => {
   console.log('\n' + '='.repeat(60));
@@ -66,8 +82,34 @@ const setup = async () => {
       console.log('✅ Supabase already initialized');
     }
     
-    // Prompt for API keys
+    // Check for existing .env file
     console.log('\n🔑 Step 4: API Configuration\n');
+    
+    const envPath = path.join(projectRoot, '.env');
+    let existingEnv = {};
+    let overwriteAll = false;
+    
+    if (existsSync(envPath)) {
+      const envContent = await readFile(envPath, 'utf-8');
+      existingEnv = parseEnvFile(envContent);
+      
+      console.log('⚠️  Existing .env file found!\n');
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+      });
+      
+      const overwrite = await question(rl, 'Overwrite all values? [y/N]: ');
+      overwriteAll = overwrite.toLowerCase() === 'y';
+      rl.close();
+      
+      if (!overwriteAll) {
+        console.log('\n✓ Will only prompt for undefined variables\n');
+      } else {
+        console.log('\n✓ Will prompt for all variables\n');
+      }
+    }
+    
     console.log('Press Enter to skip optional keys\n');
     
     const rl = readline.createInterface({
@@ -75,14 +117,29 @@ const setup = async () => {
       output: process.stdout
     });
     
-    const tatumKey = await question(rl, 'Tatum.io API Key (optional): ');
-    const openaiKey = await question(rl, 'OpenAI API Key (optional): ');
+    // Helper to conditionally prompt
+    const conditionalPrompt = async (key, prompt, defaultValue = '') => {
+      if (!overwriteAll && existingEnv[key] && existingEnv[key] !== defaultValue) {
+        console.log(`${prompt}[using existing: ${existingEnv[key].substring(0, 20)}...]`);
+        return existingEnv[key];
+      }
+      return await question(rl, prompt);
+    };
+    
+    const tatumKey = await conditionalPrompt('TATUM_API_KEY', 'Tatum.io API Key (optional): ', 'your_tatum_api_key_here');
+    const openaiKey = await conditionalPrompt('OPENAI_API_KEY', 'OpenAI API Key (optional): ', 'your_openai_api_key_here');
+    
+    console.log('\n📧 Mailgun Configuration (for email notifications)\n');
+    console.log('Sign up at https://mailgun.com to get your API credentials\n');
+    const mailgunKey = await conditionalPrompt('MAILGUN_API_KEY', 'Mailgun API Key (optional): ', 'your_mailgun_api_key_here');
+    const mailgunDomain = await conditionalPrompt('MAILGUN_DOMAIN', 'Mailgun Domain (optional): ', 'your_mailgun_domain_here');
+    const mailgunFrom = await conditionalPrompt('MAILGUN_FROM_EMAIL', 'Mailgun From Email (optional): ', 'noreply@yourdomain.com');
     
     console.log('\n💰 Platform Wallet Addresses (for 3% commission)\n');
-    const btcWallet = await question(rl, 'Bitcoin (BTC) wallet (optional): ');
-    const ethWallet = await question(rl, 'Ethereum (ETH) wallet (optional): ');
-    const dogeWallet = await question(rl, 'Dogecoin (DOGE) wallet (optional): ');
-    const solWallet = await question(rl, 'Solana (SOL) wallet (optional): ');
+    const btcWallet = await conditionalPrompt('PLATFORM_WALLET_BTC', 'Bitcoin (BTC) wallet (optional): ', 'your_bitcoin_address_here');
+    const ethWallet = await conditionalPrompt('PLATFORM_WALLET_ETH', 'Ethereum (ETH) wallet (optional): ', 'your_ethereum_address_here');
+    const dogeWallet = await conditionalPrompt('PLATFORM_WALLET_DOGE', 'Dogecoin (DOGE) wallet (optional): ', 'your_dogecoin_address_here');
+    const solWallet = await conditionalPrompt('PLATFORM_WALLET_SOL', 'Solana (SOL) wallet (optional): ', 'your_solana_address_here');
     
     rl.close();
     
@@ -114,6 +171,11 @@ PLATFORM_WALLET_SOL=${solWallet || 'your_solana_address_here'}
 TATUM_API_URL=https://api.tatum.io/v3
 TATUM_API_KEY=${tatumKey || 'your_tatum_api_key_here'}
 OPENAI_API_KEY=${openaiKey || 'your_openai_api_key_here'}
+
+# Mailgun Configuration (for email notifications)
+MAILGUN_API_KEY=${mailgunKey || 'your_mailgun_api_key_here'}
+MAILGUN_DOMAIN=${mailgunDomain || 'your_mailgun_domain_here'}
+MAILGUN_FROM_EMAIL=${mailgunFrom || 'noreply@yourdomain.com'}
 
 # Application Configuration
 NODE_ENV=development
@@ -147,10 +209,11 @@ PUBLIC_APP_URL=http://localhost:8080
     console.log('5. Run tests:');
     console.log('   pnpm test  (38 tests should pass)\n');
     
-    if (!tatumKey || !openaiKey) {
+    if (!tatumKey || !openaiKey || !mailgunKey) {
       console.log('💡 Tip: Add missing API keys to .env later:');
       if (!tatumKey) console.log('   - Tatum.io key (for exchange rates)');
       if (!openaiKey) console.log('   - OpenAI key (for free tools)');
+      if (!mailgunKey) console.log('   - Mailgun credentials (for email notifications)');
       console.log('');
     }
     
