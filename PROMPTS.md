@@ -4,46 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 💬 Prompt 5: Messaging System
-
-```
-Build the messaging system for HireTestTakers.com using TDD.
-
-Requirements:
-- Direct messaging between hirers and test takers
-- Messages linked to applications
-- Real-time or near-real-time updates
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Message inbox (/messages)
-2. Conversation view (/messages/[applicationId])
-3. Send messages
-4. Mark messages as read
-5. Message notifications
-6. Messaging API routes
-
-Database tables already exist:
-- messages table with RLS policies
-- Linked to applications
-- Read/unread status
-
-Deliverables:
-- Tests for messaging service
-- Messaging service implementation
-- Messaging API routes
-- Message pages
-- MessageList component
-- MessageThread component
-- MessageInput component
-- ConversationList component
-
-Optional enhancement:
-- Supabase Realtime for live updates
-```
-
----
-
 ## 💰 Prompt 6: Payment System UI
 
 ```
@@ -310,7 +270,7 @@ Verify:
 2. 👤 Profiles & Onboarding (Prompt 2)
 3. 📝 Test Listings (Prompt 3)
 4. 📋 Applications (Prompt 4)
-5. 💬 Messaging (Prompt 5)
+5. ✅ Messaging (COMPLETE)
 6. 💰 Payments UI (Prompt 6)
 7. 🏆 Leaderboard (Prompt 7)
 8. 💼 Job Offers (Prompt 8)
