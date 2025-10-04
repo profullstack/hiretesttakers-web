@@ -4,46 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 📋 Prompt 4: Application System
-
-```
-Build the application workflow for HireTestTakers.com using TDD.
-
-Requirements:
-- Test takers can apply to tests
-- Hirers can approve/reject/hire applicants
-- Application status tracking
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Apply to test page (/tests/[id]/apply)
-2. My applications page (/applications)
-3. View applicants page (/tests/[id]/applicants)
-4. Application management
-5. Status updates (pending, approved, rejected, hired)
-6. Application API routes
-
-Database tables already exist:
-- applications table with RLS policies
-- Status enum: pending, approved, rejected, hired
-- Unique constraint (one application per test per user)
-
-Deliverables:
-- Tests for application service
-- Application service implementation
-- Application API routes
-- Application pages
-- ApplicationForm component
-- ApplicationCard component
-- ApplicantCard component
-
-Integration points:
-- Links to messaging system
-- Triggers payment flow when hired
-```
-
----
-
 ## 💬 Prompt 5: Messaging System
 
 ```
