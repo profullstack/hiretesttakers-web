@@ -1,0 +1,120 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close"
+  },
+  "nav": {
+    "home": "Home",
+    "tests": "Tests",
+    "applications": "Applications",
+    "messages": "Messages",
+    "leaderboard": "Leaderboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordMismatch": "Passwords do not match",
+    "invalidEmail": "Invalid email address"
+  },
+  "test": {
+    "title": "Test Title",
+    "description": "Description",
+    "price": "Price",
+    "deadline": "Deadline",
+    "createTest": "Create Test",
+    "editTest": "Edit Test",
+    "deleteTest": "Delete Test",
+    "applyToTest": "Apply to Test",
+    "myTests": "My Tests",
+    "availableTests": "Available Tests",
+    "testDetails": "Test Details",
+    "noTests": "No tests available"
+  },
+  "application": {
+    "apply": "Apply",
+    "withdraw": "Withdraw",
+    "accept": "Accept",
+    "reject": "Reject",
+    "status": "Status",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "completed": "Completed",
+    "myApplications": "My Applications",
+    "applicants": "Applicants",
+    "noApplications": "No applications yet"
+  },
+  "message": {
+    "send": "Send",
+    "typeMessage": "Type a message...",
+    "noMessages": "No messages yet",
+    "conversation": "Conversation",
+    "newMessage": "New Message"
+  },
+  "payment": {
+    "amount": "Amount",
+    "status": "Payment Status",
+    "pending": "Pending",
+    "completed": "Completed",
+    "failed": "Failed",
+    "paymentHistory": "Payment History",
+    "makePayment": "Make Payment"
+  },
+  "profile": {
+    "username": "Username",
+    "bio": "Bio",
+    "avatar": "Avatar",
+    "rating": "Rating",
+    "completedTests": "Completed Tests",
+    "editProfile": "Edit Profile",
+    "viewProfile": "View Profile"
+  },
+  "leaderboard": {
+    "rank": "Rank",
+    "user": "User",
+    "score": "Score",
+    "tests": "Tests",
+    "topPerformers": "Top Performers"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "toggle": "Toggle Theme"
+  },
+  "language": {
+    "select": "Select Language",
+    "en": "English",
+    "ar": "Arabic",
+    "zh": "Chinese",
+    "ja": "Japanese",
+    "de": "German",
+    "es": "Spanish"
+  }
+}

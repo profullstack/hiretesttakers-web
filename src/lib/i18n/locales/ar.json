@@ -1,0 +1,120 @@
+{
+  "common": {
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "submit": "إرسال",
+    "search": "بحث",
+    "filter": "تصفية",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "tests": "الاختبارات",
+    "applications": "الطلبات",
+    "messages": "الرسائل",
+    "leaderboard": "لوحة المتصدرين",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب"
+  },
+  "auth": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "signOut": "تسجيل الخروج",
+    "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordMismatch": "كلمات المرور غير متطابقة",
+    "invalidEmail": "عنوان بريد إلكتروني غير صالح"
+  },
+  "test": {
+    "title": "عنوان الاختبار",
+    "description": "الوصف",
+    "price": "السعر",
+    "deadline": "الموعد النهائي",
+    "createTest": "إنشاء اختبار",
+    "editTest": "تعديل الاختبار",
+    "deleteTest": "حذف الاختبار",
+    "applyToTest": "التقدم للاختبار",
+    "myTests": "اختباراتي",
+    "availableTests": "الاختبارات المتاحة",
+    "testDetails": "تفاصيل الاختبار",
+    "noTests": "لا توجد اختبارات متاحة"
+  },
+  "application": {
+    "apply": "تقديم",
+    "withdraw": "سحب",
+    "accept": "قبول",
+    "reject": "رفض",
+    "status": "الحالة",
+    "pending": "قيد الانتظار",
+    "accepted": "مقبول",
+    "rejected": "مرفوض",
+    "completed": "مكتمل",
+    "myApplications": "طلباتي",
+    "applicants": "المتقدمون",
+    "noApplications": "لا توجد طلبات بعد"
+  },
+  "message": {
+    "send": "إرسال",
+    "typeMessage": "اكتب رسالة...",
+    "noMessages": "لا توجد رسائل بعد",
+    "conversation": "المحادثة",
+    "newMessage": "رسالة جديدة"
+  },
+  "payment": {
+    "amount": "المبلغ",
+    "status": "حالة الدفع",
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل",
+    "failed": "فشل",
+    "paymentHistory": "سجل الدفع",
+    "makePayment": "إجراء الدفع"
+  },
+  "profile": {
+    "username": "اسم المستخدم",
+    "bio": "السيرة الذاتية",
+    "avatar": "الصورة الرمزية",
+    "rating": "التقييم",
+    "completedTests": "الاختبارات المكتملة",
+    "editProfile": "تعديل الملف الشخصي",
+    "viewProfile": "عرض الملف الشخصي"
+  },
+  "leaderboard": {
+    "rank": "الترتيب",
+    "user": "المستخدم",
+    "score": "النقاط",
+    "tests": "الاختبارات",
+    "topPerformers": "أفضل الأداء"
+  },
+  "theme": {
+    "light": "الوضع الفاتح",
+    "dark": "الوضع الداكن",
+    "toggle": "تبديل المظهر"
+  },
+  "language": {
+    "select": "اختر اللغة",
+    "en": "الإنجليزية",
+    "ar": "العربية",
+    "zh": "الصينية",
+    "ja": "اليابانية",
+    "de": "الألمانية",
+    "es": "الإسبانية"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "submit": "送信",
+    "search": "検索",
+    "filter": "フィルター",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "close": "閉じる"
+  },
+  "nav": {
+    "home": "ホーム",
+    "tests": "テスト",
+    "applications": "応募",
+    "messages": "メッセージ",
+    "leaderboard": "リーダーボード",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "logout": "ログアウト",
+    "login": "ログイン",
+    "signup": "サインアップ"
+  },
+  "auth": {
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "resetPassword": "パスワードリセット",
+    "signIn": "ログイン",
+    "signUp": "サインアップ",
+    "signOut": "ログアウト",
+    "alreadyHaveAccount": "既にアカウントをお持ちですか？",
+    "dontHaveAccount": "アカウントをお持ちでないですか？",
+    "emailRequired": "メールアドレスは必須です",
+    "passwordRequired": "パスワードは必須です",
+    "passwordMismatch": "パスワードが一致しません",
+    "invalidEmail": "無効なメールアドレス"
+  },
+  "test": {
+    "title": "テストタイトル",
+    "description": "説明",
+    "price": "価格",
+    "deadline": "締切",
+    "createTest": "テスト作成",
+    "editTest": "テスト編集",
+    "deleteTest": "テスト削除",
+    "applyToTest": "テストに応募",
+    "myTests": "マイテスト",
+    "availableTests": "利用可能なテスト",
+    "testDetails": "テスト詳細",
+    "noTests": "利用可能なテストがありません"
+  },
+  "application": {
+    "apply": "応募",
+    "withdraw": "取り下げ",
+    "accept": "承認",
+    "reject": "拒否",
+    "status": "ステータス",
+    "pending": "保留中",
+    "accepted": "承認済み",
+    "rejected": "拒否済み",
+    "completed": "完了",
+    "myApplications": "マイ応募",
+    "applicants": "応募者",
+    "noApplications": "まだ応募がありません"
+  },
+  "message": {
+    "send": "送信",
+    "typeMessage": "メッセージを入力...",
+    "noMessages": "まだメッセージがありません",
+    "conversation": "会話",
+    "newMessage": "新しいメッセージ"
+  },
+  "payment": {
+    "amount": "金額",
+    "status": "支払いステータス",
+    "pending": "保留中",
+    "completed": "完了",
+    "failed": "失敗",
+    "paymentHistory": "支払い履歴",
+    "makePayment": "支払いを行う"
+  },
+  "profile": {
+    "username": "ユーザー名",
+    "bio": "自己紹介",
+    "avatar": "アバター",
+    "rating": "評価",
+    "completedTests": "完了したテスト",
+    "editProfile": "プロフィール編集",
+    "viewProfile": "プロフィール表示"
+  },
+  "leaderboard": {
+    "rank": "ランク",
+    "user": "ユーザー",
+    "score": "スコア",
+    "tests": "テスト",
+    "topPerformers": "トップパフォーマー"
+  },
+  "theme": {
+    "light": "ライトモード",
+    "dark": "ダークモード",
+    "toggle": "テーマ切替"
+  },
+  "language": {
+    "select": "言語を選択",
+    "en": "英語",
+    "ar": "アラビア語",
+    "zh": "中国語",
+    "ja": "日本語",
+    "de": "ドイツ語",
+    "es": "スペイン語"
+  }
+}

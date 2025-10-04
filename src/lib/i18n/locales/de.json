@@ -1,0 +1,120 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "submit": "Absenden",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "close": "Schließen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "tests": "Tests",
+    "applications": "Bewerbungen",
+    "messages": "Nachrichten",
+    "leaderboard": "Bestenliste",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "login": "Anmelden",
+    "signup": "Registrieren"
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "forgotPassword": "Passwort vergessen?",
+    "resetPassword": "Passwort zurücksetzen",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "signOut": "Abmelden",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "dontHaveAccount": "Haben Sie noch kein Konto?",
+    "emailRequired": "E-Mail ist erforderlich",
+    "passwordRequired": "Passwort ist erforderlich",
+    "passwordMismatch": "Passwörter stimmen nicht überein",
+    "invalidEmail": "Ungültige E-Mail-Adresse"
+  },
+  "test": {
+    "title": "Testtitel",
+    "description": "Beschreibung",
+    "price": "Preis",
+    "deadline": "Frist",
+    "createTest": "Test erstellen",
+    "editTest": "Test bearbeiten",
+    "deleteTest": "Test löschen",
+    "applyToTest": "Für Test bewerben",
+    "myTests": "Meine Tests",
+    "availableTests": "Verfügbare Tests",
+    "testDetails": "Testdetails",
+    "noTests": "Keine Tests verfügbar"
+  },
+  "application": {
+    "apply": "Bewerben",
+    "withdraw": "Zurückziehen",
+    "accept": "Akzeptieren",
+    "reject": "Ablehnen",
+    "status": "Status",
+    "pending": "Ausstehend",
+    "accepted": "Akzeptiert",
+    "rejected": "Abgelehnt",
+    "completed": "Abgeschlossen",
+    "myApplications": "Meine Bewerbungen",
+    "applicants": "Bewerber",
+    "noApplications": "Noch keine Bewerbungen"
+  },
+  "message": {
+    "send": "Senden",
+    "typeMessage": "Nachricht eingeben...",
+    "noMessages": "Noch keine Nachrichten",
+    "conversation": "Unterhaltung",
+    "newMessage": "Neue Nachricht"
+  },
+  "payment": {
+    "amount": "Betrag",
+    "status": "Zahlungsstatus",
+    "pending": "Ausstehend",
+    "completed": "Abgeschlossen",
+    "failed": "Fehlgeschlagen",
+    "paymentHistory": "Zahlungsverlauf",
+    "makePayment": "Zahlung durchführen"
+  },
+  "profile": {
+    "username": "Benutzername",
+    "bio": "Biografie",
+    "avatar": "Avatar",
+    "rating": "Bewertung",
+    "completedTests": "Abgeschlossene Tests",
+    "editProfile": "Profil bearbeiten",
+    "viewProfile": "Profil anzeigen"
+  },
+  "leaderboard": {
+    "rank": "Rang",
+    "user": "Benutzer",
+    "score": "Punktzahl",
+    "tests": "Tests",
+    "topPerformers": "Top-Performer"
+  },
+  "theme": {
+    "light": "Heller Modus",
+    "dark": "Dunkler Modus",
+    "toggle": "Design wechseln"
+  },
+  "language": {
+    "select": "Sprache auswählen",
+    "en": "Englisch",
+    "ar": "Arabisch",
+    "zh": "Chinesisch",
+    "ja": "Japanisch",
+    "de": "Deutsch",
+    "es": "Spanisch"
+  }
+}

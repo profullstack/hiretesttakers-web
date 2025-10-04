@@ -1,0 +1,120 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar"
+  },
+  "nav": {
+    "home": "Inicio",
+    "tests": "Pruebas",
+    "applications": "Solicitudes",
+    "messages": "Mensajes",
+    "leaderboard": "Clasificación",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "signup": "Registrarse"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "resetPassword": "Restablecer contraseña",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "passwordRequired": "La contraseña es obligatoria",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "invalidEmail": "Dirección de correo electrónico no válida"
+  },
+  "test": {
+    "title": "Título de la prueba",
+    "description": "Descripción",
+    "price": "Precio",
+    "deadline": "Fecha límite",
+    "createTest": "Crear prueba",
+    "editTest": "Editar prueba",
+    "deleteTest": "Eliminar prueba",
+    "applyToTest": "Aplicar a la prueba",
+    "myTests": "Mis pruebas",
+    "availableTests": "Pruebas disponibles",
+    "testDetails": "Detalles de la prueba",
+    "noTests": "No hay pruebas disponibles"
+  },
+  "application": {
+    "apply": "Aplicar",
+    "withdraw": "Retirar",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "status": "Estado",
+    "pending": "Pendiente",
+    "accepted": "Aceptado",
+    "rejected": "Rechazado",
+    "completed": "Completado",
+    "myApplications": "Mis solicitudes",
+    "applicants": "Solicitantes",
+    "noApplications": "Aún no hay solicitudes"
+  },
+  "message": {
+    "send": "Enviar",
+    "typeMessage": "Escribe un mensaje...",
+    "noMessages": "Aún no hay mensajes",
+    "conversation": "Conversación",
+    "newMessage": "Nuevo mensaje"
+  },
+  "payment": {
+    "amount": "Cantidad",
+    "status": "Estado del pago",
+    "pending": "Pendiente",
+    "completed": "Completado",
+    "failed": "Fallido",
+    "paymentHistory": "Historial de pagos",
+    "makePayment": "Realizar pago"
+  },
+  "profile": {
+    "username": "Nombre de usuario",
+    "bio": "Biografía",
+    "avatar": "Avatar",
+    "rating": "Calificación",
+    "completedTests": "Pruebas completadas",
+    "editProfile": "Editar perfil",
+    "viewProfile": "Ver perfil"
+  },
+  "leaderboard": {
+    "rank": "Rango",
+    "user": "Usuario",
+    "score": "Puntuación",
+    "tests": "Pruebas",
+    "topPerformers": "Mejores desempeños"
+  },
+  "theme": {
+    "light": "Modo claro",
+    "dark": "Modo oscuro",
+    "toggle": "Cambiar tema"
+  },
+  "language": {
+    "select": "Seleccionar idioma",
+    "en": "Inglés",
+    "ar": "Árabe",
+    "zh": "Chino",
+    "ja": "Japonés",
+    "de": "Alemán",
+    "es": "Español"
+  }
+}
