@@ -4,41 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 👤 Prompt 2: User Profiles & Onboarding
-
-```
-Build the user profile and onboarding system for HireTestTakers.com using TDD.
-
-Requirements:
-- User profile management with avatar upload
-- Public profile pages
-- Settings page for profile updates
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Profile page (/profile) - edit mode
-2. Public profile (/u/[username]) - view mode
-3. Settings page (/settings)
-4. Avatar upload functionality
-5. Profile API routes
-
-Database tables already exist:
-- users (with avatar_url, full_name, user_type, bio)
-- Supabase Storage for avatars
-
-Deliverables:
-- Tests for profile service
-- Profile service implementation
-- Profile pages
-- Avatar upload component
-- API routes for profile management
-
-Use existing utilities:
-- src/lib/supabaseClient.js for database access
-```
-
----
-
 ## 📝 Prompt 3: Test Listings CRUD
 
 ```
