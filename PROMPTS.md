@@ -2,47 +2,9 @@
 
 Use these prompts to continue development in focused sessions. Each prompt is designed to build one complete feature area with TDD.
 
-**Status:** Core features (Prompts 1-9) are complete. Remaining work: Prompts 10-12.
+**Status:** Core features (Prompts 1-9) are complete. Integration & E2E Testing (Prompt 10) is complete. Remaining work: Prompts 11-12.
 
 ---
-
-## 🧪 Prompt 10: Integration & E2E Testing
-
-```
-Build comprehensive integration and end-to-end tests for HireTestTakers.com.
-
-Requirements:
-- Test complete user workflows
-- Test API integrations
-- Test payment flows
-- Follow TDD principles
-
-Test scenarios:
-1. Complete student journey (signup → request service → hire → pay → rate)
-2. Complete tutor journey (signup → apply → complete → get paid)
-3. Homework help workflow
-4. Programming help workflow
-5. Assignment writing workflow
-6. Payment flow with commission split
-7. Leaderboard updates
-8. Job offer workflow
-9. Message exchange
-10. Referral system
-11. Notification delivery
-12. Resource access
-
-Deliverables:
-- Integration tests in tests/integration/
-- E2E tests for critical paths
-- API integration tests
-- Database integration tests
-- Mock external APIs (CryptAPI, Tatum)
-
-Tools:
-- Mocha for test runner
-- Chai for assertions
-- Supertest for API testing (if needed)
-```
 
 ---
 
@@ -144,8 +106,7 @@ Verify:
 
 ### Remaining Work:
 
-10. 🧪 Integration & E2E Testing (Prompt 10) - **NEXT**
-11. 🎨 UI Polish & Components (Prompt 11)
+11. 🎨 UI Polish & Components (Prompt 11) - **NEXT**
 12. 🚀 Production Deployment (Prompt 12)
 
 ### Tips:
@@ -161,7 +122,7 @@ Verify:
 
 When starting a new session, mention:
 - "Continue HireTestTakers.com development"
-- "Core features (Prompts 1-8) are complete"
+- "Core features (Prompts 1-9) and Integration Testing (Prompt 10) are complete"
 - "Follow existing code patterns"
 - "Use TDD, KISS, DRY principles"
 - "Reference PRD-v2.md for full requirements"
@@ -173,15 +134,15 @@ When starting a new session, mention:
 **Prompt for next session:**
 
 ```
-Continue building HireTestTakers.com. Core features (Prompts 1-8) are complete.
+Continue building HireTestTakers.com. Core features (Prompts 1-9) and Integration Testing (Prompt 10) are complete.
 
-Next task: Build the Notification & Alert System using TDD (Prompt 9).
+Next task: Build UI Polish & Components (Prompt 11).
 
-[Paste Prompt 9 from PROMPTS.md]
+[Paste Prompt 11 from PROMPTS.md]
 
 Follow the existing code patterns from:
-- tests/services/referral.test.js (test style)
-- src/lib/services/referral.js (service style)
+- tests/integration/ (integration test style)
+- src/lib/components/ (component style)
 - Keep code DRY and KISS
 - Reference PRD-v2.md for requirements
 ```
