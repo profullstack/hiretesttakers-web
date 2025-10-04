@@ -2,49 +2,80 @@
   import { onMount } from 'svelte';
   import LeaderboardTable from '$lib/components/LeaderboardTable.svelte';
   import LeaderboardFilters from '$lib/components/LeaderboardFilters.svelte';
+  import ReputationScore from '$lib/components/ReputationScore.svelte';
+  import BadgeDisplay from '$lib/components/BadgeDisplay.svelte';
+  import { _ } from '$lib/i18n/index.js';
 
   let leaderboard = [];
+  let topPerformers = [];
   let loading = true;
   let error = '';
-  let sortBy = 'tests_completed';
+  let sortBy = 'reputation_score';
   let location = '';
   let skills = [];
   let currentPage = 0;
   let limit = 50;
+  let viewMode = 'reputation'; // 'reputation' or 'classic'
 
   const fetchLeaderboard = async () => {
     loading = true;
     error = '';
 
     try {
-      const params = new URLSearchParams({
-        sortBy,
-        limit: limit.toString(),
-        offset: (currentPage * limit).toString(),
-      });
+      if (viewMode === 'reputation') {
+        // Fetch reputation-based leaderboard
+        const params = new URLSearchParams({
+          limit: limit.toString(),
+        });
 
-      if (location) {
-        params.append('location', location);
+        const response = await fetch(`/api/reputation/top-performers?${params}`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to fetch top performers');
+        }
+
+        topPerformers = result.topPerformers || [];
+        leaderboard = [];
+      } else {
+        // Fetch classic leaderboard
+        const params = new URLSearchParams({
+          sortBy,
+          limit: limit.toString(),
+          offset: (currentPage * limit).toString(),
+        });
+
+        if (location) {
+          params.append('location', location);
+        }
+
+        if (skills.length > 0) {
+          params.append('skills', skills.join(','));
+        }
+
+        const response = await fetch(`/api/leaderboard?${params}`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to fetch leaderboard');
+        }
+
+        leaderboard = result.data || [];
+        topPerformers = [];
       }
-
-      if (skills.length > 0) {
-        params.append('skills', skills.join(','));
-      }
-
-      const response = await fetch(`/api/leaderboard?${params}`);
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch leaderboard');
-      }
-
-      leaderboard = result.data || [];
     } catch (err) {
       error = err.message;
       leaderboard = [];
+      topPerformers = [];
     } finally {
       loading = false;
     }
+  };
+
+  const handleViewModeChange = (mode) => {
+    viewMode = mode;
+    currentPage = 0;
+    fetchLeaderboard();
   };
 
   const handleFilterChange = (filters) => {
@@ -87,15 +118,33 @@
   <div class="container">
     <header class="page-header">
       <h1>🏆 Test Taker Leaderboard</h1>
-      <p>Discover top-performing test takers based on their success rate, ratings, and earnings</p>
+      <p>Discover top-performing test takers based on their reputation, success rate, and earnings</p>
     </header>
 
-    <LeaderboardFilters
-      {sortBy}
-      {location}
-      {skills}
-      onFilterChange={handleFilterChange}
-    />
+    <!-- View Mode Toggle -->
+    <div class="view-mode-toggle">
+      <button
+        class:active={viewMode === 'reputation'}
+        on:click={() => handleViewModeChange('reputation')}
+      >
+        ⭐ Reputation
+      </button>
+      <button
+        class:active={viewMode === 'classic'}
+        on:click={() => handleViewModeChange('classic')}
+      >
+        📊 Classic
+      </button>
+    </div>
+
+    {#if viewMode === 'classic'}
+      <LeaderboardFilters
+        {sortBy}
+        {location}
+        {skills}
+        onFilterChange={handleFilterChange}
+      />
+    {/if}
 
     {#if loading}
       <div class="loading">Loading leaderboard...</div>
@@ -103,6 +152,39 @@
       <div class="error-message">
         <p>{error}</p>
         <button on:click={fetchLeaderboard}>Try Again</button>
+      </div>
+    {:else if viewMode === 'reputation'}
+      <!-- Reputation-based leaderboard -->
+      <div class="reputation-leaderboard">
+        {#each topPerformers as performer, index}
+          <div class="performer-card">
+            <div class="rank">#{index + 1}</div>
+            <div class="performer-info">
+              <div class="performer-header">
+                <h3>User {performer.user_id.substring(0, 8)}</h3>
+                <ReputationScore score={performer.reputation_score} size="large" />
+              </div>
+              <div class="performer-stats">
+                <div class="stat">
+                  <span class="stat-label">Services:</span>
+                  <span class="stat-value">{performer.total_services_completed}</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Rating:</span>
+                  <span class="stat-value">{parseFloat(performer.average_rating).toFixed(1)} ⭐</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Success Rate:</span>
+                  <span class="stat-value">{parseFloat(performer.success_rate).toFixed(0)}%</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Earnings:</span>
+                  <span class="stat-value">${parseFloat(performer.total_earnings).toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        {/each}
       </div>
     {:else}
       <LeaderboardTable {leaderboard} {sortBy} onSort={handleSort} />

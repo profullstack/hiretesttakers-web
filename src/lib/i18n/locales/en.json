@@ -145,5 +145,21 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     }
+  },
+  "reputation": {
+    "level": "Level",
+    "score": "Reputation Score",
+    "badges": "Badges",
+    "noBadges": "No badges earned yet",
+    "moreBadges": "+{count} more badges",
+    "servicesCompleted": "Services Completed",
+    "averageRating": "Average Rating",
+    "successRate": "Success Rate",
+    "onTimeDelivery": "On-Time Delivery",
+    "avgResponseTime": "Avg Response Time",
+    "totalEarnings": "Total Earnings",
+    "topPerformers": "Top Performers",
+    "specialists": "Specialists",
+    "viewReputation": "View Reputation"
   }
 }
