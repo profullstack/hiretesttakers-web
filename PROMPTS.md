@@ -4,48 +4,6 @@ Use these prompts to continue development in focused sessions. Each prompt is de
 
 ---
 
-## 🏆 Prompt 7: Leaderboard & Ratings
-
-```
-Build the leaderboard and rating system for HireTestTakers.com using TDD.
-
-Requirements:
-- Public leaderboard of top test takers
-- Sortable by multiple metrics
-- Privacy controls (opt-in/opt-out)
-- Post-test rating system
-- Follow TDD, KISS, and DRY principles
-
-Features to implement:
-1. Leaderboard page (/leaderboard)
-2. Leaderboard sorting and filtering
-3. Rating submission after test completion
-4. Rating display on profiles
-5. Leaderboard API routes
-
-Database tables already exist:
-- test_taker_stats (with all metrics)
-- ratings table
-- leaderboard view (pre-configured)
-- Automatic stat updates via triggers
-
-Deliverables:
-- Tests for leaderboard queries
-- Leaderboard API routes
-- Leaderboard page
-- LeaderboardTable component
-- LeaderboardFilters component
-- RatingForm component
-- UserStatsCard component
-
-Features:
-- Sort by: tests completed, success rate, rating, earnings
-- Filter by: location, skills, languages
-- Privacy: only show users with show_on_leaderboard=true
-```
-
----
-
 ## 💼 Prompt 8: Job Offers System
 
 ```

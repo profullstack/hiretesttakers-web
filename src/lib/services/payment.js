@@ -5,7 +5,9 @@
  * Integrates with CryptAPI for payment address generation and Tatum for exchange rates.
  */
 
-import { supabase } from '../supabaseClient.js';
+import { getSupabaseClient } from '../supabaseClient.js';
+
+const supabase = getSupabaseClient();
 import { createPaymentAddress } from './cryptapi.js';
 import { getExchangeRate } from './tatum.js';
 
