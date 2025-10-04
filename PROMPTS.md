@@ -2,93 +2,7 @@
 
 Use these prompts to continue development in focused sessions. Each prompt is designed to build one complete feature area with TDD.
 
-**Status:** Core features (Prompts 1-8) are complete. Remaining work: Prompts 9-12.
-
----
-
-## 🔔 Prompt 9: Notification & Alert System
-
-```
-Build a comprehensive notification system for all user activities using TDD.
-
-Requirements:
-- Real-time notifications
-- Email notifications
-- In-app notifications
-- Notification preferences
-- Notification history
-- Push notifications (future)
-
-Database Schema:
-- Add notifications table
-- Add notification_preferences table
-- Add notification_types table
-- Add notification_templates table
-
-Features to implement:
-1. Create notifications for key events
-2. Send email notifications
-3. Display in-app notifications
-4. Mark notifications as read
-5. Configure notification preferences
-6. Batch notifications
-7. Notification history
-
-Notification Types:
-- New application received
-- Application approved/rejected
-- Service completed
-- Payment received
-- New message
-- Rating received
-- Revision requested
-- Job offer received
-- Referral bonus earned
-
-Service Layer (src/lib/services/notification.js):
-- createNotification(userId, type, data)
-- getNotifications(userId, filters)
-- markAsRead(notificationId)
-- markAllAsRead(userId)
-- getUnreadCount(userId)
-- updatePreferences(userId, preferences)
-- sendEmailNotification(userId, type, data)
-
-API Routes:
-- GET /api/notifications - Get notifications
-- GET /api/notifications/unread-count - Get unread count
-- PUT /api/notifications/[id]/read - Mark as read
-- PUT /api/notifications/mark-all-read - Mark all read
-- GET /api/notifications/preferences - Get preferences
-- PUT /api/notifications/preferences - Update preferences
-
-UI Components:
-- NotificationBell.svelte
-- NotificationList.svelte
-- NotificationItem.svelte
-- NotificationPreferences.svelte
-- NotificationToast.svelte
-
-Pages:
-- /notifications - Notification center
-- /notifications/preferences - Notification settings
-
-Follow TDD:
-1. Write notification service tests
-2. Implement notification system
-3. Build email integration
-4. Create preference system
-5. Build UI components
-6. Test real-time updates
-7. Test email delivery
-
-Deliverables:
-- Notification system
-- Email integration
-- Preference management
-- Real-time updates
-- All tests passing
-```
+**Status:** Core features (Prompts 1-9) are complete. Remaining work: Prompts 10-12.
 
 ---
 
@@ -230,8 +144,7 @@ Verify:
 
 ### Remaining Work:
 
-9. 🔔 Notification System (Prompt 9) - **NEXT**
-10. 🧪 Integration & E2E Testing (Prompt 10)
+10. 🧪 Integration & E2E Testing (Prompt 10) - **NEXT**
 11. 🎨 UI Polish & Components (Prompt 11)
 12. 🚀 Production Deployment (Prompt 12)
 
