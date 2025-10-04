@@ -116,5 +116,34 @@
     "ja": "Japanese",
     "de": "German",
     "es": "Spanish"
+  },
+  "services": {
+    "browse_title": "Browse All Services",
+    "browse_subtitle": "Find homework help, programming assistance, assignment writing, and test-taking services",
+    "search": "Search",
+    "search_placeholder": "Search for services...",
+    "all_types": "All Types",
+    "all_statuses": "All Statuses",
+    "no_results": "No services found",
+    "results_count": "Found {count} services",
+    "price": "Price",
+    "price_negotiable": "Negotiable",
+    "deadline": "Deadline",
+    "view_details": "View Details",
+    "types": {
+      "homework": "Homework Help",
+      "programming": "Programming Help",
+      "assignment": "Assignment Writing",
+      "test": "Test Taking"
+    },
+    "statuses": {
+      "open": "Open",
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "assigned": "Assigned",
+      "submitted": "Submitted",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
   }
 }
