@@ -43,7 +43,7 @@
 <div class="container">
   <header class="page-header">
     <h1>My Applications</h1>
-    <a href="/tests" class="btn-primary">Browse Tests</a>
+    <a href="/browse-tests/" class="btn-primary">Browse Tests</a>
   </header>
 
   {#if loading}
@@ -57,7 +57,7 @@
     <div class="empty-state">
       <h2>No Applications Yet</h2>
       <p>You haven't applied to any tests yet. Browse available tests and start applying!</p>
-      <a href="/tests" class="btn-primary">Browse Tests</a>
+      <a href="/browse-tests/" class="btn-primary">Browse Tests</a>
     </div>
   {:else}
     <div class="applications-list">

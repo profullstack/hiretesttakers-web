@@ -26,7 +26,7 @@
       
       <div class="cta-buttons">
         <a href="/auth/signup" class="btn btn-primary">Get Started</a>
-        <a href="/tests" class="btn btn-secondary">Browse Tests</a>
+        <a href="/browse-tests/" class="btn btn-secondary">Browse Tests</a>
         <a href="/leaderboard" class="btn btn-secondary">View Leaderboard</a>
       </div>
     </section>

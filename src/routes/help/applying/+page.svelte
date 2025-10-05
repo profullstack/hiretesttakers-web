@@ -11,7 +11,7 @@
 
   <section>
     <h2>Finding Opportunities</h2>
-    <p>Browse available tests on the <a href="/tests">Tests page</a>. Use filters to find tests that match your skills and interests.</p>
+    <p>Browse available tests on the <a href="/browse-tests/">Tests page</a>. Use filters to find tests that match your skills and interests.</p>
   </section>
 
   <section>

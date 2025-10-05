@@ -81,7 +81,7 @@
     <p>Join thousands of students and professionals using our platform</p>
     <div class="cta-buttons">
       <a href="/auth/signup" class="btn btn-primary">Sign Up Free</a>
-      <a href="/tests" class="btn btn-secondary">Browse Tests</a>
+      <a href="/browse-tests/" class="btn btn-secondary">Browse Tests</a>
     </div>
   </div>
 </div>

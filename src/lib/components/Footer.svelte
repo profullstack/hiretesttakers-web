@@ -13,7 +13,7 @@
     <div class="footer-section">
       <h4>Services</h4>
       <ul>
-        <li><a href="/tests">Test Taking</a></li>
+        <li><a href="/browse-tests/">Test Taking</a></li>
         <li><a href="/homework">Homework Help</a></li>
         <li><a href="/programming">Programming</a></li>
         <li><a href="/assignments">Assignments</a></li>

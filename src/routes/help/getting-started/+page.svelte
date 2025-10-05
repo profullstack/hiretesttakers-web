@@ -52,7 +52,7 @@
           <li>Build your reputation</li>
           <li>Earn cryptocurrency</li>
         </ul>
-        <a href="/tests" class="btn-secondary">Browse Tests</a>
+        <a href="/browse-tests/" class="btn-secondary">Browse Tests</a>
       </div>
     </div>
   </section>
