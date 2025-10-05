@@ -2,7 +2,7 @@
  * Login API Route
  *
  * POST /api/auth/login
- * Handles user login and sets auth cookies
+ * Handles user login and sets auth cookies via Supabase SSR
  */
 
 import { json } from '@sveltejs/kit';
@@ -26,8 +26,11 @@ export async function POST({ request, locals }) {
       }, { status: 400 });
     }
 
+    // Use the server-side Supabase client from locals
+    // This client is configured with proper cookie handling in hooks.server.js
     const supabase = locals.supabase;
     
+    // Sign in with password - this will automatically set cookies via the hooks
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -41,8 +44,22 @@ export async function POST({ request, locals }) {
       }, { status: 401 });
     }
 
-    console.log('[API /api/auth/login] Login successful for:', email);
+    // Verify session was created
+    if (!data.session) {
+      console.error('[API /api/auth/login] No session created after login');
+      return json({
+        success: false,
+        error: 'Failed to create session'
+      }, { status: 500 });
+    }
 
+    console.log('[API /api/auth/login] Login successful for:', email, {
+      userId: data.user.id,
+      hasSession: !!data.session,
+      sessionExpiry: data.session.expires_at
+    });
+
+    // Return user data - cookies are already set by Supabase via hooks
     return json({
       success: true,
       user: {
@@ -55,7 +72,7 @@ export async function POST({ request, locals }) {
     console.error('[API /api/auth/login] Unexpected error:', error);
     return json({
       success: false,
-      error: error.message
+      error: error.message || 'An unexpected error occurred'
     }, { status: 500 });
   }
 }

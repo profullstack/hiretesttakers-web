@@ -1,18 +1,21 @@
 /**
  * Supabase Client
  *
- * Singleton Supabase client for database and auth operations.
- * Uses environment variables for configuration.
+ * SSR-compatible Supabase client for database and auth operations.
+ * Uses @supabase/ssr for proper cookie-based authentication.
+ *
+ * IMPORTANT: For SSR routes, use event.locals.supabase from hooks.server.js
+ * This client is primarily for client-side operations.
  */
 
-import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 import { env } from '$env/dynamic/public';
 
 let supabaseInstance = null;
 
 /**
- * Create a new Supabase client
- * 
+ * Create a browser-compatible Supabase client with cookie storage
+ *
  * @param {string} supabaseUrl - Supabase project URL
  * @param {string} supabaseAnonKey - Supabase anonymous key
  * @returns {Object} Supabase client instance
@@ -27,21 +30,40 @@ export function createClient(supabaseUrl, supabaseAnonKey) {
     throw new Error('Supabase anon key is required');
   }
   
-  return createSupabaseClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
-      storage: typeof window !== 'undefined' ? window.localStorage : undefined,
-      storageKey: 'sb-auth-token',
-      flowType: 'pkce'
+  // Use createBrowserClient from @supabase/ssr for proper cookie handling
+  return createBrowserClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      get(key) {
+        if (typeof document === 'undefined') return undefined;
+        const cookie = document.cookie
+          .split('; ')
+          .find(row => row.startsWith(`${key}=`));
+        return cookie ? decodeURIComponent(cookie.split('=')[1]) : undefined;
+      },
+      set(key, value, options) {
+        if (typeof document === 'undefined') return;
+        let cookie = `${key}=${encodeURIComponent(value)}`;
+        if (options?.maxAge) cookie += `; max-age=${options.maxAge}`;
+        if (options?.path) cookie += `; path=${options.path}`;
+        if (options?.domain) cookie += `; domain=${options.domain}`;
+        if (options?.sameSite) cookie += `; samesite=${options.sameSite}`;
+        if (options?.secure) cookie += '; secure';
+        document.cookie = cookie;
+      },
+      remove(key, options) {
+        if (typeof document === 'undefined') return;
+        let cookie = `${key}=; max-age=0`;
+        if (options?.path) cookie += `; path=${options.path}`;
+        if (options?.domain) cookie += `; domain=${options.domain}`;
+        document.cookie = cookie;
+      }
     }
   });
 }
 
 /**
- * Get singleton Supabase client instance
- * 
+ * Get singleton Supabase client instance for browser
+ *
  * @returns {Object} Supabase client instance
  * @throws {Error} If environment variables are not set
  */
@@ -65,5 +87,5 @@ export function resetSupabaseClient() {
   supabaseInstance = null;
 }
 
-// Default export for convenience
-export const supabase = getSupabaseClient();
+// Default export for convenience (client-side only)
+export const supabase = typeof window !== 'undefined' ? getSupabaseClient() : null;
