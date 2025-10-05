@@ -6,10 +6,11 @@
   import { signOut } from '$lib/services/auth.js';
 
   let user = null;
+  let profile = null;
   let isOpen = false;
   let dropdownRef;
 
-  // Get user on mount
+  // Get user and profile on mount
   onMount(async () => {
     if (browser) {
       const supabase = getSupabaseClient();
@@ -17,16 +18,31 @@
       // Get initial session and user
       const { data: { session } } = await supabase.auth.getSession();
       user = session?.user ?? null;
+      
+      // Load profile if user exists
+      if (user) {
+        await loadProfile();
+      }
 
       // Listen for auth changes
       const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
         console.log('Auth state changed:', event, session?.user?.email);
         user = session?.user ?? null;
         
+        // Load profile on sign in
+        if (event === 'SIGNED_IN' && user) {
+          await loadProfile();
+        } else if (event === 'SIGNED_OUT') {
+          profile = null;
+        }
+        
         // Force a re-check of the session on sign in
         if (event === 'SIGNED_IN' && !user) {
           const { data: { session: newSession } } = await supabase.auth.getSession();
           user = newSession?.user ?? null;
+          if (user) {
+            await loadProfile();
+          }
         }
       });
 
@@ -36,6 +52,19 @@
       };
     }
   });
+
+  // Load user profile
+  async function loadProfile() {
+    try {
+      const response = await fetch('/api/profile');
+      if (response.ok) {
+        const data = await response.json();
+        profile = data.profile;
+      }
+    } catch (error) {
+      console.error('Failed to load profile:', error);
+    }
+  }
 
   // Close dropdown when clicking outside
   function handleClickOutside(event) {
@@ -66,10 +95,24 @@
     goto(path);
   }
 
-  // Get user initials for avatar
+  // Get user initials for avatar fallback
   function getUserInitials() {
-    if (!user?.email) return '?';
-    return user.email.charAt(0).toUpperCase();
+    if (profile?.full_name) {
+      const names = profile.full_name.trim().split(' ');
+      if (names.length >= 2) {
+        return (names[0].charAt(0) + names[names.length - 1].charAt(0)).toUpperCase();
+      }
+      return names[0].charAt(0).toUpperCase();
+    }
+    if (user?.email) {
+      return user.email.charAt(0).toUpperCase();
+    }
+    return '?';
+  }
+
+  // Get avatar URL or null
+  function getAvatarUrl() {
+    return profile?.avatar_url || null;
   }
 
   // Add/remove click listener
