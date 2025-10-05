@@ -153,7 +153,7 @@ export async function createAssignmentRequest({
   }
 
   const { data, error } = await supabase
-    .from('assignment_requests')
+    .from('jobs')
     .insert(requestData)
     .select()
     .single();
@@ -179,7 +179,7 @@ export async function getAssignmentRequests(filters = {}) {
   const supabase = getSupabaseClient();
 
   let query = supabase
-    .from('assignment_requests')
+    .from('jobs')
     .select('*, academic_levels(name), citation_styles(name)');
 
   if (filters.status) {
@@ -223,7 +223,7 @@ export async function getAssignmentRequestById(id) {
   const supabase = getSupabaseClient();
 
   const { data, error } = await supabase
-    .from('assignment_requests')
+    .from('jobs')
     .select(`
       *,
       academic_levels(name),
@@ -275,7 +275,7 @@ export async function submitAssignment(requestId, { content, submitted_by, file_
   const supabase = getSupabaseClient();
 
   const submissionData = {
-    assignment_request_id: requestId,
+    job_id: requestId,
     content: content.trim(),
     word_count: wordCount,
     submitted_by
@@ -297,7 +297,7 @@ export async function submitAssignment(requestId, { content, submitted_by, file_
 
   // Update assignment request status to submitted
   await supabase
-    .from('assignment_requests')
+    .from('jobs')
     .update({ status: 'submitted' })
     .eq('id', requestId);
 
@@ -329,7 +329,7 @@ export async function requestRevision(requestId, { requested_by, notes }) {
   const supabase = getSupabaseClient();
 
   const revisionData = {
-    assignment_request_id: requestId,
+    job_id: requestId,
     requested_by,
     notes: notes.trim(),
     status: 'pending'
@@ -347,7 +347,7 @@ export async function requestRevision(requestId, { requested_by, notes }) {
 
   // Update assignment request status to revision_requested
   await supabase
-    .from('assignment_requests')
+    .from('jobs')
     .update({ status: 'revision_requested' })
     .eq('id', requestId);
 
@@ -375,7 +375,7 @@ export async function generateQualityReport(requestId) {
   const supabase = getSupabaseClient();
 
   const reportData = {
-    assignment_request_id: requestId,
+    job_id: requestId,
     grammar_score: grammarScore,
     citation_score: citationScore,
     content_quality_score: contentQualityScore,
@@ -420,7 +420,7 @@ export async function checkPlagiarism(requestId, content) {
   const supabase = getSupabaseClient();
 
   const reportData = {
-    assignment_request_id: requestId,
+    job_id: requestId,
     similarity_score: similarityScore,
     sources_found: sourcesFound,
     details: {

@@ -106,95 +106,118 @@
 
 <style>
   .filters {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    background: var(--color-surface);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    gap: var(--spacing-md);
     align-items: start;
+    border: 1px solid var(--color-border);
   }
 
   .filter-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--spacing-sm);
   }
 
   label {
     font-weight: 600;
-    color: #495057;
+    color: var(--color-text);
     font-size: 0.875rem;
   }
 
   select,
   input[type='text'] {
-    padding: 8px 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     font-size: 0.875rem;
     width: 100%;
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: all var(--transition-base);
   }
 
   select:focus,
   input[type='text']:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
+  }
+
+  :global(.dark) select:focus,
+  :global(.dark) input[type='text']:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2);
   }
 
   .skill-input-wrapper {
     display: flex;
-    gap: 8px;
+    gap: var(--spacing-sm);
   }
 
   .add-skill-btn {
-    padding: 8px 16px;
-    background: #007bff;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     font-size: 0.875rem;
     white-space: nowrap;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
   }
 
   .add-skill-btn:hover {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .add-skill-btn {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .add-skill-btn:hover {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
   }
 
   .selected-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
   }
 
   .skill-tag {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    background: #e9ecef;
-    padding: 4px 8px;
-    border-radius: 12px;
+    gap: var(--spacing-xs);
+    background: var(--color-bg-secondary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-full);
     font-size: 0.75rem;
-    color: #495057;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
 
   .remove-skill {
     background: none;
     border: none;
-    color: #6c757d;
+    color: var(--color-text-secondary);
     cursor: pointer;
     padding: 0;
     font-size: 1.25rem;
     line-height: 1;
-    margin-left: 4px;
+    margin-left: var(--spacing-xs);
+    transition: color var(--transition-base);
   }
 
   .remove-skill:hover {
-    color: #dc3545;
+    color: var(--color-error);
   }
 
   .filter-actions {
@@ -203,17 +226,20 @@
   }
 
   .reset-btn {
-    padding: 8px 16px;
-    background: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     cursor: pointer;
     font-size: 0.875rem;
+    transition: all var(--transition-base);
   }
 
   .reset-btn:hover {
-    background: #5a6268;
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   @media (max-width: 768px) {

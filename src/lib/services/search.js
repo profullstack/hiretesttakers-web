@@ -85,7 +85,7 @@ async function searchServiceType(supabase, type, searchTerm, filters) {
       break;
 
     case 'assignment':
-      tableName = 'assignment_requests';
+      tableName = 'jobs';
       selectFields = '*, academic_levels(name), citation_styles(name)';
       query = supabase
         .from(tableName)
@@ -195,7 +195,7 @@ export async function getServicesByType(type, filters = {}) {
       break;
 
     case 'assignment':
-      tableName = 'assignment_requests';
+      tableName = 'jobs';
       selectFields = '*, academic_levels(name), citation_styles(name)';
       break;
 

@@ -9,11 +9,14 @@
   let title = assignment?.title || '';
   let description = assignment?.description || '';
   let topic = assignment?.topic || '';
+  let jobType = assignment?.job_type || 'homework';
   let academicLevelId = assignment?.academic_level_id || '';
   let citationStyleId = assignment?.citation_style_id || '';
   let wordCount = assignment?.word_count || 1000;
   let deadline = assignment?.deadline ? assignment.deadline.split('T')[0] : '';
   let price = assignment?.price || 0;
+  let showPriceRange = false;
+  let priceMax = assignment?.max_price || null;
   let plagiarismCheckRequested = assignment?.plagiarism_check_requested || false;
 
   let academicLevels = [];
@@ -60,11 +63,13 @@
         title,
         description,
         topic,
+        job_type: jobType,
         academic_level_id: academicLevelId || null,
         citation_style_id: citationStyleId || null,
         word_count: parseInt(wordCount),
         deadline: new Date(deadline).toISOString(),
         price: parseFloat(price),
+        max_price: showPriceRange && priceMax ? parseFloat(priceMax) : null,
         plagiarism_check_requested: plagiarismCheckRequested
       };
 
@@ -99,15 +104,28 @@
 </script>
 
 <form on:submit={handleSubmit} class="assignment-form">
-  <h2>{isEdit ? 'Edit Assignment' : 'Request Assignment Writing'}</h2>
+  <h2>{isEdit ? 'Edit Job' : 'Request New Job'}</h2>
 
   {#if error}
     <div class="error-message">{error}</div>
   {/if}
 
   <div class="form-group">
+    <label for="jobType">
+      Job Type *
+    </label>
+    <select id="jobType" bind:value={jobType} required>
+      <option value="tutoring">Tutoring</option>
+      <option value="programming">Programming</option>
+      <option value="exercise">Exercise</option>
+      <option value="homework">Homework</option>
+    </select>
+    <small>Need someone to take a test for you? <a href="/browse-tests/new">Post a test</a> instead.</small>
+  </div>
+
+  <div class="form-group">
     <label for="title">
-      Assignment Title *
+      Job Title *
     </label>
     <input
       id="title"
@@ -117,6 +135,7 @@
       placeholder="e.g., Research Paper on Climate Change"
       maxlength="200"
     />
+    <small>Brief title describing the job</small>
   </div>
 
   <div class="form-group">
@@ -202,20 +221,45 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="price">
-      Price (USD) *
+  <div class="price-section">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="price">
+          {showPriceRange ? 'Minimum Price (USD)' : 'Price (USD)'} *
+        </label>
+        <input
+          id="price"
+          type="number"
+          bind:value={price}
+          required
+          min="0"
+          step="0.01"
+          placeholder="0.00"
+        />
+      </div>
+
+      {#if showPriceRange}
+        <div class="form-group">
+          <label for="priceMax">
+            Maximum Price (USD)
+          </label>
+          <input
+            id="priceMax"
+            type="number"
+            bind:value={priceMax}
+            min={price || 0}
+            step="0.01"
+            placeholder="0.00"
+          />
+        </div>
+      {/if}
+    </div>
+
+    <label class="checkbox-label">
+      <input type="checkbox" bind:checked={showPriceRange} />
+      Offer price range
     </label>
-    <input
-      id="price"
-      type="number"
-      bind:value={price}
-      required
-      min="0"
-      step="0.01"
-      placeholder="0.00"
-    />
-    <small>Set your budget for this assignment</small>
+    <small>Set your budget for this job</small>
   </div>
 
   <div class="form-group">
@@ -233,7 +277,7 @@
       Cancel
     </button>
     <button type="submit" class="btn-primary" disabled={loading}>
-      {loading ? 'Saving...' : isEdit ? 'Update Assignment' : 'Submit Request'}
+      {loading ? 'Saving...' : isEdit ? 'Update Job' : 'Submit Request'}
     </button>
   </div>
 </form>

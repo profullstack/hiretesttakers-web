@@ -100,16 +100,16 @@
 </script>
 
 <svelte:head>
-  <title>{assignment?.title || 'Assignment'} - HireTestTakers</title>
+  <title>{assignment?.title || 'Job'} - HireTestTakers</title>
 </svelte:head>
 
 <div class="container">
   {#if loading}
-    <div class="loading">Loading assignment...</div>
+    <div class="loading">Loading job...</div>
   {:else if error}
     <div class="error-message">{error}</div>
-    <button on:click={() => goto('/assignments')} class="btn-secondary">
-      Back to Assignments
+    <button on:click={() => goto('/jobs')} class="btn-secondary">
+      Back to Jobs
     </button>
   {:else if assignment}
     <div class="assignment-detail">
@@ -118,7 +118,7 @@
           <h1>{assignment.title}</h1>
           <span class="status">{formatStatus(assignment.status)}</span>
         </div>
-        <button on:click={() => goto('/assignments')} class="btn-secondary">
+        <button on:click={() => goto('/jobs')} class="btn-secondary">
           Back to List
         </button>
       </div>

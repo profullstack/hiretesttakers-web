@@ -33,7 +33,7 @@
         <div class="nav-dropdown-menu">
           <a href="/browse-tests/my-tests" on:click={closeDropdowns}>My Tests</a>
           <a href="/applications" on:click={closeDropdowns}>Applications</a>
-          <a href="/my-assignments" on:click={closeDropdowns}>My Assignments</a>
+          <a href="/jobs" on:click={closeDropdowns}>My Jobs</a>
           <a href="/messages" on:click={closeDropdowns}>Messages</a>
           <a href="/notifications" on:click={closeDropdowns}>Notifications</a>
           <a href="/payments/history" on:click={closeDropdowns}>Payment History</a>

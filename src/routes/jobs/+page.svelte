@@ -42,14 +42,14 @@
 </script>
 
 <svelte:head>
-  <title>Assignments - HireTestTakers</title>
+  <title>Jobs - HireTestTakers</title>
 </svelte:head>
 
 <div class="container">
   <div class="header">
-    <h1>Assignment Writing Requests</h1>
-    <a href="/my-assignments/new" class="btn-primary">
-      Request New Assignment
+    <h1>My Jobs</h1>
+    <a href="/jobs/new" class="btn-primary">
+      Request New Job
     </a>
   </div>
 
@@ -73,8 +73,8 @@
     <div class="error-message">{error}</div>
   {:else if assignments.length === 0}
     <div class="empty-state">
-      <p>No assignments found.</p>
-      <a href="/my-assignments/new" class="btn-primary">Create Your First Assignment Request</a>
+      <p>No jobs found.</p>
+      <a href="/jobs/new" class="btn-primary">Create Your First Job Request</a>
     </div>
   {:else}
     <div class="assignments-grid">

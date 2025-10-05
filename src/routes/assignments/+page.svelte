@@ -82,8 +82,8 @@
       Connect with expert academic writers for essays, research papers, and all types of assignments
     </p>
     <div class="hero-buttons">
-      <a href="/my-assignments/new" class="btn btn-primary">Request Assignment Help</a>
-      <a href="/my-assignments" class="btn btn-secondary">View My Assignments</a>
+      <a href="/jobs/new" class="btn btn-primary">Request Assignment Help</a>
+      <a href="/jobs" class="btn btn-secondary">View My Jobs</a>
     </div>
   </div>
 
@@ -131,7 +131,7 @@
     <p>Join thousands of students getting expert assignment help</p>
     <div class="cta-buttons">
       <a href="/auth/signup" class="btn btn-primary">Sign Up Free</a>
-      <a href="/my-assignments/new" class="btn btn-secondary">Request Help Now</a>
+      <a href="/jobs/new" class="btn btn-secondary">Request Help Now</a>
     </div>
   </div>
 </div>

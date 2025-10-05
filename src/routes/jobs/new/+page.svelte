@@ -3,17 +3,17 @@
   import AssignmentRequestForm from '$lib/components/AssignmentRequestForm.svelte';
 
   function handleSuccess(event) {
-    const assignment = event.detail;
-    goto(`/assignments/${assignment.id}`);
+    const job = event.detail;
+    goto(`/jobs/${job.id}`);
   }
 
   function handleCancel() {
-    goto('/assignments');
+    goto('/jobs');
   }
 </script>
 
 <svelte:head>
-  <title>Request New Assignment - HireTestTakers</title>
+  <title>Request New Job - HireTestTakers</title>
 </svelte:head>
 
 <div class="container">

@@ -27,11 +27,32 @@
   function formatStatus(status) {
     return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
+
+  function formatJobType(jobType) {
+    return jobType.charAt(0).toUpperCase() + jobType.slice(1);
+  }
+
+  function getJobTypeClass(jobType) {
+    const typeClasses = {
+      tutoring: 'type-tutoring',
+      programming: 'type-programming',
+      exercise: 'type-exercise',
+      homework: 'type-homework'
+    };
+    return typeClasses[jobType] || 'type-homework';
+  }
 </script>
 
 <div class="assignment-card">
   <div class="card-header">
-    <h3>{assignment.title}</h3>
+    <div class="header-content">
+      <h3>{assignment.title}</h3>
+      {#if assignment.job_type}
+        <span class="job-type {getJobTypeClass(assignment.job_type)}">
+          {formatJobType(assignment.job_type)}
+        </span>
+      {/if}
+    </div>
     <span class="status {getStatusClass(assignment.status)}">
       {formatStatus(assignment.status)}
     </span>
@@ -68,7 +89,13 @@
 
       <div class="meta-item">
         <span class="label">Price:</span>
-        <span class="value price">${assignment.price.toFixed(2)}</span>
+        <span class="value price">
+          {#if assignment.max_price}
+            ${assignment.price.toFixed(2)} - ${assignment.max_price.toFixed(2)}
+          {:else}
+            ${assignment.price.toFixed(2)}
+          {/if}
+        </span>
       </div>
 
       {#if assignment.plagiarism_check_requested}
@@ -81,7 +108,7 @@
 
   {#if showActions}
     <div class="card-actions">
-      <a href="/assignments/{assignment.id}" class="btn-view">
+      <a href="/jobs/{assignment.id}" class="btn-view">
         View Details
       </a>
     </div>
@@ -110,12 +137,47 @@
     border-bottom: 1px solid #e0e0e0;
   }
 
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
   h3 {
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
     color: #333;
-    flex: 1;
+  }
+
+  .job-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    width: fit-content;
+  }
+
+  .type-tutoring {
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+
+  .type-programming {
+    background: #f3e5f5;
+    color: #7b1fa2;
+  }
+
+  .type-exercise {
+    background: #fff3e0;
+    color: #f57c00;
+  }
+
+  .type-homework {
+    background: #e8f5e9;
+    color: #388e3c;
   }
 
   .status {
