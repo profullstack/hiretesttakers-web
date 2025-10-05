@@ -125,13 +125,36 @@ Alternative configuration format (Railway supports both).
 
 ### 1. Run Database Migrations
 
+You have several options for running migrations:
+
+#### Option A: Using the migration script (Recommended)
+
+```bash
+# Set your production DATABASE_URL
+export DATABASE_URL="your_railway_database_url"
+
+# Run migrations against production
+pnpm run db:migrate:prod
+```
+
+#### Option B: Using Railway's run command
+
+```bash
+# Run migrations directly on Railway
+railway run pnpm run db:migrate
+```
+
+#### Option C: SSH into Railway container
+
 ```bash
 # SSH into Railway container
 railway run bash
 
 # Run migrations
-pnpx supabase db push
+pnpm run db:migrate
 ```
+
+**For detailed migration instructions, see [`docs/MIGRATION_GUIDE.md`](docs/MIGRATION_GUIDE.md)**
 
 ### 2. Verify Volumes
 
