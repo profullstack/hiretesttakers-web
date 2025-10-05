@@ -4,9 +4,9 @@
       <h3>HireTestTakers</h3>
       <p>The trusted marketplace for academic services and test-taking professionals.</p>
       <div class="social-links">
-        <a href="#" aria-label="Twitter">🐦</a>
-        <a href="#" aria-label="LinkedIn">💼</a>
-        <a href="#" aria-label="GitHub">🐙</a>
+        <a href="https://twitter.com" aria-label="Twitter" target="_blank" rel="noopener noreferrer">🐦</a>
+        <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">💼</a>
+        <a href="https://github.com" aria-label="GitHub" target="_blank" rel="noopener noreferrer">🐙</a>
       </div>
     </div>
 

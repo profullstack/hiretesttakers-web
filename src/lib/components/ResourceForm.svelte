@@ -124,7 +124,7 @@
       bind:value={formData.description}
       placeholder="Brief description of the resource"
       rows="3"
-    />
+    ></textarea>
   </div>
   
   {#if formData.type === 'blog_article' || formData.type === 'study_guide'}
@@ -135,7 +135,7 @@
         bind:value={formData.content}
         placeholder="Enter content here..."
         rows="10"
-      />
+      ></textarea>
     </div>
   {/if}
   
@@ -249,7 +249,6 @@
   }
 
   input.error,
-  textarea.error,
   select.error {
     border-color: var(--error-color, #dc3545);
   }

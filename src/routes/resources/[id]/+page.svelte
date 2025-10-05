@@ -166,7 +166,7 @@
             title={resource.title}
             frameborder="0"
             allowfullscreen
-          />
+          ></iframe>
         </div>
       {/if}
       
@@ -215,7 +215,7 @@
             bind:value={newReview}
             placeholder="Write a review (optional)"
             rows="4"
-          />
+          ></textarea>
           
           <button
             on:click={handleRating}

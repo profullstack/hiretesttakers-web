@@ -1,6 +1,5 @@
-import { OPENAI_API_KEY } from '$env/static/private';
-
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 /**
  * Call OpenAI API with a system prompt and user message

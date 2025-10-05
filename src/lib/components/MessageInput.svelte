@@ -32,7 +32,7 @@
     placeholder="Type a message..."
     rows="1"
     {disabled}
-  />
+  ></textarea>
   <button type="submit" disabled={disabled || message.trim() === ''}>
     Send
   </button>

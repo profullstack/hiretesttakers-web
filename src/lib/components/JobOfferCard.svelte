@@ -1,6 +1,6 @@
 <script>
   export let offer;
-  export let viewType = 'received'; // 'received' or 'sent'
+  export const viewType = 'received'; // 'received' or 'sent' - external reference only
 
   function formatDate(dateString) {
     const date = new Date(dateString);

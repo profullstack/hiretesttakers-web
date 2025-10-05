@@ -148,8 +148,21 @@
 </div>
 
 {#if showOfferModal && selectedTestTaker}
-  <div class="modal-overlay" on:click={handleOfferCancel}>
-    <div class="modal-content" on:click|stopPropagation>
+  <div
+    class="modal-overlay"
+    on:click={handleOfferCancel}
+    on:keydown={(e) => e.key === 'Escape' && handleOfferCancel()}
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="modal-content"
+      on:click|stopPropagation
+      on:keydown|stopPropagation
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+    >
       <button class="modal-close" on:click={handleOfferCancel}>×</button>
       <JobOfferForm
         testTakerId={selectedTestTaker.id}

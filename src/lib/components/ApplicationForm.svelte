@@ -68,7 +68,7 @@
       placeholder="Tell the hirer why you're a good fit for this test..."
       rows="5"
       disabled={loading}
-    />
+    ></textarea>
     <small class="help-text">
       Introduce yourself and explain why you're interested in this test.
     </small>

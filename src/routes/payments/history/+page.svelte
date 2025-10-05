@@ -109,7 +109,11 @@
   {:else}
     <div class="payments-list">
       {#each payments as payment}
-        <div class="payment-card" on:click={() => viewPayment(payment.id)}>
+        <button
+          class="payment-card"
+          on:click={() => viewPayment(payment.id)}
+          type="button"
+        >
           <div class="payment-header">
             <div class="payment-amount">
               <span class="amount">{payment.amount} {payment.cryptocurrency}</span>
@@ -143,7 +147,7 @@
               </div>
             {/if}
           </div>
-        </div>
+        </button>
       {/each}
     </div>
   {/if}
@@ -232,6 +236,9 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: box-shadow 0.2s;
+    border: none;
+    width: 100%;
+    text-align: left;
   }
   
   .payment-card:hover {
