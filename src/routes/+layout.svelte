@@ -41,7 +41,10 @@
 <div class="app">
   <header class="header">
     <div class="header-content">
-      <h1 class="logo"><a href="/">HireTestTakers</a></h1>
+      <a href="/" class="logo">
+        <img src="/logo.white.svg" alt="HireTestTakers" class="logo-light" />
+        <img src="/logo.black.svg" alt="HireTestTakers" class="logo-dark" />
+      </a>
       <nav class="nav">
         <a href="/">Home</a>
         <a href="/browse-tests">Browse Tests</a>
@@ -99,14 +102,34 @@
   }
   
   .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    text-decoration: none;
     margin: 0;
   }
-  
-  .logo a {
-    color: var(--color-primary);
-    text-decoration: none;
+
+  .logo img {
+    height: 100%;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+  }
+
+  .logo-light {
+    display: block;
+  }
+
+  .logo-dark {
+    display: none;
+  }
+
+  :global(.dark) .logo-light {
+    display: none;
+  }
+
+  :global(.dark) .logo-dark {
+    display: block;
   }
   
   .nav {
