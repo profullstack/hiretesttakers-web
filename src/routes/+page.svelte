@@ -21,13 +21,21 @@
   
   <main>
     <section class="hero">
-      <h2>Welcome to HireTestTakers</h2>
-      <p>Connect with qualified test takers or offer your expertise</p>
-      
-      <div class="cta-buttons">
-        <a href="/auth/signup" class="btn btn-primary">Get Started</a>
-        <a href="/browse-tests/" class="btn btn-secondary">Browse Tests</a>
-        <a href="/leaderboard" class="btn btn-secondary">View Leaderboard</a>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h2>Welcome to HireTestTakers</h2>
+          <p>Connect with qualified test takers or offer your expertise</p>
+          
+          <div class="cta-buttons">
+            <a href="/auth/signup" class="btn btn-primary">Get Started</a>
+            <a href="/browse-tests/" class="btn btn-secondary">Browse Tests</a>
+            <a href="/leaderboard" class="btn btn-secondary">View Leaderboard</a>
+          </div>
+        </div>
+        
+        <div class="hero-image">
+          <img src="/hero.svg" alt="HireTestTakers Platform" class="hero-svg" />
+        </div>
       </div>
     </section>
     
@@ -102,8 +110,7 @@
   }
   
   .hero {
-    text-align: center;
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-2xl);
     position: relative;
     background: linear-gradient(135deg,
       var(--color-bg) 0%,
@@ -112,6 +119,31 @@
     border-radius: var(--radius-xl);
     margin-bottom: var(--spacing-2xl);
     overflow: hidden;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-text {
+    text-align: left;
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-svg {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
   }
   
   .hero::before {
@@ -427,8 +459,25 @@
       font-size: 2rem;
     }
 
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+
+    .hero-text {
+      text-align: center;
+    }
+
     .hero h2 {
       font-size: 1.5rem;
+    }
+
+    .hero-image {
+      order: -1;
+    }
+
+    .hero-svg {
+      max-width: 300px;
     }
 
     .cta-buttons {
