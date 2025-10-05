@@ -2,7 +2,11 @@
   let activeTab = 'paraphrase';
   let loading = false;
   let error = '';
-  let result = null;
+
+  // Clear error and results when switching tabs
+  $: if (activeTab) {
+    error = '';
+  }
 
   // Paraphrase Tool
   let paraphraseInput = '';
@@ -23,8 +27,9 @@
   let factorResult = null;
 
   // PDF Summarizer
-  let summarizerInput = '';
+  let pdfFile = null;
   let summarizerOutput = '';
+  let pdfFileInput;
 
   // Citation Generator
   let citationStyle = 'harvard';
@@ -103,30 +108,28 @@
     }
   }
 
-  async function handleWordCount() {
-    loading = true;
+  function handleWordCount() {
     error = '';
-    wordCountStats = null;
-
-    try {
-      const response = await fetch('/api/tools/word-count', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: wordCountInput })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to count words');
-      }
-
-      wordCountStats = data;
-    } catch (err) {
-      error = err.message;
-    } finally {
-      loading = false;
+    
+    if (!wordCountInput) {
+      wordCountStats = null;
+      return;
     }
+
+    const trimmedText = wordCountInput.trim();
+    const words = trimmedText.split(/\s+/).filter((word) => word.length > 0).length;
+    const characters = wordCountInput.length;
+    const charactersNoSpaces = wordCountInput.replace(/\s/g, '').length;
+    const paragraphs = trimmedText.split(/\n\s*\n/).filter((para) => para.trim().length > 0).length;
+    const sentences = trimmedText.split(/[.!?]+(?:\s|$)/).filter((sentence) => sentence.trim().length > 0).length;
+
+    wordCountStats = {
+      words,
+      characters,
+      charactersNoSpaces,
+      paragraphs,
+      sentences
+    };
   }
 
   async function handleFactor() {
@@ -160,9 +163,27 @@
     }
   }
 
+  function handlePdfFileChange(event) {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (!file.name.toLowerCase().endsWith('.pdf')) {
+        error = 'Please select a PDF file';
+        pdfFile = null;
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        error = 'File size must be less than 10MB';
+        pdfFile = null;
+        return;
+      }
+      pdfFile = file;
+      error = '';
+    }
+  }
+
   async function handleSummarize() {
-    if (!summarizerInput.trim()) {
-      error = 'Please enter text to summarize';
+    if (!pdfFile) {
+      error = 'Please select a PDF file';
       return;
     }
 
@@ -171,16 +192,18 @@
     summarizerOutput = '';
 
     try {
+      const formData = new FormData();
+      formData.append('file', pdfFile);
+
       const response = await fetch('/api/tools/summarize', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: summarizerInput })
+        body: formData
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to summarize text');
+        throw new Error(data.error || 'Failed to summarize PDF');
       }
 
       summarizerOutput = data.summary;
@@ -429,15 +452,21 @@
     {:else if activeTab === 'summarizer'}
       <div class="tool-section">
         <h2>PDF Summarizer</h2>
-        <p>Summarize long text content quickly and accurately.</p>
-        <textarea
-          bind:value={summarizerInput}
-          placeholder="Paste your text here to summarize..."
-          rows="10"
-          maxlength="10000"
-        ></textarea>
-        <button on:click={handleSummarize} disabled={loading}>
-          {loading ? 'Summarizing...' : 'Summarize'}
+        <p>Upload a PDF file to get an AI-powered summary.</p>
+        <div class="file-upload">
+          <input
+            type="file"
+            accept=".pdf"
+            on:change={handlePdfFileChange}
+            bind:this={pdfFileInput}
+            id="pdf-upload"
+          />
+          <label for="pdf-upload" class="file-label">
+            {pdfFile ? pdfFile.name : 'Choose PDF file (max 10MB)'}
+          </label>
+        </div>
+        <button on:click={handleSummarize} disabled={loading || !pdfFile}>
+          {loading ? 'Summarizing...' : 'Summarize PDF'}
         </button>
         {#if summarizerOutput}
           <div class="result">
@@ -619,9 +648,10 @@
 
   .success {
     background: var(--color-success);
-    color: white;
+    color: #0A3D1F;
     padding: var(--spacing-md);
     border-radius: var(--radius-md);
+    font-weight: 500;
   }
 
   .tool-section {
@@ -662,6 +692,30 @@
     min-height: 150px;
   }
 
+  .file-upload {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .file-upload input[type='file'] {
+    display: none;
+  }
+
+  .file-label {
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--color-surface);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    color: var(--color-text);
+  }
+
+  .file-label:hover {
+    border-color: var(--color-primary);
+    background: var(--color-surface-hover);
+  }
+
   button {
     padding: var(--spacing-md) var(--spacing-xl);
     background: var(--color-primary);
@@ -674,7 +728,7 @@
   }
 
   button:hover:not(:disabled) {
-    background: var(--color-primary-dark);
+    background: var(--color-primary-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
   }

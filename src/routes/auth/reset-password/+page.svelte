@@ -5,6 +5,7 @@
    * Password reset request page using AuthForm component.
    */
 
+  import { goto } from '$app/navigation';
   import AuthForm from '$lib/components/AuthForm.svelte';
 
   async function handleResetPassword({ email }) {
@@ -19,9 +20,13 @@
     const data = await response.json();
 
     if (data.success) {
+      setTimeout(() => {
+        goto('/auth/login');
+      }, 2000);
+      
       return {
         success: true,
-        message: 'Password reset email sent! Please check your inbox.'
+        message: 'Password reset email sent! Check your inbox.'
       };
     }
 
@@ -36,10 +41,10 @@
   <title>Reset Password - HireTestTakers</title>
 </svelte:head>
 
-<div class="reset-password-page">
+<div class="reset-page">
   <div class="container">
-    <h1>Reset Your Password</h1>
-    <p class="subtitle">Enter your email address and we'll send you a link to reset your password</p>
+    <h1>Reset Password</h1>
+    <p class="subtitle">Enter your email to receive a password reset link</p>
 
     <AuthForm
       type="reset"
@@ -64,55 +69,68 @@
 </div>
 
 <style>
-  .reset-password-page {
+  .reset-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f9fafb;
-    padding: 2rem;
+    background-color: var(--color-bg);
+    padding: var(--spacing-xl);
   }
 
   .container {
     width: 100%;
     max-width: 500px;
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
+    border: 1px solid var(--color-border);
   }
 
   h1 {
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    color: #111827;
-    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
   }
 
   .subtitle {
     text-align: center;
-    color: #6b7280;
-    margin-bottom: 2rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
   }
 
   .footer-links {
-    margin-top: 1.5rem;
+    margin-top: var(--spacing-lg);
     text-align: center;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
 
   .footer-links p {
-    margin: 0.5rem 0;
+    margin: var(--spacing-sm) 0;
   }
 
   .footer-links a {
-    color: #3b82f6;
+    color: var(--color-primary);
     text-decoration: none;
     font-weight: 500;
+    transition: color var(--transition-base);
   }
 
   .footer-links a:hover {
+    color: var(--color-primary-hover);
     text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .reset-page {
+      padding: var(--spacing-md);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
   }
 </style>

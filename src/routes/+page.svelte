@@ -55,7 +55,7 @@
     
     <section class="free-tools">
       <h3>Free AI-Powered Tools</h3>
-      <p>Access 20+ free tools to help with your studies</p>
+      <p>Access 8+ free tools to help with your studies</p>
       <a href="/tools" class="btn btn-outline">Explore Tools</a>
     </section>
   </main>
@@ -69,122 +69,183 @@
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: var(--spacing-xl);
   }
   
   header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-2xl);
   }
   
   h1 {
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
   }
   
   .tagline {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--color-text-secondary);
   }
   
   .hero {
     text-align: center;
-    padding: 3rem 0;
+    padding: var(--spacing-2xl) 0;
   }
   
   .hero h2 {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+  }
+
+  .hero p {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
   }
   
   .cta-buttons {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
   }
   
   .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: all var(--transition-base);
+    display: inline-block;
   }
   
   .btn-primary {
-    background: #3b82f6;
+    background: var(--color-primary);
     color: white;
   }
   
   .btn-primary:hover {
-    background: #2563eb;
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
   
   .btn-secondary {
-    background: #6b7280;
-    color: white;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
   }
   
   .btn-secondary:hover {
-    background: #4b5563;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-surface-hover);
   }
   
   .btn-outline {
-    border: 2px solid #3b82f6;
-    color: #3b82f6;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
     background: transparent;
   }
   
   .btn-outline:hover {
-    background: #3b82f6;
+    background: var(--color-primary);
     color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
   
   .features {
-    margin: 4rem 0;
+    margin: var(--spacing-2xl) 0;
   }
   
   .features h3 {
     text-align: center;
     font-size: 1.8rem;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-text);
   }
   
   .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    gap: var(--spacing-xl);
   }
   
   .feature {
-    padding: 1.5rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
+    padding: var(--spacing-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    transition: all var(--transition-base);
+  }
+
+  .feature:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
   }
   
   .feature h4 {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+    font-size: 1.2rem;
+  }
+
+  .feature p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
   }
   
   .free-tools {
     text-align: center;
-    padding: 3rem;
-    background: #f9fafb;
-    border-radius: 0.5rem;
-    margin: 3rem 0;
+    padding: var(--spacing-2xl);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-2xl) 0;
   }
   
   .free-tools h3 {
     font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+  }
+
+  .free-tools p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.1rem;
   }
   
   footer {
     text-align: center;
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e5e7eb;
-    color: #6b7280;
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .hero h2 {
+      font-size: 1.5rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

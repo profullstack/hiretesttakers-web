@@ -20,14 +20,14 @@
     const data = await response.json();
 
     if (data.success) {
-      // Redirect to home or dashboard after successful signup
+      // Redirect to login or home after successful signup
       setTimeout(() => {
-        goto('/');
+        goto('/auth/login');
       }, 1500);
       
       return {
         success: true,
-        message: 'Account created successfully! Please check your email to verify your account.'
+        message: 'Account created successfully! Redirecting to login...'
       };
     }
 
@@ -44,8 +44,8 @@
 
 <div class="signup-page">
   <div class="container">
-    <h1>Create Your Account</h1>
-    <p class="subtitle">Join HireTestTakers to start hiring or earning</p>
+    <h1>Create Account</h1>
+    <p class="subtitle">Join HireTestTakers and start earning or hiring today</p>
 
     <AuthForm
       type="signup"
@@ -71,46 +71,63 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f9fafb;
-    padding: 2rem;
+    background-color: var(--color-bg);
+    padding: var(--spacing-xl);
   }
 
   .container {
     width: 100%;
     max-width: 500px;
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
+    border: 1px solid var(--color-border);
   }
 
   h1 {
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    color: #111827;
-    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
   }
 
   .subtitle {
     text-align: center;
-    color: #6b7280;
-    margin-bottom: 2rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
   }
 
   .footer-links {
-    margin-top: 1.5rem;
+    margin-top: var(--spacing-lg);
     text-align: center;
-    color: #6b7280;
+    color: var(--color-text-secondary);
+  }
+
+  .footer-links p {
+    margin: var(--spacing-sm) 0;
   }
 
   .footer-links a {
-    color: #3b82f6;
+    color: var(--color-primary);
     text-decoration: none;
     font-weight: 500;
+    transition: color var(--transition-base);
   }
 
   .footer-links a:hover {
+    color: var(--color-primary-hover);
     text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .signup-page {
+      padding: var(--spacing-md);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
   }
 </style>

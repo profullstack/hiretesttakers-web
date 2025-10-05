@@ -6,6 +6,7 @@
   import { theme } from '$lib/stores/theme';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
+  import Footer from '$lib/components/Footer.svelte';
   
   // Initialize i18n
   initI18n();
@@ -42,6 +43,8 @@
   <main class="main">
     <slot />
   </main>
+  
+  <Footer />
 </div>
 
 <style>
