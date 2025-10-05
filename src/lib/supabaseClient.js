@@ -60,3 +60,6 @@ export function getSupabaseClient() {
 export function resetSupabaseClient() {
   supabaseInstance = null;
 }
+
+// Default export for convenience
+export const supabase = getSupabaseClient();
