@@ -42,8 +42,8 @@
   <header class="header">
     <div class="header-content">
       <a href="/" class="logo">
-        <img src="/logo.white.svg" alt="HireTestTakers" class="logo-light" />
-        <img src="/logo.black.svg" alt="HireTestTakers" class="logo-dark" />
+        <img src="/logo.black.svg" alt="HireTestTakers" class="logo-light" />
+        <img src="/logo.white.svg" alt="HireTestTakers" class="logo-dark" />
       </a>
       <nav class="nav">
         <a href="/">Home</a>
@@ -104,7 +104,7 @@
   .logo {
     display: flex;
     align-items: center;
-    height: 40px;
+    height: 80px;
     text-decoration: none;
     margin: 0;
   }
@@ -112,7 +112,7 @@
   .logo img {
     height: 100%;
     width: auto;
-    max-width: 200px;
+    max-width: 400px;
     object-fit: contain;
   }
 
