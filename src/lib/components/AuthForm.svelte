@@ -160,8 +160,8 @@
 
   input:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--color-primary, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
   }
 
   input:disabled {
@@ -181,12 +181,12 @@
   }
 
   .btn-primary {
-    background-color: #3b82f6;
+    background-color: var(--color-primary, #007bff);
     color: white;
   }
 
   .btn-primary:hover:not(:disabled) {
-    background-color: #2563eb;
+    background-color: var(--color-primary-hover, #0056b3);
   }
 
   .btn:disabled {
