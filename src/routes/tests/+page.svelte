@@ -1,185 +1,326 @@
 <script>
-  import { onMount } from 'svelte';
-  import TestCard from '$lib/components/TestCard.svelte';
-  import TestFilters from '$lib/components/TestFilters.svelte';
-
-  let tests = [];
-  let loading = true;
-  let error = '';
-  let filters = {
-    status: 'open',
-    cryptocurrency: '',
-    category: '',
-    difficulty: '',
-    search: ''
-  };
-
-  async function loadTests() {
-    loading = true;
-    error = '';
-
-    try {
-      const params = new URLSearchParams();
-      
-      if (filters.search) {
-        params.append('q', filters.search);
-      }
-      if (filters.status) {
-        params.append('status', filters.status);
-      }
-      if (filters.cryptocurrency) {
-        params.append('cryptocurrency', filters.cryptocurrency);
-      }
-      if (filters.category) {
-        params.append('category', filters.category);
-      }
-      if (filters.difficulty) {
-        params.append('difficulty', filters.difficulty);
-      }
-
-      const response = await fetch(`/api/tests?${params.toString()}`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to load tests');
-      }
-
-      tests = data.tests;
-    } catch (err) {
-      error = err.message;
-    } finally {
-      loading = false;
+  const features = [
+    {
+      title: 'Verified Test Takers',
+      description: 'All test takers are verified and rated by the community',
+      icon: '✓'
+    },
+    {
+      title: 'Secure Payments',
+      description: 'Cryptocurrency payments with escrow protection',
+      icon: '🔒'
+    },
+    {
+      title: 'Reputation System',
+      description: 'Browse leaderboards and hire top-rated professionals',
+      icon: '⭐'
+    },
+    {
+      title: 'Multiple Categories',
+      description: 'Academic tests, certifications, entrance exams, and more',
+      icon: '📚'
+    },
+    {
+      title: 'Quality Guarantee',
+      description: 'Money-back guarantee if not satisfied with results',
+      icon: '💯'
+    },
+    {
+      title: '24/7 Support',
+      description: 'Round-the-clock customer support for all users',
+      icon: '🎧'
     }
-  }
+  ];
 
-  function handleFilterChange(event) {
-    filters = event.detail;
-    loadTests();
-  }
-
-  onMount(() => {
-    loadTests();
-  });
+  const howItWorks = [
+    {
+      step: '1',
+      title: 'Post Your Test',
+      description: 'Create a listing with test details, requirements, and payment offer'
+    },
+    {
+      step: '2',
+      title: 'Review Applications',
+      description: 'Browse qualified test takers and review their profiles and ratings'
+    },
+    {
+      step: '3',
+      title: 'Select & Pay',
+      description: 'Choose your test taker and make a secure cryptocurrency payment'
+    },
+    {
+      step: '4',
+      title: 'Get Results',
+      description: 'Receive your test results and rate your experience'
+    }
+  ];
 </script>
 
 <svelte:head>
-  <title>Browse Tests - HireTestTakers</title>
+  <title>Professional Test Taking Services - HireTestTakers</title>
+  <meta name="description" content="Hire verified professional test takers for academic tests, certifications, and entrance exams. Secure payments, reputation system, and quality guarantee." />
 </svelte:head>
 
 <div class="container">
-  <header class="page-header">
-    <h1>Browse Tests</h1>
-    <a href="/tests/new" class="btn-primary">Post a Test</a>
-  </header>
-
-  <TestFilters {filters} on:change={handleFilterChange} />
-
-  {#if loading}
-    <div class="loading">Loading tests...</div>
-  {:else if error}
-    <div class="error">{error}</div>
-  {:else if tests.length === 0}
-    <div class="empty-state">
-      <p>No tests found matching your criteria.</p>
-      <p>Try adjusting your filters or <a href="/tests/new">post a new test</a>.</p>
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Professional Test Taking Services</h1>
+    <p class="hero-subtitle">
+      Connect with verified test takers for academic tests, certifications, and entrance exams
+    </p>
+    <div class="hero-buttons">
+      <a href="/browse-tests" class="btn btn-primary">Browse Available Tests</a>
+      <a href="/leaderboard" class="btn btn-secondary">View Leaderboard</a>
     </div>
-  {:else}
-    <div class="tests-grid">
-      {#each tests as test (test.id)}
-        <TestCard {test} />
+  </div>
+
+  <!-- Features Grid -->
+  <div class="section">
+    <h2 class="section-title">Why Choose Our Platform?</h2>
+    <div class="features-grid">
+      {#each features as feature}
+        <div class="feature-card">
+          <div class="feature-icon">{feature.icon}</div>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>
       {/each}
     </div>
-  {/if}
+  </div>
+
+  <!-- How It Works -->
+  <div class="section how-it-works">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps-grid">
+      {#each howItWorks as item}
+        <div class="step-card">
+          <div class="step-number">{item.step}</div>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </div>
+      {/each}
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="cta-section">
+    <h2>Ready to Get Started?</h2>
+    <p>Join thousands of students and professionals using our platform</p>
+    <div class="cta-buttons">
+      <a href="/auth/signup" class="btn btn-primary">Sign Up Free</a>
+      <a href="/browse-tests" class="btn btn-secondary">Browse Tests</a>
+    </div>
+  </div>
 </div>
 
 <style>
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: var(--spacing-xl) var(--spacing-md);
   }
 
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+  .hero {
+    text-align: center;
+    padding: var(--spacing-2xl) 0;
+    margin-bottom: var(--spacing-2xl);
   }
 
   h1 {
-    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .section {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .section-title {
+    text-align: center;
     font-size: 2rem;
     font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .feature-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all var(--transition-base);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .feature-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .how-it-works {
+    background: var(--color-bg-secondary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .step-card {
+    text-align: center;
+  }
+
+  .step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto var(--spacing-md);
+  }
+
+  .step-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .step-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .cta-section {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-2xl);
+  }
+
+  .cta-section h2 {
+    font-size: 2rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .cta-section p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.1rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-base);
+    display: inline-block;
   }
 
   .btn-primary {
-    padding: 0.75rem 1.5rem;
-    background: #007bff;
+    background: var(--color-primary);
     color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: background-color 0.2s;
   }
 
   .btn-primary:hover {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 
-  .loading,
-  .error,
-  .empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
+  .btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
   }
 
-  .loading {
-    color: #666;
+  .btn-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
-  .error {
-    color: #dc3545;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-  }
-
-  .empty-state {
-    color: #666;
-  }
-
-  .empty-state p {
-    margin: 0.5rem 0;
-  }
-
-  .empty-state a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  .empty-state a:hover {
-    text-decoration: underline;
-  }
-
-  .tests-grid {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 640px) {
-    .container {
-      padding: 1rem;
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
     }
 
-    .page-header {
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .features-grid,
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons,
+    .hero-buttons {
       flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
     }
 
-    .btn-primary {
+    .btn {
       width: 100%;
-      text-align: center;
     }
   }
 </style>
