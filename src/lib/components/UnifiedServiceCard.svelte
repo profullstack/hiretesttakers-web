@@ -46,7 +46,7 @@
       homework: `/homework/${id}`,
       programming: `/programming/${id}`,
       assignment: `/assignments/${id}`,
-      test: `/tests/${id}`
+      test: `/browse-tests//${id}`
     };
     return links[service_type] || '#';
   };

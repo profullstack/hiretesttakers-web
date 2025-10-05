@@ -80,7 +80,7 @@
   {:else}
     <div class="tests-grid">
       {#each tests as test (test.id)}
-        <TestCard {test} />
+        <TestCard {test} showEditIcon={true} />
       {/each}
     </div>
   {/if}
@@ -91,6 +91,8 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem;
+    background: var(--color-bg);
+    min-height: calc(100vh - 200px);
   }
 
   .page-header {
@@ -104,50 +106,70 @@
     margin: 0;
     font-size: 2rem;
     font-weight: 700;
+    color: var(--color-text);
   }
 
   .btn-primary {
-    padding: 0.75rem 1.5rem;
-    background: #007bff;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--color-primary);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     font-weight: 500;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .btn-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .btn-primary:hover {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
   }
 
   .filter-bar {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-md);
     margin-bottom: 2rem;
-    padding: 1rem;
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    padding: var(--spacing-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
   }
 
   .filter-bar label {
     font-weight: 500;
-    color: #333;
+    color: var(--color-text);
   }
 
   .filter-bar select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     font-size: 1rem;
-    background: white;
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
+    transition: border-color var(--transition-fast);
   }
 
   .filter-bar select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
+  }
+
+  :global(.dark) .filter-bar select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2);
   }
 
   .loading,
@@ -158,18 +180,23 @@
   }
 
   .loading {
-    color: #666;
+    color: var(--color-text-secondary);
   }
 
   .error {
-    color: #dc3545;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
+    color: var(--color-error-dark);
+    background: var(--color-error-light);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
+  }
+
+  :global(.dark) .error {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--color-error-light);
   }
 
   .empty-state {
-    color: #666;
+    color: var(--color-text-secondary);
   }
 
   .empty-state p {
@@ -177,7 +204,7 @@
   }
 
   .empty-state a {
-    color: #007bff;
+    color: var(--color-primary);
     text-decoration: none;
   }
 
@@ -187,7 +214,7 @@
 
   .tests-grid {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--spacing-lg);
   }
 
   @media (max-width: 640px) {

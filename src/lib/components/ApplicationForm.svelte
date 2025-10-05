@@ -75,7 +75,7 @@
   </div>
 
   <div class="button-group">
-    <button type="submit" class="btn btn-primary" disabled={loading}>
+    <button type="submit" class="btn btn-success" disabled={loading}>
       {loading ? 'Submitting...' : 'Submit Application'}
     </button>
     
@@ -95,77 +95,99 @@
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
   }
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
     font-weight: 500;
-    color: #374151;
+    color: var(--color-text);
   }
 
   textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-family: inherit;
+    background: var(--color-surface);
+    color: var(--color-text);
     resize: vertical;
-    transition: border-color 0.2s;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   }
 
   textarea:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
+  }
+
+  :global(.dark) textarea:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2);
   }
 
   textarea:disabled {
-    background-color: #f3f4f6;
+    background-color: var(--color-bg-secondary);
     cursor: not-allowed;
+    opacity: 0.6;
   }
 
   .help-text {
     display: block;
-    margin-top: 0.25rem;
+    margin-top: var(--spacing-xs);
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
 
   .button-group {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
 
   .btn {
     flex: 1;
-    padding: 0.75rem;
+    padding: var(--spacing-md) var(--spacing-lg);
     border: none;
-    border-radius: 0.375rem;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
   }
 
-  .btn-primary {
-    background-color: #3b82f6;
+  .btn-success {
+    background: var(--color-success);
     color: white;
   }
 
-  .btn-primary:hover:not(:disabled) {
-    background-color: #2563eb;
+  .btn-success:hover:not(:disabled) {
+    background: var(--color-success-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .btn-success {
+    box-shadow: var(--glow-success);
+  }
+
+  :global(.dark) .btn-success:hover:not(:disabled) {
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6), 0 0 30px rgba(0, 255, 136, 0.4);
   }
 
   .btn-secondary {
-    background-color: #6b7280;
-    color: white;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background-color: #4b5563;
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .btn:disabled {
@@ -174,20 +196,31 @@
   }
 
   .alert {
-    padding: 0.75rem;
-    border-radius: 0.375rem;
-    margin-bottom: 1rem;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+    border: 1px solid transparent;
   }
 
   .alert-error {
-    background-color: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
+    background: var(--color-error-light);
+    color: var(--color-error-dark);
+    border-color: var(--color-error);
+  }
+
+  :global(.dark) .alert-error {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--color-error-light);
   }
 
   .alert-success {
-    background-color: #d1fae5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+    border-color: var(--color-success);
+  }
+
+  :global(.dark) .alert-success {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--color-success-light);
   }
 </style>

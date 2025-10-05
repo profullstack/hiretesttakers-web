@@ -28,7 +28,7 @@
   }
 
   function handleViewApplication(application) {
-    goto(`/tests/${application.test_id}`);
+    goto(`/browse-tests/${application.test_id}`);
   }
 
   onMount(() => {

@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 
   export let test;
+  export let showEditIcon = false;
 
   let usdValue = 0;
   let usdValueMax = 0;
@@ -103,6 +104,9 @@
   <div class="test-header">
     <h3>
       <a href="/browse-tests/{test.id}">{test.title}</a>
+      {#if showEditIcon}
+        <a href="/browse-tests/{test.id}/edit" class="edit-icon" title="Edit test">✏️</a>
+      {/if}
     </h3>
     <span class="status {getStatusClass(test.status)}">
       {getStatusLabel(test.status)}
@@ -195,6 +199,9 @@
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
   }
 
   h3 a {
@@ -205,6 +212,17 @@
 
   h3 a:hover {
     color: var(--color-primary);
+  }
+
+  .edit-icon {
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  .edit-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
   }
 
   .status {

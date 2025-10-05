@@ -174,6 +174,15 @@
     <div class="error">{error}</div>
   {:else if test}
     <article class="test-details">
+      {#if isOwner}
+        <nav class="tab-nav">
+          <a href="/browse-tests/{test.id}" class="tab-link active">View</a>
+          <a href="/browse-tests/{test.id}/edit" class="tab-link">Edit</a>
+          <a href="/browse-tests/{test.id}/applicants" class="tab-link">Applicants</a>
+          <button on:click={handleDelete} class="tab-delete">Delete Test</button>
+        </nav>
+      {/if}
+
       <header class="test-header">
         <div class="header-content">
           <h1>{test.title}</h1>
@@ -181,13 +190,6 @@
             {getStatusLabel(test.status)}
           </span>
         </div>
-        {#if isOwner}
-          <div class="actions">
-            <a href="/browse-tests/{test.id}/edit" class="btn-secondary">Edit Test</a>
-            <a href="/browse-tests/{test.id}/applicants" class="btn-primary">View Applicants</a>
-            <button on:click={handleDelete} class="btn-danger">Delete</button>
-          </div>
-        {/if}
       </header>
 
       <div class="test-meta">
@@ -299,6 +301,68 @@
     border-radius: var(--radius-lg);
     padding: 2rem;
     box-shadow: var(--shadow-sm);
+  }
+
+  .tab-nav {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-sm);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .tab-link {
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all var(--transition-base);
+  }
+
+  .tab-link:hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+  }
+
+  .tab-link.active {
+    color: white;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  :global(.dark) .tab-link.active {
+    box-shadow: var(--glow-primary);
+  }
+
+  .tab-delete {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+
+  .tab-delete:hover {
+    background: var(--color-error-dark);
+  }
+
+  :global(.dark) .tab-delete {
+    box-shadow: var(--glow-error);
+  }
+
+  :global(.dark) .tab-delete:hover {
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6), 0 0 30px rgba(255, 0, 85, 0.4);
   }
 
   .test-header {

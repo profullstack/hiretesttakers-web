@@ -158,8 +158,8 @@
 * `/src/lib/components/Footer.svelte`
 * `/src/lib/stores/theme.js`
 * `/src/lib/i18n/index.js`, `/src/lib/i18n/{en,ar,zh,ja,es,de}.json`
-* `/tests/unit/*` (Vitest)
-* `/tests/e2e/*` (Playwright)
+* `/browse-tests//unit/*` (Vitest)
+* `/browse-tests//e2e/*` (Playwright)
 * `/docs/{color-palette.png,architecture.md,decisions.md}`
 
 ## Commands

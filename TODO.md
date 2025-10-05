@@ -169,11 +169,11 @@ This document tracks all development tasks for the HireTestTakers.com platform. 
 ## Phase 4: Test Listing Management
 
 ### 4.1 Test Listing Pages
-- [ ] Create `/tests` page (browse all tests)
-- [ ] Create `/tests/new` page (create test)
-- [ ] Create `/tests/[id]` page (view test details)
-- [ ] Create `/tests/[id]/edit` page (edit test)
-- [ ] Create `/tests/my-tests` page (hirer's tests)
+- [ ] Create `/browse-tests/` page (browse all tests)
+- [ ] Create `/browse-tests//new` page (create test)
+- [ ] Create `/browse-tests//[id]` page (view test details)
+- [ ] Create `/browse-tests//[id]/edit` page (edit test)
+- [ ] Create `/browse-tests//my-tests` page (hirer's tests)
 
 ### 4.2 Test CRUD Operations
 - [ ] Create API endpoint: POST `/api/tests` (create)
@@ -211,9 +211,9 @@ This document tracks all development tasks for the HireTestTakers.com platform. 
 ## Phase 5: Application System
 
 ### 5.1 Application Pages
-- [ ] Create `/tests/[id]/apply` page
+- [ ] Create `/browse-tests//[id]/apply` page
 - [ ] Create `/applications` page (test taker's applications)
-- [ ] Create `/tests/[id]/applicants` page (hirer's view)
+- [ ] Create `/browse-tests//[id]/applicants` page (hirer's view)
 - [ ] Create `/applications/[id]` page (application details)
 
 ### 5.2 Application API Endpoints
