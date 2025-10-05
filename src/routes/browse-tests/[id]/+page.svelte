@@ -229,33 +229,6 @@
           <h2>Attached Files</h2>
           <div class="attachments-grid">
             {#each attachments as attachment}
-              <button 
-                class="attachment-card"
-                on:click={() => downloadAttachment(attachment)}
-                title="Click to download {attachment.file_name}"
-              >
-                <div class="attachment-icon">
-                  {getFileIcon(attachment.file_type)}
-                </div>
-                <div class="attachment-info">
-                  <div class="attachment-name">{attachment.file_name}</div>
-                  {#if attachment.file_size}
-                    <div class="attachment-size">{formatFileSize(attachment.file_size)}</div>
-                  {/if}
-                </div>
-                <div class="download-icon">⬇️</div>
-              </button>
-            {/each}
-          </div>
-        </section>
-      {/if}
-
-
-      {#if attachments.length > 0}
-        <section class="attachments-section">
-          <h2>Attached Files</h2>
-          <div class="attachments-grid">
-            {#each attachments as attachment}
               <button
                 class="attachment-card"
                 on:click={() => downloadAttachment(attachment)}
@@ -291,32 +264,40 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem 1rem;
+    background: var(--color-bg);
+    min-height: calc(100vh - 200px);
   }
 
   .loading,
   .error {
     text-align: center;
     padding: 3rem 1rem;
+    font-size: 1.125rem;
+  }
+
+  .loading {
+    color: var(--color-text-secondary);
   }
 
   .error {
-    color: #dc3545;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
+    color: var(--color-error-dark);
+    background: var(--color-error-light);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
   }
 
   .test-details {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: 2rem;
+    box-shadow: var(--shadow-sm);
   }
 
   .test-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid var(--color-border);
   }
 
   .header-content {
@@ -331,35 +312,35 @@
     margin: 0;
     font-size: 2rem;
     font-weight: 700;
-    color: #333;
+    color: var(--color-text);
   }
 
   .status {
     padding: 0.5rem 1rem;
-    border-radius: 12px;
+    border-radius: var(--radius-full);
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
   }
 
   .status-open {
-    background: #d4edda;
-    color: #155724;
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
   }
 
   .status-in-progress {
-    background: #fff3cd;
-    color: #856404;
+    background: var(--color-warning-light);
+    color: var(--color-warning-dark);
   }
 
   .status-completed {
-    background: #d1ecf1;
-    color: #0c5460;
+    background: var(--color-info-light);
+    color: var(--color-info-dark);
   }
 
   .status-cancelled {
-    background: #f8d7da;
-    color: #721c24;
+    background: var(--color-error-light);
+    color: var(--color-error-dark);
   }
 
   .actions {
@@ -372,11 +353,11 @@
     gap: 2rem;
     margin-bottom: 2rem;
     font-size: 0.875rem;
-    color: #666;
+    color: var(--color-text-secondary);
   }
 
   .meta-item strong {
-    color: #333;
+    color: var(--color-text);
   }
 
   section {
@@ -387,27 +368,33 @@
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
   }
 
   .description p {
     margin: 0;
     line-height: 1.6;
-    color: #666;
+    color: var(--color-text-secondary);
     white-space: pre-wrap;
   }
 
   .price-info {
-    background: #f8f9fa;
+    background: var(--color-bg);
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
   }
 
   .crypto-price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #007bff;
+    color: var(--color-primary);
     margin-bottom: 0.5rem;
+  }
+
+  .usd-price {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
   }
 
   .attachments-section {
@@ -480,127 +467,59 @@
     opacity: 1;
   }
 
-  .usd-price {
-    font-size: 1.125rem;
-    color: #666;
-  }
-
   .apply-section {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 2px solid #e0e0e0;
+    border-top: 2px solid var(--color-border);
     text-align: center;
   }
 
   .btn-primary,
   .btn-secondary,
   .btn-danger {
-    padding: 0.75rem 1.5rem;
+    padding: var(--spacing-md) var(--spacing-xl);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
     display: inline-block;
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary {
-    background: #007bff;
+    background: var(--color-primary);
     color: white;
   }
 
   .btn-primary:hover {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .btn-secondary {
-    background: #6c757d;
+    background: var(--color-secondary);
     color: white;
   }
 
   .btn-secondary:hover {
-    background: #545b62;
+    background: var(--color-secondary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .btn-danger {
-    background: #dc3545;
+    background: var(--color-error);
     color: white;
   }
 
   .btn-danger:hover {
-    background: #c82333;
-  }
-
-  .attachments-section {
-    margin-bottom: 2rem;
-  }
-
-  .attachments-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: var(--spacing-md);
-  }
-
-  .attachment-card {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--transition-base);
-    text-align: left;
-    width: 100%;
-  }
-
-  .attachment-card:hover {
-    background: var(--color-surface-hover);
-    border-color: var(--color-primary);
+    background: var(--color-error-dark);
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-
-  :global(.dark) .attachment-card:hover {
-    box-shadow: var(--glow-primary);
-  }
-
-  .attachment-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-  }
-
-  .attachment-info {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .attachment-name {
-    font-weight: 500;
-    color: var(--color-text);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .attachment-size {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .download-icon {
-    font-size: 1.25rem;
-    flex-shrink: 0;
-    opacity: 0.6;
-    transition: opacity var(--transition-base);
-  }
-
-  .attachment-card:hover .download-icon {
-    opacity: 1;
+    transform: translateY(-1px);
   }
 
   @media (max-width: 640px) {

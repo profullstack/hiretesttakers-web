@@ -143,12 +143,14 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem;
+    background: var(--color-bg);
+    min-height: calc(100vh - 200px);
   }
 
   .page-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid var(--color-border);
   }
 
   .header-content {
@@ -162,41 +164,41 @@
     margin: 0;
     font-size: 2rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--color-text);
   }
 
   .back-link {
-    color: #3b82f6;
+    color: var(--color-primary);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s;
+    transition: color var(--transition-base);
   }
 
   .back-link:hover {
-    color: #2563eb;
+    color: var(--color-primary-hover);
   }
 
   .test-title {
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
 
   .loading {
     text-align: center;
     padding: 3rem 1rem;
     font-size: 1.125rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
 
   .error-box {
     text-align: center;
     padding: 2rem;
-    background: #fee2e2;
-    border: 1px solid #fecaca;
-    border-radius: 0.5rem;
-    color: #991b1b;
+    background: var(--color-error-light);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
+    color: var(--color-error-dark);
   }
 
   .error-box p {
@@ -206,33 +208,38 @@
 
   .btn-secondary,
   .btn-primary {
-    padding: 0.75rem 1.5rem;
+    padding: var(--spacing-md) var(--spacing-xl);
     border: none;
-    border-radius: 0.375rem;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
     display: inline-block;
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary {
-    background-color: #3b82f6;
+    background: var(--color-primary);
     color: white;
   }
 
   .btn-primary:hover {
-    background-color: #2563eb;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .btn-secondary {
-    background-color: #6b7280;
+    background: var(--color-secondary);
     color: white;
   }
 
   .btn-secondary:hover {
-    background-color: #4b5563;
+    background: var(--color-secondary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .stats-bar {
@@ -240,9 +247,11 @@
     gap: 1rem;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: #f9fafb;
-    border-radius: 0.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
   }
 
   .stat-item {
@@ -254,7 +263,7 @@
   .stat-label {
     display: block;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
     margin-bottom: 0.5rem;
   }
 
@@ -262,44 +271,44 @@
     display: block;
     font-size: 2rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--color-text);
   }
 
   .stat-pending {
-    color: #f59e0b;
+    color: var(--color-warning);
   }
 
   .stat-approved {
-    color: #3b82f6;
+    color: var(--color-info);
   }
 
   .stat-hired {
-    color: #10b981;
+    color: var(--color-success);
   }
 
   .stat-rejected {
-    color: #ef4444;
+    color: var(--color-error);
   }
 
   .empty-state {
     text-align: center;
     padding: 4rem 2rem;
-    background: #f9fafb;
-    border: 2px dashed #d1d5db;
-    border-radius: 0.5rem;
+    background: var(--color-surface);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
   }
 
   .empty-state h3 {
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #374151;
+    color: var(--color-text);
   }
 
   .empty-state p {
     margin: 0 0 1.5rem 0;
     font-size: 1.125rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
 
   .applicants-list {

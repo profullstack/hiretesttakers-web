@@ -11,7 +11,7 @@ import { getPublicProfile } from '$lib/services/profile.js';
  * GET /api/profile/public/[username]
  * Get public profile by username
  */
-export async function GET({ params }) {
+export async function GET({ params, locals }) {
   try {
     const { username } = params;
 
@@ -19,7 +19,7 @@ export async function GET({ params }) {
       return json({ error: 'Username is required' }, { status: 400 });
     }
 
-    const profile = await getPublicProfile(username);
+    const profile = await getPublicProfile(username, locals.supabase);
 
     if (!profile) {
       return json({ error: 'Profile not found or not public' }, { status: 404 });

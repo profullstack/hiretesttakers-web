@@ -11,15 +11,16 @@ const VALID_STATUSES = ['pending', 'approved', 'rejected', 'hired'];
 
 /**
  * Create a new application
- * 
+ *
  * @param {Object} params - Application parameters
  * @param {string} params.test_id - Test ID
  * @param {string} params.test_taker_id - Test taker user ID
  * @param {string} [params.application_message] - Optional application message
+ * @param {Object} [params.supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object>} Created application
  * @throws {Error} If validation fails or creation fails
  */
-export async function createApplication({ test_id, test_taker_id, application_message }) {
+export async function createApplication({ test_id, test_taker_id, application_message, supabase }) {
   if (!test_id || test_id.trim() === '') {
     throw new Error('Test ID is required');
   }
@@ -28,9 +29,9 @@ export async function createApplication({ test_id, test_taker_id, application_me
     throw new Error('Test taker ID is required');
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('applications')
     .insert({
       test_id,
@@ -53,19 +54,20 @@ export async function createApplication({ test_id, test_taker_id, application_me
 
 /**
  * Get application by ID
- * 
+ *
  * @param {string} id - Application ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object|null>} Application or null if not found
  * @throws {Error} If id is missing
  */
-export async function getApplicationById(id) {
+export async function getApplicationById(id, supabase) {
   if (!id || id.trim() === '') {
     throw new Error('Application ID is required');
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('applications')
     .select('*')
     .eq('id', id)
@@ -83,19 +85,20 @@ export async function getApplicationById(id) {
 
 /**
  * Get all applications for a test
- * 
+ *
  * @param {string} test_id - Test ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Array>} Array of applications
  * @throws {Error} If test_id is missing
  */
-export async function getApplicationsByTestId(test_id) {
+export async function getApplicationsByTestId(test_id, supabase) {
   if (!test_id || test_id.trim() === '') {
     throw new Error('Test ID is required');
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('applications')
     .select('*')
     .eq('test_id', test_id)
@@ -110,19 +113,20 @@ export async function getApplicationsByTestId(test_id) {
 
 /**
  * Get all applications by a user
- * 
+ *
  * @param {string} user_id - User ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Array>} Array of applications
  * @throws {Error} If user_id is missing
  */
-export async function getApplicationsByUserId(user_id) {
+export async function getApplicationsByUserId(user_id, supabase) {
   if (!user_id || user_id.trim() === '') {
     throw new Error('User ID is required');
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('applications')
     .select('*')
     .eq('test_taker_id', user_id)
@@ -137,14 +141,15 @@ export async function getApplicationsByUserId(user_id) {
 
 /**
  * Update application status
- * 
+ *
  * @param {Object} params - Update parameters
  * @param {string} params.id - Application ID
  * @param {string} params.status - New status (pending, approved, rejected, hired)
+ * @param {Object} [params.supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object>} Updated application
  * @throws {Error} If validation fails or update fails
  */
-export async function updateApplicationStatus({ id, status }) {
+export async function updateApplicationStatus({ id, status, supabase }) {
   if (!id || id.trim() === '') {
     throw new Error('Application ID is required');
   }
@@ -157,9 +162,9 @@ export async function updateApplicationStatus({ id, status }) {
     throw new Error(`Invalid status. Must be one of: ${VALID_STATUSES.join(', ')}`);
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('applications')
     .update({ status })
     .eq('id', id)
@@ -175,19 +180,20 @@ export async function updateApplicationStatus({ id, status }) {
 
 /**
  * Delete an application
- * 
+ *
  * @param {string} id - Application ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<boolean>} True if deleted, false if not found
  * @throws {Error} If id is missing or deletion fails
  */
-export async function deleteApplication(id) {
+export async function deleteApplication(id, supabase) {
   if (!id || id.trim() === '') {
     throw new Error('Application ID is required');
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
-  const { error } = await supabase
+  const { error } = await client
     .from('applications')
     .delete()
     .eq('id', id);

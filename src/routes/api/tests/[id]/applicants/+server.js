@@ -19,7 +19,7 @@ export async function GET({ params, locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const applications = await getApplicationsByTestId(params.id);
+    const applications = await getApplicationsByTestId(params.id, locals.supabase);
 
     return json({ applications });
   } catch (error) {

@@ -20,7 +20,7 @@ export async function GET({ locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const profile = await getProfile(session.user.id);
+    const profile = await getProfile(session.user.id, locals.supabase);
 
     if (!profile) {
       return json({ error: 'Profile not found' }, { status: 404 });
@@ -47,7 +47,7 @@ export async function PUT({ request, locals }) {
 
     const updates = await request.json();
 
-    const profile = await updateProfile(session.user.id, updates);
+    const profile = await updateProfile(session.user.id, updates, locals.supabase);
 
     return json({ profile });
   } catch (error) {

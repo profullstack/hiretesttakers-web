@@ -23,7 +23,7 @@ export async function GET({ locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const applications = await getApplicationsByUserId(session.user.id);
+    const applications = await getApplicationsByUserId(session.user.id, locals.supabase);
 
     return json({ applications });
   } catch (error) {
@@ -49,7 +49,8 @@ export async function POST({ request, locals }) {
     const application = await createApplication({
       test_id,
       test_taker_id: session.user.id,
-      application_message
+      application_message,
+      supabase: locals.supabase
     });
 
     return json({ application }, { status: 201 });

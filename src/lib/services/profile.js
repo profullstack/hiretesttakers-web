@@ -10,20 +10,21 @@
 
 import { getSupabaseClient } from '../supabaseClient.js';
 
-const supabase = getSupabaseClient();
-
 /**
  * Get user profile by ID
  * @param {string} userId - User ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object|null>} User profile or null
  */
-export async function getProfile(userId) {
+export async function getProfile(userId, supabase) {
   if (!userId) {
     throw new Error('User ID is required');
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from('users')
       .select('*')
       .eq('id', userId)
@@ -76,9 +77,10 @@ export async function getPublicProfile(username) {
  * Update user profile
  * @param {string} userId - User ID
  * @param {Object} updates - Profile updates
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object>} Updated profile
  */
-export async function updateProfile(userId, updates) {
+export async function updateProfile(userId, updates, supabase) {
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -95,8 +97,10 @@ export async function updateProfile(userId, updates) {
     throw new Error('Cannot update protected fields: id, email, created_at');
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from('users')
       .update(updates)
       .eq('id', userId)
@@ -117,9 +121,10 @@ export async function updateProfile(userId, updates) {
  * Upload avatar image
  * @param {string} userId - User ID
  * @param {File|Blob} file - Image file
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object>} Updated profile with avatar URL
  */
-export async function uploadAvatar(userId, file) {
+export async function uploadAvatar(userId, file, supabase) {
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -133,13 +138,15 @@ export async function uploadAvatar(userId, file) {
     throw new Error('File must be an image');
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
     // Generate unique filename
     const fileExt = file.name?.split('.').pop() || 'jpg';
     const fileName = `${userId}/${Date.now()}.${fileExt}`;
 
     // Upload to storage
-    const { error: uploadError } = await supabase.storage
+    const { error: uploadError } = await client.storage
       .from('avatars')
       .upload(fileName, file, {
         cacheControl: '3600',
@@ -151,14 +158,14 @@ export async function uploadAvatar(userId, file) {
     }
 
     // Get public URL
-    const { data: urlData } = supabase.storage
+    const { data: urlData } = client.storage
       .from('avatars')
       .getPublicUrl(fileName);
 
     const avatarUrl = urlData.publicUrl;
 
     // Update user profile with new avatar URL
-    const { data, error: updateError } = await supabase
+    const { data, error: updateError } = await client
       .from('users')
       .update({ avatar_url: avatarUrl })
       .eq('id', userId)
@@ -178,16 +185,19 @@ export async function uploadAvatar(userId, file) {
 /**
  * Delete user avatar
  * @param {string} userId - User ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<boolean>} Success status
  */
-export async function deleteAvatar(userId) {
+export async function deleteAvatar(userId, supabase) {
   if (!userId) {
     throw new Error('User ID is required');
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
     // Get current profile to find avatar path
-    const profile = await getProfile(userId);
+    const profile = await getProfile(userId, client);
     
     if (profile?.avatar_url) {
       // Extract file path from URL
@@ -198,7 +208,7 @@ export async function deleteAvatar(userId) {
         const filePath = pathParts[1];
         
         // Delete from storage
-        const { error: deleteError } = await supabase.storage
+        const { error: deleteError } = await client.storage
           .from('avatars')
           .remove([filePath]);
 
@@ -209,7 +219,7 @@ export async function deleteAvatar(userId) {
     }
 
     // Update profile to remove avatar URL
-    await supabase
+    await client
       .from('users')
       .update({ avatar_url: null })
       .eq('id', userId);
@@ -224,9 +234,10 @@ export async function deleteAvatar(userId) {
  * Update username
  * @param {string} userId - User ID
  * @param {string} username - New username
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object>} Updated profile
  */
-export async function updateUsername(userId, username) {
+export async function updateUsername(userId, username, supabase) {
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -244,16 +255,18 @@ export async function updateUsername(userId, username) {
     throw new Error('Username can only contain letters, numbers, and underscores');
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
     // Check if username is available
-    const available = await checkUsernameAvailability(username);
+    const available = await checkUsernameAvailability(username, client);
     
     if (!available) {
       throw new Error('Username is already taken');
     }
 
     // Update username
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from('users')
       .update({ username })
       .eq('id', userId)
@@ -273,9 +286,10 @@ export async function updateUsername(userId, username) {
 /**
  * Check if username is available
  * @param {string} username - Username to check
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<boolean>} True if available
  */
-export async function checkUsernameAvailability(username) {
+export async function checkUsernameAvailability(username, supabase) {
   if (!username) {
     throw new Error('Username is required');
   }
@@ -289,8 +303,10 @@ export async function checkUsernameAvailability(username) {
     return false;
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from('users')
       .select('username')
       .eq('username', username)

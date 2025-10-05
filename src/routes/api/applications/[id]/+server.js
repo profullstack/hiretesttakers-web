@@ -25,7 +25,7 @@ export async function GET({ params, locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const application = await getApplicationById(params.id);
+    const application = await getApplicationById(params.id, locals.supabase);
 
     if (!application) {
       return json({ error: 'Application not found' }, { status: 404 });
@@ -54,7 +54,8 @@ export async function PUT({ params, request, locals }) {
 
     const application = await updateApplicationStatus({
       id: params.id,
-      status
+      status,
+      supabase: locals.supabase
     });
 
     return json({ application });
@@ -76,7 +77,7 @@ export async function DELETE({ params, locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const success = await deleteApplication(params.id);
+    const success = await deleteApplication(params.id, locals.supabase);
 
     if (!success) {
       return json({ error: 'Application not found' }, { status: 404 });
