@@ -26,7 +26,12 @@
 <div class="app">
   <header class="header">
     <div class="header-content">
-      <h1 class="logo">HireTestTakers</h1>
+      <h1 class="logo"><a href="/">HireTestTakers</a></h1>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/tools">Free Tools</a>
+        <a href="/services">Services</a>
+      </nav>
       <div class="header-actions">
         <LanguageSelector />
         <ThemeToggle />
@@ -73,8 +78,29 @@
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--color-primary);
     margin: 0;
+  }
+  
+  .logo a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .nav {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+  
+  .nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-base);
+  }
+  
+  .nav a:hover {
+    color: var(--color-primary);
   }
   
   .header-actions {
@@ -89,5 +115,17 @@
     width: 100%;
     margin: 0 auto;
     padding: var(--spacing-xl) var(--spacing-md);
+  }
+  
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+    
+    .nav {
+      width: 100%;
+      justify-content: center;
+    }
   }
 </style>
