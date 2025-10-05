@@ -1,6 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
-  import AssignmentRequestForm from '$lib/components/AssignmentRequestForm.svelte';
+  import JobRequestForm from '$lib/components/JobRequestForm.svelte';
 
   function handleSuccess(event) {
     const job = event.detail;
@@ -17,7 +17,7 @@
 </svelte:head>
 
 <div class="container">
-  <AssignmentRequestForm on:success={handleSuccess} on:cancel={handleCancel} />
+  <JobRequestForm on:success={handleSuccess} on:cancel={handleCancel} />
 </div>
 
 <style>

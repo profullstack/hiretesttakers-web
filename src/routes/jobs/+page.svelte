@@ -1,17 +1,17 @@
 <script>
   import { onMount } from 'svelte';
-  import AssignmentCard from '$lib/components/AssignmentCard.svelte';
+  import JobCard from '$lib/components/JobCard.svelte';
 
-  let assignments = [];
+  let jobs = [];
   let loading = true;
   let error = '';
   let statusFilter = '';
 
   onMount(async () => {
-    await loadAssignments();
+    await loadJobs();
   });
 
-  async function loadAssignments() {
+  async function loadJobs() {
     loading = true;
     error = '';
 
@@ -25,10 +25,10 @@
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to load assignments');
+        throw new Error(data.error || 'Failed to load jobs');
       }
 
-      assignments = data.requests;
+      jobs = data.requests;
     } catch (err) {
       error = err.message;
     } finally {
@@ -37,7 +37,7 @@
   }
 
   function handleFilterChange() {
-    loadAssignments();
+    loadJobs();
   }
 </script>
 
@@ -68,18 +68,18 @@
   </div>
 
   {#if loading}
-    <div class="loading">Loading assignments...</div>
+    <div class="loading">Loading jobs...</div>
   {:else if error}
     <div class="error-message">{error}</div>
-  {:else if assignments.length === 0}
+  {:else if jobs.length === 0}
     <div class="empty-state">
       <p>No jobs found.</p>
       <a href="/jobs/new" class="btn-primary">Create Your First Job Request</a>
     </div>
   {:else}
-    <div class="assignments-grid">
-      {#each assignments as assignment (assignment.id)}
-        <AssignmentCard {assignment} />
+    <div class="jobs-grid">
+      {#each jobs as job (job.id)}
+        <JobCard job={job} />
       {/each}
     </div>
   {/if}
@@ -210,7 +210,7 @@
     font-size: 1.125rem;
   }
 
-  .assignments-grid {
+  .jobs-grid {
     display: grid;
     gap: var(--spacing-xl);
   }

@@ -1,5 +1,5 @@
 <script>
-  export let assignment;
+  export let job;
   export let showActions = true;
 
   function formatDate(dateString) {
@@ -43,62 +43,62 @@
   }
 </script>
 
-<div class="assignment-card">
+<div class="job-card">
   <div class="card-header">
     <div class="header-content">
-      <h3>{assignment.title}</h3>
-      {#if assignment.job_type}
-        <span class="job-type {getJobTypeClass(assignment.job_type)}">
-          {formatJobType(assignment.job_type)}
+      <h3>{job.title}</h3>
+      {#if job.job_type}
+        <span class="job-type {getJobTypeClass(job.job_type)}">
+          {formatJobType(job.job_type)}
         </span>
       {/if}
     </div>
-    <span class="status {getStatusClass(assignment.status)}">
-      {formatStatus(assignment.status)}
+    <span class="status {getStatusClass(job.status)}">
+      {formatStatus(job.status)}
     </span>
   </div>
 
   <div class="card-body">
-    <p class="topic"><strong>Topic:</strong> {assignment.topic}</p>
-    <p class="description">{assignment.description}</p>
+    <p class="topic"><strong>Topic:</strong> {job.topic}</p>
+    <p class="description">{job.description}</p>
 
     <div class="card-meta">
       <div class="meta-item">
         <span class="label">Word Count:</span>
-        <span class="value">{assignment.word_count.toLocaleString()}</span>
+        <span class="value">{job.word_count.toLocaleString()}</span>
       </div>
 
-      {#if assignment.academic_levels?.name}
+      {#if job.academic_levels?.name}
         <div class="meta-item">
           <span class="label">Level:</span>
-          <span class="value">{assignment.academic_levels.name}</span>
+          <span class="value">{job.academic_levels.name}</span>
         </div>
       {/if}
 
-      {#if assignment.citation_styles?.name}
+      {#if job.citation_styles?.name}
         <div class="meta-item">
           <span class="label">Citation:</span>
-          <span class="value">{assignment.citation_styles.name}</span>
+          <span class="value">{job.citation_styles.name}</span>
         </div>
       {/if}
 
       <div class="meta-item">
         <span class="label">Deadline:</span>
-        <span class="value">{formatDate(assignment.deadline)}</span>
+        <span class="value">{formatDate(job.deadline)}</span>
       </div>
 
       <div class="meta-item">
         <span class="label">Price:</span>
         <span class="value price">
-          {#if assignment.max_price}
-            ${assignment.price.toFixed(2)} - ${assignment.max_price.toFixed(2)}
+          {#if job.max_price}
+            ${job.price.toFixed(2)} - ${job.max_price.toFixed(2)}
           {:else}
-            ${assignment.price.toFixed(2)}
+            ${job.price.toFixed(2)}
           {/if}
         </span>
       </div>
 
-      {#if assignment.plagiarism_check_requested}
+      {#if job.plagiarism_check_requested}
         <div class="meta-item">
           <span class="badge">Plagiarism Check</span>
         </div>
@@ -108,7 +108,7 @@
 
   {#if showActions}
     <div class="card-actions">
-      <a href="/jobs/{assignment.id}" class="btn-view">
+      <a href="/jobs/{job.id}" class="btn-view">
         View Details
       </a>
     </div>
@@ -116,7 +116,7 @@
 </div>
 
 <style>
-  .assignment-card {
+  .job-card {
     background: white;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -124,7 +124,7 @@
     transition: box-shadow 0.2s;
   }
 
-  .assignment-card:hover {
+  .job-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
