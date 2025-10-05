@@ -9,6 +9,7 @@
   let usdValue = 0;
   let usdValueMax = 0;
   let isOwner = false;
+  let session = null;
   let attachments = [];
   let loadingAttachments = false;
 
@@ -35,6 +36,11 @@
     error = '';
 
     try {
+      // Get session first
+      const sessionResponse = await fetch('/api/auth/session');
+      const sessionData = await sessionResponse.json();
+      session = sessionData.session;
+
       const response = await fetch(`/api/tests/${$page.params.id}`);
       const data = await response.json();
 
@@ -43,6 +49,9 @@
       }
 
       test = data.test;
+      
+      // Check if current user is owner
+      isOwner = session?.user?.id === test.hirer_id;
       
       // Calculate USD values using API
       try {
@@ -59,9 +68,6 @@
       } catch (err) {
         console.error('Failed to fetch exchange rate:', err);
       }
-
-      // Check if current user is owner (would need session check)
-      // isOwner = session?.user?.id === test.hirer_id;
 
       // Load attachments after test is loaded
       await loadAttachments();
@@ -177,7 +183,8 @@
         </div>
         {#if isOwner}
           <div class="actions">
-            <a href="/browse-tests/{test.id}/edit" class="btn-secondary">Edit</a>
+            <a href="/browse-tests/{test.id}/edit" class="btn-secondary">Edit Test</a>
+            <a href="/browse-tests/{test.id}/applicants" class="btn-primary">View Applicants</a>
             <button on:click={handleDelete} class="btn-danger">Delete</button>
           </div>
         {/if}
@@ -501,12 +508,14 @@
   }
 
   .btn-secondary {
-    background: var(--color-secondary);
-    color: white;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
 
   .btn-secondary:hover {
-    background: var(--color-secondary-hover);
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-hover);
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
   }
@@ -520,6 +529,14 @@
     background: var(--color-error-dark);
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
+  }
+
+  :global(.dark) .btn-danger {
+    box-shadow: var(--glow-error);
+  }
+
+  :global(.dark) .btn-danger:hover {
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6), 0 0 30px rgba(255, 0, 85, 0.4);
   }
 
   @media (max-width: 640px) {

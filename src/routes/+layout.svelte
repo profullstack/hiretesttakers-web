@@ -32,6 +32,8 @@
       <nav class="nav">
         <a href="/">Home</a>
         <a href="/browse-tests">Browse Tests</a>
+        <a href="/browse-tests/my-tests">My Tests</a>
+        <a href="/applications">Applications</a>
         <a href="/tools">Free Tools</a>
         <a href="/services">Services</a>
       </nav>

@@ -4,7 +4,7 @@
       title: 'Test Taking Services',
       description: 'Professional test takers available for hire. Browse qualified candidates on our leaderboard.',
       icon: '🎯',
-      link: '/tests',
+      link: '/browse-tests/',
       features: ['Verified test takers', 'Reputation system', 'Secure payments']
     },
     {
