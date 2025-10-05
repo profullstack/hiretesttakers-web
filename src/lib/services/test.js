@@ -42,8 +42,8 @@ export async function createTest(userId, testData, supabaseClient = null) {
     throw new Error('Price is required');
   }
 
-  if (testData.price < 0) {
-    throw new Error('Price must be positive');
+  if (testData.price <= 0) {
+    throw new Error('Price must be greater than zero');
   }
 
   if (testData.price_max !== undefined && testData.price_max !== null) {

@@ -13,7 +13,7 @@
   let category = test?.category || '';
   let difficulty = test?.difficulty || 'medium';
   let cryptocurrency = test?.cryptocurrency || 'BTC';
-  let price = test?.price || 0;
+  let price = test?.price || '';
   let priceMax = test?.price_max || null;
   let showRange = !!test?.price_max;
   let files = [];

@@ -15,8 +15,7 @@
 
 <div class="container">
   <header>
-    <h1>HireTestTakers.com</h1>
-    <p class="tagline">Marketplace for Test Taking Services</p>
+    <p class="tagline">The Premier Cryto-friendly Marketplace for Test Taking Services, Tutoring and Homework Help</p>
   </header>
   
   <main>
@@ -107,6 +106,11 @@
     font-size: 1.2rem;
     color: var(--color-text-secondary);
     font-weight: 500;
+    max-width: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
   }
   
   .hero {
@@ -419,12 +423,11 @@
 
   /* Dark mode specific enhancements */
   :global(.dark) .hero {
-    background: linear-gradient(135deg, 
-      var(--color-bg) 0%, 
-      var(--color-bg-secondary) 50%, 
+    background: linear-gradient(135deg,
+      var(--color-bg) 0%,
+      var(--color-bg-secondary) 50%,
       var(--color-bg-tertiary) 100%);
   }
-  
   :global(.dark) .hero::before {
     background: radial-gradient(circle, 
       rgba(0, 240, 255, 0.15) 0%, 

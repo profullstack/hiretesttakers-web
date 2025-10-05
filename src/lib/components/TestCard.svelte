@@ -153,20 +153,24 @@
 
   <div class="test-footer">
     <div class="price-info">
-      <span class="crypto-price">
-        {test.price} {test.cryptocurrency}
-        {#if test.price_max}
-          - {test.price_max} {test.cryptocurrency}
-        {/if}
-      </span>
-      {#if usdValue > 0}
-        <span class="usd-price">
-          ≈ ${usdValue}
-          {#if usdValueMax > 0}
-            - ${usdValueMax}
+      {#if test.price != null && test.price > 0 && test.cryptocurrency}
+        <span class="crypto-price">
+          {test.price} {test.cryptocurrency}
+          {#if test.price_max}
+            - {test.price_max} {test.cryptocurrency}
           {/if}
-          USD
         </span>
+        {#if usdValue > 0}
+          <span class="usd-price">
+            ≈ ${usdValue}
+            {#if usdValueMax > 0}
+              - ${usdValueMax}
+            {/if}
+            USD
+          </span>
+        {/if}
+      {:else}
+        <span class="crypto-price">Payment not set</span>
       {/if}
     </div>
     <span class="date">Posted {formatDate(test.created_at)}</span>
