@@ -83,196 +83,343 @@
 </script>
 
 <form on:submit={handleSubmit} class="test-form">
-  <h2>{isEdit ? 'Edit Test' : 'Create New Test'}</h2>
-
   {#if error}
-    <div class="error-message">{error}</div>
+    <div class="error-message">
+      <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+      </svg>
+      <span>{error}</span>
+    </div>
   {/if}
 
-  <div class="form-group">
-    <label for="title">
-      Test Title *
-    </label>
-    <input
-      id="title"
-      type="text"
-      bind:value={title}
-      required
-      placeholder="e.g., Advanced Calculus Test"
-      maxlength="200"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="description">
-      Description *
-    </label>
-    <textarea
-      id="description"
-      bind:value={description}
-      required
-      placeholder="Describe what the test covers, requirements, and expectations..."
-      rows="5"
-    ></textarea>
-  </div>
-
-  <div class="form-row">
+  <div class="form-section">
+    <h3 class="section-title">Basic Information</h3>
+    
     <div class="form-group">
-      <label for="category">
-        Category
+      <label for="title">
+        Test Title <span class="required">*</span>
       </label>
-      <select id="category" bind:value={category}>
-        {#each categories as cat}
-          <option value={cat.value}>{cat.label}</option>
-        {/each}
-      </select>
+      <input
+        id="title"
+        type="text"
+        bind:value={title}
+        required
+        placeholder="e.g., Advanced Calculus Test"
+        maxlength="200"
+        class="form-input"
+      />
+      <p class="field-hint">Choose a clear, descriptive title for your test</p>
     </div>
 
     <div class="form-group">
-      <label for="difficulty">
-        Difficulty *
+      <label for="description">
+        Description <span class="required">*</span>
       </label>
-      <select id="difficulty" bind:value={difficulty} required>
-        {#each difficulties as diff}
-          <option value={diff.value}>{diff.label}</option>
-        {/each}
-      </select>
+      <textarea
+        id="description"
+        bind:value={description}
+        required
+        placeholder="Describe what the test covers, requirements, and expectations..."
+        rows="6"
+        class="form-input"
+      ></textarea>
+      <p class="field-hint">Provide detailed information about the test content and requirements</p>
     </div>
   </div>
 
-  <div class="form-group">
-    <PriceInput
-      bind:cryptocurrency
-      bind:price
-      bind:priceMax
-      bind:showRange
-      required={true}
-    />
+  <div class="form-section">
+    <h3 class="section-title">Test Details</h3>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="category">
+          Category
+        </label>
+        <select id="category" bind:value={category} class="form-input">
+          {#each categories as cat}
+            <option value={cat.value}>{cat.label}</option>
+          {/each}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="difficulty">
+          Difficulty <span class="required">*</span>
+        </label>
+        <select id="difficulty" bind:value={difficulty} required class="form-input">
+          {#each difficulties as diff}
+            <option value={diff.value}>{diff.label}</option>
+          {/each}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3 class="section-title">Payment</h3>
+    
+    <div class="form-group">
+      <PriceInput
+        bind:cryptocurrency
+        bind:price
+        bind:priceMax
+        bind:showRange
+        required={true}
+      />
+    </div>
   </div>
 
   <div class="form-actions">
-    <button type="button" on:click={handleCancel} class="btn-secondary" disabled={loading}>
+    <button type="button" on:click={handleCancel} class="btn btn-secondary" disabled={loading}>
       Cancel
     </button>
-    <button type="submit" class="btn-primary" disabled={loading}>
-      {loading ? 'Saving...' : isEdit ? 'Update Test' : 'Create Test'}
+    <button type="submit" class="btn btn-primary" disabled={loading}>
+      {#if loading}
+        <span class="spinner"></span>
+        <span>Saving...</span>
+      {:else}
+        <span>{isEdit ? 'Update Test' : 'Create Test'}</span>
+      {/if}
     </button>
   </div>
 </form>
 
 <style>
   .test-form {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  h2 {
-    margin: 0 0 2rem 0;
-    font-size: 1.75rem;
-    font-weight: 600;
+    width: 100%;
   }
 
   .error-message {
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    color: #721c24;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    background: var(--color-error-light);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    color: var(--color-error-dark);
+    font-size: 0.9375rem;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .error-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .form-section {
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .form-section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-lg);
+    letter-spacing: -0.01em;
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-group:last-child {
+    margin-bottom: 0;
   }
 
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: var(--spacing-lg);
   }
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
     font-weight: 500;
-    color: #333;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
   }
 
+  .required {
+    color: var(--color-error);
+  }
+
+  .form-input,
   input[type='text'],
   textarea,
   select {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: var(--spacing-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     font-size: 1rem;
     font-family: inherit;
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: all var(--transition-base);
   }
 
+  .form-input:hover,
+  input[type='text']:hover,
+  textarea:hover,
+  select:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .form-input:focus,
   input[type='text']:focus,
   textarea:focus,
   select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
   }
 
   textarea {
     resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  .field-hint {
+    margin: var(--spacing-xs) 0 0;
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    line-height: 1.4;
   }
 
   .form-actions {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
     justify-content: flex-end;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e0e0e0;
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-xl);
+    border-top: 2px solid var(--color-border);
   }
 
-  button {
-    padding: 0.75rem 1.5rem;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-lg);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
+    letter-spacing: 0.01em;
+    min-width: 140px;
   }
 
-  button:disabled {
-    opacity: 0.6;
+  .btn:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
   }
 
   .btn-primary {
-    background: #007bff;
+    background: var(--color-primary);
     color: white;
+    box-shadow: var(--shadow-md);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0);
   }
 
   .btn-secondary {
-    background: #6c757d;
-    color: white;
+    background: var(--color-gray-200);
+    color: var(--color-text);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background: #545b62;
+    background: var(--color-gray-300);
   }
 
-  @media (max-width: 640px) {
+  .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Dark mode enhancements */
+  :global(.dark) .form-input:focus,
+  :global(.dark) input[type='text']:focus,
+  :global(.dark) textarea:focus,
+  :global(.dark) select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
+  }
+
+  :global(.dark) .btn-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .btn-primary:hover:not(:disabled) {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
     .form-row {
       grid-template-columns: 1fr;
     }
 
+    .section-title {
+      font-size: 1.125rem;
+    }
+  }
+
+  @media (max-width: 640px) {
     .form-actions {
       flex-direction: column-reverse;
     }
 
-    button {
+    .btn {
       width: 100%;
+      min-width: unset;
+    }
+
+    .form-section {
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-lg);
     }
   }
 </style>
