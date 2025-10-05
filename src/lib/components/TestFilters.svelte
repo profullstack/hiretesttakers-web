@@ -133,52 +133,71 @@
 
 <style>
   .test-filters {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
   }
 
   .search-bar {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
   }
 
   .search-input {
     flex: 1;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: var(--spacing-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     font-size: 1rem;
+    background: var(--color-surface);
+    color: var(--color-text);
+    transition: all var(--transition-base);
   }
 
   .search-input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
+  }
+
+  :global(.dark) .search-input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
   }
 
   .search-button {
-    padding: 0.75rem 1.5rem;
-    background: #007bff;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-lg);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
   }
 
   .search-button:hover {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .search-button {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .search-button:hover {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
   }
 
   .filters-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
 
   .filter-group {
@@ -187,45 +206,64 @@
   }
 
   label {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
     font-weight: 500;
     font-size: 0.875rem;
-    color: #333;
+    color: var(--color-text);
   }
 
   select {
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: var(--spacing-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     font-size: 1rem;
-    background: white;
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
+    transition: all var(--transition-base);
   }
 
   select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
+  }
+
+  :global(.dark) select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
   }
 
   .clear-button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-gray-200);
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     font-size: 0.875rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
   }
 
   .clear-button:hover {
-    background: #545b62;
+    background: var(--color-gray-300);
+    border-color: var(--color-border-hover);
+  }
+
+  :global(.dark) .clear-button {
+    background: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+  }
+
+  :global(.dark) .clear-button:hover {
+    background: var(--color-gray-600);
+    border-color: var(--color-gray-500);
   }
 
   @media (max-width: 640px) {
     .test-filters {
-      padding: 1rem;
+      padding: var(--spacing-md);
     }
 
     .filters-grid {

@@ -1,6 +1,35 @@
 <script>
+  import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import TestForm from '$lib/components/TestForm.svelte';
+
+  let isAuthenticated = false;
+  let loading = true;
+
+  onMount(async () => {
+    // Check if user is authenticated
+    try {
+      const response = await fetch('/api/auth/session', {
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        isAuthenticated = !!data.user;
+        
+        if (!isAuthenticated) {
+          goto('/auth/login?redirectTo=/browse-tests/new');
+        }
+      } else {
+        goto('/auth/login?redirectTo=/browse-tests/new');
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error);
+      goto('/auth/login?redirectTo=/browse-tests/new');
+    } finally {
+      loading = false;
+    }
+  });
 
   function handleSuccess(event) {
     const test = event.detail;
@@ -8,7 +37,7 @@
   }
 
   function handleCancel() {
-    goto('/tests');
+    goto('/browse-tests');
   }
 </script>
 
@@ -17,14 +46,21 @@
 </svelte:head>
 
 <div class="page-wrapper">
-  <div class="page-header">
-    <h1>Post a New Test</h1>
-    <p class="subtitle">Create a test listing to find qualified test takers</p>
-  </div>
-  
-  <div class="form-container">
-    <TestForm on:success={handleSuccess} on:cancel={handleCancel} />
-  </div>
+  {#if loading}
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Checking authentication...</p>
+    </div>
+  {:else if isAuthenticated}
+    <div class="page-header">
+      <h1>Post a New Test</h1>
+      <p class="subtitle">Create a test listing to find qualified test takers</p>
+    </div>
+    
+    <div class="form-container">
+      <TestForm on:success={handleSuccess} on:cancel={handleCancel} />
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -91,5 +127,33 @@
     .form-container {
       padding: var(--spacing-lg);
     }
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: var(--spacing-md);
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loading p {
+    color: var(--color-text-secondary);
   }
 </style>

@@ -108,23 +108,24 @@
 
 <style>
   .test-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
-    background: white;
-    transition: box-shadow 0.2s;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    background: var(--color-surface);
+    transition: all var(--transition-base);
   }
 
   .test-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-border-hover);
   }
 
   .test-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
   }
 
   h3 {
@@ -134,96 +135,97 @@
   }
 
   h3 a {
-    color: #333;
+    color: var(--color-text);
     text-decoration: none;
+    transition: color var(--transition-base);
   }
 
   h3 a:hover {
-    color: #007bff;
+    color: var(--color-primary);
   }
 
   .status {
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
   }
 
   .status-open {
-    background: #d4edda;
-    color: #155724;
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
   }
 
   .status-in-progress {
-    background: #fff3cd;
-    color: #856404;
+    background: var(--color-warning-light);
+    color: var(--color-warning-dark);
   }
 
   .status-completed {
-    background: #d1ecf1;
-    color: #0c5460;
+    background: var(--color-info-light);
+    color: var(--color-info-dark);
   }
 
   .status-cancelled {
-    background: #f8d7da;
-    color: #721c24;
+    background: var(--color-error-light);
+    color: var(--color-error-dark);
   }
 
   .test-description {
-    margin: 0 0 1rem 0;
-    color: #666;
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--color-text-secondary);
     line-height: 1.5;
   }
 
   .test-meta {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     font-size: 0.875rem;
   }
 
   .meta-item {
-    color: #666;
+    color: var(--color-text-secondary);
   }
 
   .meta-item strong {
-    color: #333;
+    color: var(--color-text);
   }
 
   .test-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid #e0e0e0;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
   }
 
   .price-info {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--spacing-xs);
   }
 
   .crypto-price {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #007bff;
+    color: var(--color-primary);
   }
 
   .usd-price {
     font-size: 0.875rem;
-    color: #666;
+    color: var(--color-text-tertiary);
   }
 
   .date {
     font-size: 0.875rem;
-    color: #999;
+    color: var(--color-text-tertiary);
   }
 
   @media (max-width: 640px) {
     .test-card {
-      padding: 1rem;
+      padding: var(--spacing-md);
     }
 
     .test-header {
@@ -233,12 +235,12 @@
     .test-footer {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.5rem;
+      gap: var(--spacing-sm);
     }
 
     .test-meta {
       flex-direction: column;
-      gap: 0.5rem;
+      gap: var(--spacing-sm);
     }
   }
 </style>

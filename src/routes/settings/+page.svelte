@@ -295,77 +295,83 @@
 <style>
   .container {
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: var(--spacing-xl) auto;
+    padding: 0 var(--spacing-md);
   }
   
   h1 {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-text);
   }
   
   .loading {
     text-align: center;
-    padding: 2rem;
-    color: #6b7280;
+    padding: var(--spacing-xl);
+    color: var(--color-text-secondary);
   }
   
   .settings-sections {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--spacing-xl);
   }
   
   .settings-section {
-    background: white;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
   }
   
   h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 var(--spacing-sm) 0;
+    color: var(--color-text);
   }
   
   .section-description {
-    color: #6b7280;
-    margin: 0 0 1.5rem 0;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-lg) 0;
   }
   
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
   }
   
   label {
     display: block;
     font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: #374151;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
   }
   
   .username-input-group {
     display: flex;
     align-items: center;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     overflow: hidden;
+    background: var(--color-surface);
   }
   
   .username-prefix {
-    padding: 0.5rem 0.75rem;
-    background: #f3f4f6;
-    color: #6b7280;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
     font-weight: 500;
   }
   
   .username-input-group input {
     flex: 1;
-    padding: 0.5rem 0.75rem;
+    padding: var(--spacing-sm) var(--spacing-md);
     border: none;
     font-size: 1rem;
+    background: var(--color-surface);
+    color: var(--color-text);
   }
   
   .username-input-group input:focus {
@@ -373,42 +379,47 @@
   }
   
   .help-text {
-    margin: 0.5rem 0 0 0;
+    margin: var(--spacing-sm) 0 0 0;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
   
   .error-text {
-    margin: 0.5rem 0 0 0;
+    margin: var(--spacing-sm) 0 0 0;
     font-size: 0.875rem;
-    color: #ef4444;
+    color: var(--color-error);
   }
   
   .success-text {
-    margin: 0.5rem 0 0 0;
+    margin: var(--spacing-sm) 0 0 0;
     font-size: 0.875rem;
-    color: #10b981;
+    color: var(--color-success);
   }
   
   .privacy-options {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
   
   .radio-option {
     display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 0.5rem;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all var(--transition-base);
+    background: var(--color-surface);
   }
   
   .radio-option:hover {
-    border-color: #3b82f6;
-    background: #f9fafb;
+    border-color: var(--color-primary);
+    background: var(--color-surface-hover);
+  }
+  
+  :global(.dark) .radio-option:hover {
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
   }
   
   .radio-option input[type="radio"] {
@@ -421,24 +432,24 @@
   
   .radio-content strong {
     display: block;
-    margin-bottom: 0.25rem;
-    color: #111827;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text);
   }
   
   .radio-content p {
     margin: 0;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
   
   .account-info {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
   }
   
   .info-row {
     display: flex;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e5e7eb;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-border);
   }
   
   .info-row:last-child {
@@ -447,38 +458,47 @@
   
   .info-label {
     font-weight: 500;
-    color: #6b7280;
+    color: var(--color-text-secondary);
     min-width: 120px;
   }
   
   .info-value {
-    color: #111827;
+    color: var(--color-text);
   }
   
   .account-actions {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
   
   .btn-primary,
   .btn-secondary {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.375rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     text-align: center;
     border: none;
+    transition: all var(--transition-fast);
   }
   
   .btn-primary {
-    background: #3b82f6;
+    background: var(--color-primary);
     color: white;
   }
   
   .btn-primary:hover:not(:disabled) {
-    background: #2563eb;
+    background: var(--color-primary-hover);
+  }
+  
+  :global(.dark) .btn-primary {
+    box-shadow: var(--glow-primary);
+  }
+  
+  :global(.dark) .btn-primary:hover:not(:disabled) {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
   }
   
   .btn-primary:disabled {
@@ -487,28 +507,44 @@
   }
   
   .btn-secondary {
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
   
   .btn-secondary:hover {
-    background: #e5e7eb;
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-hover);
   }
   
   .alert {
-    padding: 0.75rem 1rem;
-    border-radius: 0.375rem;
-    margin-top: 1rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-md);
+    border: 1px solid transparent;
   }
   
   .alert-error {
-    background: #fee2e2;
-    color: #991b1b;
+    background: var(--color-error-light);
+    color: var(--color-error-dark);
+    border-color: var(--color-error);
+  }
+  
+  :global(.dark) .alert-error {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--color-error-light);
+    border-color: var(--color-error);
   }
   
   .alert-success {
-    background: #d1fae5;
-    color: #065f46;
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+    border-color: var(--color-success);
+  }
+  
+  :global(.dark) .alert-success {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--color-success-light);
+    border-color: var(--color-success);
   }
 </style>

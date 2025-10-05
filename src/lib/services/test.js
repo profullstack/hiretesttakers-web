@@ -16,9 +16,10 @@ const PROTECTED_FIELDS = ['id', 'hirer_id', 'created_at'];
  * Create a new test listing
  * @param {string} userId - The ID of the user creating the test
  * @param {Object} testData - Test data
+ * @param {Object} supabaseClient - Optional Supabase client (uses default if not provided)
  * @returns {Promise<Object>} Created test object
  */
-export async function createTest(userId, testData) {
+export async function createTest(userId, testData, supabaseClient = null) {
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -53,7 +54,9 @@ export async function createTest(userId, testData) {
     }
   }
 
-  const { data, error } = await supabase
+  const client = supabaseClient || supabase;
+
+  const { data, error} = await client
     .from('tests')
     .insert({
       hirer_id: userId,

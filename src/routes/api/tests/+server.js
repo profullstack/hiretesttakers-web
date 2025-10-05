@@ -61,7 +61,7 @@ export async function POST({ request, locals }) {
 
     const testData = await request.json();
     console.log('[API /api/tests POST] Creating test for user:', session.user.id);
-    const test = await createTest(session.user.id, testData);
+    const test = await createTest(session.user.id, testData, locals.supabase);
     
     console.log('[API /api/tests POST] Test created successfully:', test.id);
     return json({ test }, { status: 201 });
