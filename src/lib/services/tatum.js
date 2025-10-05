@@ -1,10 +1,11 @@
 /**
  * Tatum Exchange Rate Service
- * 
+ *
  * Fetches real-time cryptocurrency exchange rates from Tatum.io API.
  * Supports BTC, ETH, DOGE, SOL to USD conversion.
  */
 
+import { env } from '$env/dynamic/private';
 import { validateCryptocurrency } from '../utils/commission.js';
 
 const TATUM_API_BASE = 'https://api.tatum.io/v3';
@@ -115,7 +116,7 @@ export async function getExchangeRate(cryptocurrency, useCache = true) {
   }
   
   // Fetch from Tatum API
-  const apiKey = process.env.TATUM_API_KEY;
+  const apiKey = env.TATUM_API_KEY;
   
   if (!apiKey || apiKey === 'your_tatum_api_key_here') {
     throw new Error('Tatum API key not configured');
