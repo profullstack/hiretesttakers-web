@@ -1,5 +1,5 @@
 [build]
-buildCommand = "pnpm install && pnpm run build"
+buildCommand = "pnpm install && pnpx supabase db push && pnpm run build"
 
 [deploy]
 startCommand = "node build/index.js"

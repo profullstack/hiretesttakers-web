@@ -9,20 +9,33 @@
   import UserDropdown from '$lib/components/UserDropdown.svelte';
   import Footer from '$lib/components/Footer.svelte';
   
+  let session = $state(null);
+  
   // Apply theme on mount and reactively update
-  onMount(() => {
+  onMount(async () => {
     // Initialize i18n only on client side
     initI18n();
     
     if (browser) {
       document.documentElement.classList.toggle('dark', $theme === 'dark');
+      
+      // Check session
+      try {
+        const response = await fetch('/api/auth/session');
+        const data = await response.json();
+        session = data.session;
+      } catch (err) {
+        console.error('Failed to load session:', err);
+      }
     }
   });
   
   // Reactively update theme class when theme changes
-  $: if (browser) {
-    document.documentElement.classList.toggle('dark', $theme === 'dark');
-  }
+  $effect(() => {
+    if (browser) {
+      document.documentElement.classList.toggle('dark', $theme === 'dark');
+    }
+  });
 </script>
 
 <div class="app">
@@ -32,8 +45,10 @@
       <nav class="nav">
         <a href="/">Home</a>
         <a href="/browse-tests">Browse Tests</a>
-        <a href="/browse-tests/my-tests">My Tests</a>
-        <a href="/applications">Applications</a>
+        {#if session?.user}
+          <a href="/browse-tests/my-tests">My Tests</a>
+          <a href="/applications">Applications</a>
+        {/if}
         <a href="/tools">Free Tools</a>
         <a href="/services">Services</a>
       </nav>
