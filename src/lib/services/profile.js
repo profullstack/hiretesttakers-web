@@ -46,15 +46,18 @@ export async function getProfile(userId, supabase) {
 /**
  * Get public profile by username
  * @param {string} username - Username
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object|null>} Public profile or null
  */
-export async function getPublicProfile(username) {
+export async function getPublicProfile(username, supabase) {
   if (!username) {
     throw new Error('Username is required');
   }
 
+  const client = supabase || getSupabaseClient();
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from('public_profiles')
       .select('*')
       .eq('username', username)

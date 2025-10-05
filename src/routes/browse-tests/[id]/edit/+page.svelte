@@ -30,11 +30,11 @@
 
   function handleSuccess(event) {
     const updatedTest = event.detail;
-    goto(`/browse-tests//${updatedTest.id}`);
+    goto(`/browse-tests/${updatedTest.id}`);
   }
 
   function handleCancel() {
-    goto(`/browse-tests//${$page.params.id}`);
+    goto(`/browse-tests/${$page.params.id}`);
   }
 
   onMount(() => {

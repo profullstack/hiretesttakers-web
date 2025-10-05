@@ -7,8 +7,6 @@
 
 import { getSupabaseClient } from '../supabaseClient.js';
 
-const supabase = getSupabaseClient();
-
 const VALID_CRYPTOCURRENCIES = ['BTC', 'ETH', 'DOGE', 'SOL'];
 const PROTECTED_FIELDS = ['id', 'hirer_id', 'created_at'];
 
@@ -82,14 +80,17 @@ export async function createTest(userId, testData, supabaseClient = null) {
 /**
  * Get a test by ID
  * @param {string} testId - Test ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object|null>} Test object or null
  */
-export async function getTest(testId) {
+export async function getTest(testId, supabase) {
   if (!testId) {
     throw new Error('Test ID is required');
   }
 
-  const { data, error } = await supabase
+  const client = supabase || getSupabaseClient();
+
+  const { data, error } = await client
     .from('tests')
     .select('*')
     .eq('id', testId)
@@ -108,10 +109,13 @@ export async function getTest(testId) {
 /**
  * Get tests with optional filters
  * @param {Object} filters - Filter options
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Array>} Array of tests
  */
-export async function getTests(filters = {}) {
-  let query = supabase
+export async function getTests(filters = {}, supabase) {
+  const client = supabase || getSupabaseClient();
+
+  let query = client
     .from('tests')
     .select('*')
     .order('created_at', { ascending: false });
@@ -154,9 +158,10 @@ export async function getTests(filters = {}) {
  * @param {string} testId - Test ID
  * @param {string} userId - User ID (must be owner)
  * @param {Object} updates - Fields to update
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object>} Updated test object
  */
-export async function updateTest(testId, userId, updates) {
+export async function updateTest(testId, userId, updates, supabase) {
   if (!testId) {
     throw new Error('Test ID is required');
   }
@@ -175,8 +180,10 @@ export async function updateTest(testId, userId, updates) {
     throw new Error(`Cannot update protected fields: ${protectedFieldsInUpdates.join(', ')}`);
   }
 
+  const client = supabase || getSupabaseClient();
+
   // Verify ownership
-  const existingTest = await getTest(testId);
+  const existingTest = await getTest(testId, client);
   if (!existingTest) {
     throw new Error('Test not found');
   }
@@ -185,7 +192,7 @@ export async function updateTest(testId, userId, updates) {
     throw new Error('Not authorized to update this test');
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('tests')
     .update(updates)
     .eq('id', testId)
@@ -204,9 +211,10 @@ export async function updateTest(testId, userId, updates) {
  * Delete a test
  * @param {string} testId - Test ID
  * @param {string} userId - User ID (must be owner)
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<boolean>} True if deleted
  */
-export async function deleteTest(testId, userId) {
+export async function deleteTest(testId, userId, supabase) {
   if (!testId) {
     throw new Error('Test ID is required');
   }
@@ -215,8 +223,10 @@ export async function deleteTest(testId, userId) {
     throw new Error('User ID is required');
   }
 
+  const client = supabase || getSupabaseClient();
+
   // Verify ownership
-  const existingTest = await getTest(testId);
+  const existingTest = await getTest(testId, client);
   if (!existingTest) {
     throw new Error('Test not found');
   }
@@ -225,7 +235,7 @@ export async function deleteTest(testId, userId) {
     throw new Error('Not authorized to delete this test');
   }
 
-  const { error } = await supabase
+  const { error } = await client
     .from('tests')
     .delete()
     .eq('id', testId)
@@ -242,14 +252,17 @@ export async function deleteTest(testId, userId) {
  * Get tests created by a specific user
  * @param {string} userId - User ID
  * @param {Object} filters - Optional filters
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Array>} Array of user's tests
  */
-export async function getMyTests(userId, filters = {}) {
+export async function getMyTests(userId, filters = {}, supabase) {
   if (!userId) {
     throw new Error('User ID is required');
   }
 
-  let query = supabase
+  const client = supabase || getSupabaseClient();
+
+  let query = client
     .from('tests')
     .select('*')
     .eq('hirer_id', userId)
@@ -271,14 +284,17 @@ export async function getMyTests(userId, filters = {}) {
 /**
  * Search tests by title or description
  * @param {string} query - Search query
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Array>} Array of matching tests
  */
-export async function searchTests(query) {
+export async function searchTests(query, supabase) {
   if (!query) {
     throw new Error('Search query is required');
   }
 
-  const { data, error } = await supabase
+  const client = supabase || getSupabaseClient();
+
+  const { data, error } = await client
     .from('tests')
     .select('*')
     .or(`title.ilike.%${query}%,description.ilike.%${query}%`)
@@ -295,14 +311,17 @@ export async function searchTests(query) {
 /**
  * Get test with attachments
  * @param {string} testId - Test ID
+ * @param {Object} [supabase] - Optional Supabase client (for server-side use)
  * @returns {Promise<Object|null>} Test object with attachments or null
  */
-export async function getTestWithAttachments(testId) {
+export async function getTestWithAttachments(testId, supabase) {
   if (!testId) {
     throw new Error('Test ID is required');
   }
 
-  const { data, error } = await supabase
+  const client = supabase || getSupabaseClient();
+
+  const { data, error } = await client
     .from('tests')
     .select(`
       *,

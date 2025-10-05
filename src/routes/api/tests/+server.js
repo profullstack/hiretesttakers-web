@@ -15,7 +15,7 @@ export async function GET({ url, locals }) {
     
     // If search query provided, use search
     if (searchQuery) {
-      const results = await searchTests(searchQuery);
+      const results = await searchTests(searchQuery, locals.supabase);
       return json({ tests: results });
     }
 
@@ -36,7 +36,7 @@ export async function GET({ url, locals }) {
       }
     });
 
-    const tests = await getTests(filters);
+    const tests = await getTests(filters, locals.supabase);
     return json({ tests });
   } catch (error) {
     return json({ error: error.message }, { status: 400 });
@@ -45,25 +45,15 @@ export async function GET({ url, locals }) {
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request, locals }) {
-  console.log('[API /api/tests POST] Request received');
-  console.log('[API /api/tests POST] locals.session:', {
-    hasSession: !!locals.session,
-    hasUser: !!locals.session?.user,
-    userId: locals.session?.user?.id
-  });
-  
   try {
     const session = locals.session;
     if (!session?.user) {
-      console.log('[API /api/tests POST] Unauthorized - no session or user');
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const testData = await request.json();
-    console.log('[API /api/tests POST] Creating test for user:', session.user.id);
     const test = await createTest(session.user.id, testData, locals.supabase);
     
-    console.log('[API /api/tests POST] Test created successfully:', test.id);
     return json({ test }, { status: 201 });
   } catch (error) {
     console.error('[API /api/tests POST] Error:', error);

@@ -10,9 +10,9 @@ import { json } from '@sveltejs/kit';
 import { getTest, updateTest, deleteTest } from '$lib/services/test.js';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ params }) {
+export async function GET({ params, locals }) {
   try {
-    const test = await getTest(params.id);
+    const test = await getTest(params.id, locals.supabase);
     
     if (!test) {
       return json({ error: 'Test not found' }, { status: 404 });
@@ -33,7 +33,7 @@ export async function PUT({ params, request, locals }) {
     }
 
     const updates = await request.json();
-    const test = await updateTest(params.id, session.user.id, updates);
+    const test = await updateTest(params.id, session.user.id, updates, locals.supabase);
     
     return json({ test });
   } catch (error) {
@@ -50,7 +50,7 @@ export async function DELETE({ params, locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await deleteTest(params.id, session.user.id);
+    await deleteTest(params.id, session.user.id, locals.supabase);
     
     return json({ success: true });
   } catch (error) {

@@ -32,13 +32,6 @@ export async function handle({ event, resolve }) {
   // Get session from Supabase - this will read from cookies
   const { data: { session }, error } = await event.locals.supabase.auth.getSession();
   
-  console.log('[hooks.server.js] Session check:', {
-    hasSession: !!session,
-    userId: session?.user?.id,
-    email: session?.user?.email,
-    error: error?.message
-  });
-  
   // Make session and user available to endpoints via locals
   event.locals.session = session;
   event.locals.user = session?.user ?? null;

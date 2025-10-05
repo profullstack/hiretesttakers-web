@@ -26,7 +26,7 @@ export async function GET({ url, locals }) {
       }
     });
 
-    const tests = await getMyTests(session.user.id, filters);
+    const tests = await getMyTests(session.user.id, filters, locals.supabase);
     return json({ tests });
   } catch (error) {
     return json({ error: error.message }, { status: 400 });

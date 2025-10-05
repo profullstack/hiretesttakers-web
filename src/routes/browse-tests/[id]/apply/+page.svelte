@@ -63,7 +63,7 @@
   }
 
   function handleCancel() {
-    goto(`/browse-tests//${$page.params.id}`);
+    goto(`/browse-tests/${$page.params.id}`);
   }
 
   onMount(() => {
