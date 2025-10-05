@@ -32,8 +32,9 @@ export async function handle({ event, resolve }) {
   // Get user from Supabase - authenticates with the auth server
   const { data: { user }, error } = await event.locals.supabase.auth.getUser();
   
-  // Get session for compatibility
-  const { data: { session } } = await event.locals.supabase.auth.getSession();
+  // Create session object from authenticated user for compatibility
+  // This is safe because the user was authenticated via getUser()
+  const session = user ? { user } : null;
   
   // Make session and user available to endpoints via locals
   event.locals.session = session;
