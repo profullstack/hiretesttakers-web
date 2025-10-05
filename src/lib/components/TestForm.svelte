@@ -1,11 +1,15 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { getSupabaseClient } from '$lib/supabaseClient.js';
   import PriceInput from './PriceInput.svelte';
+  import FileUpload from './FileUpload.svelte';
+  import { uploadFile, createAttachment } from '$lib/services/fileUpload.js';
 
   export let test = null;
   export let isEdit = false;
 
   const dispatch = createEventDispatcher();
+  const supabase = getSupabaseClient();
 
   let title = test?.title || '';
   let description = test?.description || '';
@@ -15,9 +19,11 @@
   let price = test?.price || 0;
   let priceMax = test?.price_max || null;
   let showRange = !!test?.price_max;
+  let files = [];
 
   let loading = false;
   let error = '';
+  let uploadProgress = '';
 
   const categories = [
     { value: '', label: 'Select a category' },
@@ -39,6 +45,7 @@
   async function handleSubmit(event) {
     event.preventDefault();
     error = '';
+    uploadProgress = '';
     loading = true;
 
     try {
@@ -69,12 +76,36 @@
         throw new Error(data.error || 'Failed to save test');
       }
 
-      dispatch('success', data.test);
+      const createdTest = data.test;
+
+      // Upload files if any
+      if (files.length > 0) {
+        uploadProgress = `Uploading ${files.length} file(s)...`;
+        
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          throw new Error('User not authenticated');
+        }
+
+        for (let i = 0; i < files.length; i++) {
+          uploadProgress = `Uploading file ${i + 1} of ${files.length}...`;
+          
+          const fileData = await uploadFile(files[i], user.id, createdTest.id);
+          await createAttachment(createdTest.id, fileData, user.id);
+        }
+      }
+
+      dispatch('success', createdTest);
     } catch (err) {
       error = err.message;
     } finally {
       loading = false;
+      uploadProgress = '';
     }
+  }
+
+  function handleFilesChange(event) {
+    files = event.detail;
   }
 
   function handleCancel() {
@@ -169,6 +200,22 @@
     </div>
   </div>
 
+  <div class="form-section">
+    <h3 class="section-title">Attachments (Optional)</h3>
+    <p class="section-description">
+      Upload supporting materials like notes, PDFs, or reference documents
+    </p>
+    
+    <div class="form-group">
+      <FileUpload
+        bind:files
+        on:change={handleFilesChange}
+        disabled={loading}
+        maxFiles={5}
+      />
+    </div>
+  </div>
+
   <div class="form-actions">
     <button type="button" on:click={handleCancel} class="btn btn-secondary" disabled={loading}>
       Cancel
@@ -176,7 +223,7 @@
     <button type="submit" class="btn btn-primary" disabled={loading}>
       {#if loading}
         <span class="spinner"></span>
-        <span>Saving...</span>
+        <span>{uploadProgress || 'Saving...'}</span>
       {:else}
         <span>{isEdit ? 'Update Test' : 'Create Test'}</span>
       {/if}
@@ -235,8 +282,15 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-text);
-    margin: 0 0 var(--spacing-lg);
+    margin: 0 0 var(--spacing-sm);
     letter-spacing: -0.01em;
+  }
+
+  .section-description {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-lg);
+    line-height: 1.5;
   }
 
   .form-group {

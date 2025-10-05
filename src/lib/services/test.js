@@ -288,3 +288,39 @@ export async function searchTests(query) {
 
   return data || [];
 }
+
+/**
+ * Get test with attachments
+ * @param {string} testId - Test ID
+ * @returns {Promise<Object|null>} Test object with attachments or null
+ */
+export async function getTestWithAttachments(testId) {
+  if (!testId) {
+    throw new Error('Test ID is required');
+  }
+
+  const { data, error } = await supabase
+    .from('tests')
+    .select(`
+      *,
+      test_attachments (
+        id,
+        file_name,
+        file_path,
+        file_size,
+        file_type,
+        created_at
+      )
+    `)
+    .eq('id', testId)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') {
+      return null;
+    }
+    throw new Error(`Failed to get test with attachments: ${error.message}`);
+  }
+
+  return data;
+}
