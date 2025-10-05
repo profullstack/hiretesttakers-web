@@ -34,17 +34,19 @@ function getInitialTheme() {
  * Create theme store
  */
 function createThemeStore() {
-  const { subscribe, set } = writable(getInitialTheme());
+  const { subscribe, set, update } = writable(getInitialTheme());
   
   return {
     subscribe,
     toggle: () => {
-      const newTheme = getInitialTheme() === LIGHT ? DARK : LIGHT;
-      if (browser) {
-        localStorage.setItem(THEME_KEY, newTheme);
-        document.documentElement.classList.toggle('dark', newTheme === DARK);
-      }
-      set(newTheme);
+      update(currentTheme => {
+        const newTheme = currentTheme === LIGHT ? DARK : LIGHT;
+        if (browser) {
+          localStorage.setItem(THEME_KEY, newTheme);
+          document.documentElement.classList.toggle('dark', newTheme === DARK);
+        }
+        return newTheme;
+      });
     },
     set: (theme) => {
       if (theme !== LIGHT && theme !== DARK) return;

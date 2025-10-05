@@ -1,67 +1,67 @@
 /**
- * Theme CSS Variables - Modern Color Palette
- * 
+ * Theme CSS Variables - Subtle Light & Neon Dark
+ *
+ * Light Mode: Subtle, clean, professional with soft colors
+ * Dark Mode: Neon-inspired with vibrant glows and cyberpunk aesthetics
+ *
  * All colors are defined as CSS variables to avoid hardcoding.
- * This file should be the single source of truth for all colors.
- * 
- * Based on modern-color-palette.png and COLOR_PALETTE.md
  */
 
 :root {
-  /* Primary Colors - Modern Blue */
-  --color-primary: #3A6FF8;
-  --color-primary-hover: #2450C7;
-  --color-primary-light: #82A9FB;
-  --color-primary-dark: #2450C7;
+  /* Primary Colors - Subtle Light Mode */
+  --color-primary: #5B7FE8;
+  --color-primary-hover: #4A6DD4;
+  --color-primary-light: #8FA8F0;
+  --color-primary-dark: #3A5BC7;
   
-  /* Semantic Colors */
-  --color-success: #15C77E;
-  --color-success-hover: #09915A;
-  --color-success-light: #15C77E;
-  --color-success-dark: #09915A;
+  /* Semantic Colors - Subtle Light Mode */
+  --color-success: #4CAF50;
+  --color-success-hover: #45A049;
+  --color-success-light: #81C784;
+  --color-success-dark: #388E3C;
   
-  --color-warning: #F7B322;
-  --color-warning-hover: #C8840F;
-  --color-warning-light: #F7B322;
-  --color-warning-dark: #C8840F;
+  --color-warning: #FFA726;
+  --color-warning-hover: #FB8C00;
+  --color-warning-light: #FFB74D;
+  --color-warning-dark: #F57C00;
   
-  --color-error: #F14646;
-  --color-error-hover: #C72A2A;
-  --color-error-light: #F14646;
-  --color-error-dark: #C72A2A;
+  --color-error: #EF5350;
+  --color-error-hover: #E53935;
+  --color-error-light: #EF5350;
+  --color-error-dark: #C62828;
   
-  --color-info: #0AB6C9;
-  --color-info-hover: #078A99;
-  --color-info-light: #0AB6C9;
-  --color-info-dark: #078A99;
+  --color-info: #29B6F6;
+  --color-info-hover: #039BE5;
+  --color-info-light: #4FC3F7;
+  --color-info-dark: #0277BD;
   
-  /* Neutral Colors - Light Mode */
-  --color-bg: #FFFFFF;
-  --color-bg-secondary: #F8FAFC;
-  --color-bg-tertiary: #F1F4F9;
+  /* Neutral Colors - Subtle Light Mode */
+  --color-bg: #FAFBFC;
+  --color-bg-secondary: #F5F7FA;
+  --color-bg-tertiary: #EDF1F5;
   
-  --color-text: #121521;
-  --color-text-secondary: #677184;
-  --color-text-tertiary: #98A1B2;
+  --color-text: #2C3E50;
+  --color-text-secondary: #5A6C7D;
+  --color-text-tertiary: #8B9BAB;
   
-  --color-border: #E3E8F0;
-  --color-border-hover: #CBD2DE;
+  --color-border: #E4E9F0;
+  --color-border-hover: #D1D9E3;
   
   /* Surface Colors */
   --color-surface: #FFFFFF;
-  --color-surface-hover: #F8FAFC;
+  --color-surface-hover: #F8FAFB;
   
-  /* Gray Scale - Modern Cool Grays */
-  --color-gray-50: #F8FAFC;
-  --color-gray-100: #F1F4F9;
-  --color-gray-200: #E3E8F0;
-  --color-gray-300: #CBD2DE;
-  --color-gray-400: #98A1B2;
-  --color-gray-500: #677184;
-  --color-gray-600: #4C5569;
-  --color-gray-700: #363E52;
-  --color-gray-800: #1E2435;
-  --color-gray-900: #121521;
+  /* Gray Scale - Subtle Cool Grays */
+  --color-gray-50: #F8FAFB;
+  --color-gray-100: #F0F3F7;
+  --color-gray-200: #E4E9F0;
+  --color-gray-300: #D1D9E3;
+  --color-gray-400: #8B9BAB;
+  --color-gray-500: #5A6C7D;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1E293B;
+  --color-gray-900: #0F172A;
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -78,37 +78,184 @@
   --radius-xl: 0.75rem;
   --radius-full: 9999px;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  /* Shadows - Subtle Light Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 8px -2px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
   
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
   --transition-slow: 300ms ease;
+  
+  /* Glow Effects - Disabled in Light Mode */
+  --glow-primary: none;
+  --glow-success: none;
+  --glow-warning: none;
+  --glow-error: none;
+  --glow-info: none;
 }
 
-/* Dark Mode */
+/* Dark Mode - Neon Theme */
 .dark {
-  --color-bg: #121521;
-  --color-bg-secondary: #1E2435;
-  --color-bg-tertiary: #363E52;
+  /* Neon Primary Colors */
+  --color-primary: #00F0FF;
+  --color-primary-hover: #00D9E8;
+  --color-primary-light: #5FF5FF;
+  --color-primary-dark: #00B8C7;
   
-  --color-text: #F8FAFC;
-  --color-text-secondary: #98A1B2;
-  --color-text-tertiary: #677184;
+  /* Neon Semantic Colors */
+  --color-success: #00FF88;
+  --color-success-hover: #00E67A;
+  --color-success-light: #5FFFAA;
+  --color-success-dark: #00CC6F;
   
-  --color-border: #363E52;
-  --color-border-hover: #4C5569;
+  --color-warning: #FFD700;
+  --color-warning-hover: #FFC700;
+  --color-warning-light: #FFE44D;
+  --color-warning-dark: #E6C200;
   
-  --color-surface: #1E2435;
-  --color-surface-hover: #363E52;
+  --color-error: #FF0055;
+  --color-error-hover: #E6004D;
+  --color-error-light: #FF5588;
+  --color-error-dark: #CC0044;
   
-  /* Adjust shadows for dark mode */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+  --color-info: #B24BF3;
+  --color-info-hover: #A03FE0;
+  --color-info-light: #C77FF6;
+  --color-info-dark: #8F35CC;
+  
+  /* Dark Backgrounds */
+  --color-bg: #0A0E1A;
+  --color-bg-secondary: #0F1420;
+  --color-bg-tertiary: #151B2B;
+  
+  --color-text: #E8F0FF;
+  --color-text-secondary: #A8B8D8;
+  --color-text-tertiary: #6B7A99;
+  
+  --color-border: #1F2937;
+  --color-border-hover: #2D3B4F;
+  
+  /* Surface Colors */
+  --color-surface: #0F1420;
+  --color-surface-hover: #151B2B;
+  
+  /* Neon Glow Effects */
+  --glow-primary: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3), 0 0 30px rgba(0, 240, 255, 0.1);
+  --glow-success: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.3), 0 0 30px rgba(0, 255, 136, 0.1);
+  --glow-warning: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.1);
+  --glow-error: 0 0 10px rgba(255, 0, 85, 0.5), 0 0 20px rgba(255, 0, 85, 0.3), 0 0 30px rgba(255, 0, 85, 0.1);
+  --glow-info: 0 0 10px rgba(178, 75, 243, 0.5), 0 0 20px rgba(178, 75, 243, 0.3), 0 0 30px rgba(178, 75, 243, 0.1);
+  
+  /* Neon Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 240, 255, 0.1);
+  --shadow-md: 0 4px 8px -1px rgba(0, 240, 255, 0.15);
+  --shadow-lg: 0 10px 20px -3px rgba(0, 240, 255, 0.2);
+  --shadow-xl: 0 20px 40px -5px rgba(0, 240, 255, 0.25);
+}
+
+/* Neon Glow Utility Classes for Dark Mode */
+.dark .glow-primary {
+  box-shadow: var(--glow-primary);
+}
+
+.dark .glow-success {
+  box-shadow: var(--glow-success);
+}
+
+.dark .glow-warning {
+  box-shadow: var(--glow-warning);
+}
+
+.dark .glow-error {
+  box-shadow: var(--glow-error);
+}
+
+.dark .glow-info {
+  box-shadow: var(--glow-info);
+}
+
+/* Neon Text Glow for Dark Mode */
+.dark .text-glow-primary {
+  text-shadow: var(--glow-primary);
+  color: var(--color-primary);
+}
+
+.dark .text-glow-success {
+  text-shadow: var(--glow-success);
+  color: var(--color-success);
+}
+
+.dark .text-glow-warning {
+  text-shadow: var(--glow-warning);
+  color: var(--color-warning);
+}
+
+.dark .text-glow-error {
+  text-shadow: var(--glow-error);
+  color: var(--color-error);
+}
+
+.dark .text-glow-info {
+  text-shadow: var(--glow-info);
+  color: var(--color-info);
+}
+
+/* Neon Border Glow for Dark Mode */
+.dark .border-glow-primary {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 5px var(--color-primary), inset 0 0 5px rgba(0, 240, 255, 0.1);
+}
+
+.dark .border-glow-success {
+  border-color: var(--color-success);
+  box-shadow: 0 0 5px var(--color-success), inset 0 0 5px rgba(0, 255, 136, 0.1);
+}
+
+.dark .border-glow-warning {
+  border-color: var(--color-warning);
+  box-shadow: 0 0 5px var(--color-warning), inset 0 0 5px rgba(255, 215, 0, 0.1);
+}
+
+.dark .border-glow-error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 5px var(--color-error), inset 0 0 5px rgba(255, 0, 85, 0.1);
+}
+
+.dark .border-glow-info {
+  border-color: var(--color-info);
+  box-shadow: 0 0 5px var(--color-info), inset 0 0 5px rgba(178, 75, 243, 0.1);
+}
+
+/* Hover Effects for Neon Elements */
+.dark .glow-primary:hover,
+.dark .border-glow-primary:hover {
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4), 0 0 45px rgba(0, 240, 255, 0.2);
+  transition: box-shadow var(--transition-base);
+}
+
+.dark .glow-success:hover,
+.dark .border-glow-success:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.6), 0 0 30px rgba(0, 255, 136, 0.4), 0 0 45px rgba(0, 255, 136, 0.2);
+  transition: box-shadow var(--transition-base);
+}
+
+.dark .glow-warning:hover,
+.dark .border-glow-warning:hover {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4), 0 0 45px rgba(255, 215, 0, 0.2);
+  transition: box-shadow var(--transition-base);
+}
+
+.dark .glow-error:hover,
+.dark .border-glow-error:hover {
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.6), 0 0 30px rgba(255, 0, 85, 0.4), 0 0 45px rgba(255, 0, 85, 0.2);
+  transition: box-shadow var(--transition-base);
+}
+
+.dark .glow-info:hover,
+.dark .border-glow-info:hover {
+  box-shadow: 0 0 15px rgba(178, 75, 243, 0.6), 0 0 30px rgba(178, 75, 243, 0.4), 0 0 45px rgba(178, 75, 243, 0.2);
+  transition: box-shadow var(--transition-base);
 }

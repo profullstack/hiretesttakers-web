@@ -10,12 +10,17 @@
   // Initialize i18n
   initI18n();
   
-  // Apply theme on mount
+  // Apply theme on mount and reactively update
   onMount(() => {
     if (browser) {
       document.documentElement.classList.toggle('dark', $theme === 'dark');
     }
   });
+  
+  // Reactively update theme class when theme changes
+  $: if (browser) {
+    document.documentElement.classList.toggle('dark', $theme === 'dark');
+  }
 </script>
 
 <div class="app">
