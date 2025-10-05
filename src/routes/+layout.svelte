@@ -8,11 +8,11 @@
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
   import Footer from '$lib/components/Footer.svelte';
   
-  // Initialize i18n
-  initI18n();
-  
   // Apply theme on mount and reactively update
   onMount(() => {
+    // Initialize i18n only on client side
+    initI18n();
+    
     if (browser) {
       document.documentElement.classList.toggle('dark', $theme === 'dark');
     }

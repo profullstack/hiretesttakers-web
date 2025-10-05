@@ -69,7 +69,7 @@
 <div class="container">
   <header class="page-header">
     <h1>Browse Tests</h1>
-    <a href="/tests/new" class="btn-primary">Post a Test</a>
+    <a href="/browse-tests/new" class="btn-primary">Post a Test</a>
   </header>
 
   <TestFilters {filters} on:change={handleFilterChange} />
@@ -81,7 +81,7 @@
   {:else if tests.length === 0}
     <div class="empty-state">
       <p>No tests found matching your criteria.</p>
-      <p>Try adjusting your filters or <a href="/tests/new">post a new test</a>.</p>
+      <p>Try adjusting your filters or <a href="/browse-tests/new">post a new test</a>.</p>
     </div>
   {:else}
     <div class="tests-grid">

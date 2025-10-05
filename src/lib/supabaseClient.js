@@ -1,11 +1,12 @@
 /**
  * Supabase Client
- * 
+ *
  * Singleton Supabase client for database and auth operations.
  * Uses environment variables for configuration.
  */
 
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/public';
 
 let supabaseInstance = null;
 
@@ -46,8 +47,8 @@ export function getSupabaseClient() {
     return supabaseInstance;
   }
   
-  const supabaseUrl = process.env.PUBLIC_SUPABASE_URL || 'http://localhost:8000';
-  const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || 'test-anon-key';
+  const supabaseUrl = env.PUBLIC_SUPABASE_URL || 'http://localhost:54321';
+  const supabaseAnonKey = env.PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0';
   
   supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
   
