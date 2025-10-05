@@ -384,14 +384,6 @@
     color: var(--color-primary);
     border-color: white;
   }
-  
-  footer {
-    text-align: center;
-    margin-top: var(--spacing-2xl);
-    padding-top: var(--spacing-xl);
-    border-top: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-  }
 
   /* Dark mode specific enhancements */
   :global(.dark) .hero {

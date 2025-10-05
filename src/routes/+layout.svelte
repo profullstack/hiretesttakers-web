@@ -6,6 +6,7 @@
   import { theme } from '$lib/stores/theme';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
+  import UserDropdown from '$lib/components/UserDropdown.svelte';
   import Footer from '$lib/components/Footer.svelte';
   
   // Apply theme on mount and reactively update
@@ -36,6 +37,7 @@
       <div class="header-actions">
         <LanguageSelector />
         <ThemeToggle />
+        <UserDropdown />
       </div>
     </div>
   </header>
