@@ -9,6 +9,26 @@
   let usdValue = 0;
   let usdValueMax = 0;
   let isOwner = false;
+  let attachments = [];
+  let loadingAttachments = false;
+
+  async function loadAttachments() {
+    if (!test?.id) return;
+    
+    loadingAttachments = true;
+    try {
+      const response = await fetch(`/api/tests/${test.id}/attachments`);
+      const data = await response.json();
+      
+      if (response.ok) {
+        attachments = data.attachments || [];
+      }
+    } catch (err) {
+      console.error('Failed to load attachments:', err);
+    } finally {
+      loadingAttachments = false;
+    }
+  }
 
   async function loadTest() {
     loading = true;
@@ -42,6 +62,9 @@
 
       // Check if current user is owner (would need session check)
       // isOwner = session?.user?.id === test.hirer_id;
+
+      // Load attachments after test is loaded
+      await loadAttachments();
     } catch (err) {
       error = err.message;
     } finally {
@@ -97,6 +120,36 @@
       cancelled: 'Cancelled'
     };
     return labels[status] || status;
+  }
+
+  function getFileIcon(fileType) {
+    if (!fileType) return '📄';
+    if (fileType.startsWith('image/')) return '🖼️';
+    if (fileType.startsWith('video/')) return '🎥';
+    if (fileType.startsWith('audio/')) return '🎵';
+    if (fileType.includes('pdf')) return '📕';
+    if (fileType.includes('word') || fileType.includes('document')) return '📝';
+    if (fileType.includes('sheet') || fileType.includes('excel')) return '📊';
+    if (fileType.includes('zip') || fileType.includes('rar') || fileType.includes('compressed')) return '📦';
+    return '📄';
+  }
+
+  function formatFileSize(bytes) {
+    if (!bytes) return '';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  async function downloadAttachment(attachment) {
+    try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const downloadUrl = `${supabaseUrl}/storage/v1/object/public/test-attachments/${attachment.file_path}`;
+      window.open(downloadUrl, '_blank');
+    } catch (err) {
+      console.error('Failed to download attachment:', err);
+      alert('Failed to download file');
+    }
   }
 
   onMount(() => {
@@ -171,6 +224,58 @@
           {/if}
         </div>
       </section>
+      {#if attachments.length > 0}
+        <section class="attachments-section">
+          <h2>Attached Files</h2>
+          <div class="attachments-grid">
+            {#each attachments as attachment}
+              <button 
+                class="attachment-card"
+                on:click={() => downloadAttachment(attachment)}
+                title="Click to download {attachment.file_name}"
+              >
+                <div class="attachment-icon">
+                  {getFileIcon(attachment.file_type)}
+                </div>
+                <div class="attachment-info">
+                  <div class="attachment-name">{attachment.file_name}</div>
+                  {#if attachment.file_size}
+                    <div class="attachment-size">{formatFileSize(attachment.file_size)}</div>
+                  {/if}
+                </div>
+                <div class="download-icon">⬇️</div>
+              </button>
+            {/each}
+          </div>
+        </section>
+      {/if}
+
+
+      {#if attachments.length > 0}
+        <section class="attachments-section">
+          <h2>Attached Files</h2>
+          <div class="attachments-grid">
+            {#each attachments as attachment}
+              <button
+                class="attachment-card"
+                on:click={() => downloadAttachment(attachment)}
+                title="Click to download {attachment.file_name}"
+              >
+                <div class="attachment-icon">
+                  {getFileIcon(attachment.file_type)}
+                </div>
+                <div class="attachment-info">
+                  <div class="attachment-name">{attachment.file_name}</div>
+                  {#if attachment.file_size}
+                    <div class="attachment-size">{formatFileSize(attachment.file_size)}</div>
+                  {/if}
+                </div>
+                <div class="download-icon">⬇️</div>
+              </button>
+            {/each}
+          </div>
+        </section>
+      {/if}
 
       {#if test.status === 'open'}
         <div class="apply-section">
@@ -305,6 +410,76 @@
     margin-bottom: 0.5rem;
   }
 
+  .attachments-section {
+    margin-bottom: 2rem;
+  }
+
+  .attachments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .attachment-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: left;
+    width: 100%;
+  }
+
+  .attachment-card:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  :global(.dark) .attachment-card:hover {
+    box-shadow: var(--glow-primary);
+  }
+
+  .attachment-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .attachment-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .attachment-name {
+    font-weight: 500;
+    color: var(--color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .attachment-size {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .download-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: opacity var(--transition-base);
+  }
+
+  .attachment-card:hover .download-icon {
+    opacity: 1;
+  }
+
   .usd-price {
     font-size: 1.125rem;
     color: #666;
@@ -358,6 +533,76 @@
     background: #c82333;
   }
 
+  .attachments-section {
+    margin-bottom: 2rem;
+  }
+
+  .attachments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .attachment-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: left;
+    width: 100%;
+  }
+
+  .attachment-card:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  :global(.dark) .attachment-card:hover {
+    box-shadow: var(--glow-primary);
+  }
+
+  .attachment-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .attachment-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .attachment-name {
+    font-weight: 500;
+    color: var(--color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .attachment-size {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .download-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: opacity var(--transition-base);
+  }
+
+  .attachment-card:hover .download-icon {
+    opacity: 1;
+  }
+
   @media (max-width: 640px) {
     .container {
       padding: 1rem;
@@ -384,6 +629,10 @@
     .btn-secondary,
     .btn-danger {
       width: 100%;
+    }
+
+    .attachments-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

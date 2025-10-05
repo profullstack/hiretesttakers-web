@@ -5,6 +5,26 @@
 
   let usdValue = 0;
   let usdValueMax = 0;
+  let attachments = [];
+  let loadingAttachments = false;
+
+  async function loadAttachments() {
+    if (!test?.id) return;
+    
+    loadingAttachments = true;
+    try {
+      const response = await fetch(`/api/tests/${test.id}/attachments`);
+      const data = await response.json();
+      
+      if (response.ok) {
+        attachments = data.attachments || [];
+      }
+    } catch (error) {
+      console.error('Failed to load attachments:', error);
+    } finally {
+      loadingAttachments = false;
+    }
+  }
 
   async function calculateUsdValues() {
     try {
@@ -54,8 +74,28 @@
     return labels[status] || status;
   }
 
+  function getFileIcon(fileType) {
+    if (!fileType) return '📄';
+    if (fileType.startsWith('image/')) return '🖼️';
+    if (fileType.startsWith('video/')) return '🎥';
+    if (fileType.startsWith('audio/')) return '🎵';
+    if (fileType.includes('pdf')) return '📕';
+    if (fileType.includes('word') || fileType.includes('document')) return '📝';
+    if (fileType.includes('sheet') || fileType.includes('excel')) return '📊';
+    if (fileType.includes('zip') || fileType.includes('rar') || fileType.includes('compressed')) return '📦';
+    return '📄';
+  }
+
+  function formatFileSize(bytes) {
+    if (!bytes) return '';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
   onMount(() => {
     calculateUsdValues();
+    loadAttachments();
   });
 </script>
 
@@ -83,6 +123,29 @@
       </span>
     {/if}
   </div>
+
+  {#if attachments.length > 0}
+    <div class="attachments">
+      <div class="attachments-header">
+        <span class="attachments-icon">📎</span>
+        <span class="attachments-count">{attachments.length} file{attachments.length !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="attachments-list">
+        {#each attachments.slice(0, 3) as attachment}
+          <div class="attachment-item" title={attachment.file_name}>
+            <span class="file-icon">{getFileIcon(attachment.file_type)}</span>
+            <span class="file-name">{attachment.file_name}</span>
+            {#if attachment.file_size}
+              <span class="file-size">{formatFileSize(attachment.file_size)}</span>
+            {/if}
+          </div>
+        {/each}
+        {#if attachments.length > 3}
+          <div class="more-files">+{attachments.length - 3} more</div>
+        {/if}
+      </div>
+    </div>
+  {/if}
 
   <div class="test-footer">
     <div class="price-info">
@@ -222,6 +285,76 @@
     font-size: 0.875rem;
     color: var(--color-text-tertiary);
   }
+  .attachments {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .attachments-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  .attachments-icon {
+    font-size: 1rem;
+  }
+
+  .attachments-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .attachment-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    transition: background var(--transition-base);
+  }
+
+  .attachment-item:hover {
+    background: var(--color-surface-hover);
+  }
+
+  .file-icon {
+    font-size: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  .file-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text);
+  }
+
+  .file-size {
+    flex-shrink: 0;
+    color: var(--color-text-tertiary);
+    font-size: 0.75rem;
+  }
+
+  .more-files {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
 
   @media (max-width: 640px) {
     .test-card {
