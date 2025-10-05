@@ -1,15 +1,12 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { getSupabaseClient } from '$lib/supabaseClient.js';
   import PriceInput from './PriceInput.svelte';
   import FileUpload from './FileUpload.svelte';
-  import { uploadFile, createAttachment } from '$lib/services/fileUpload.js';
 
   export let test = null;
   export let isEdit = false;
 
   const dispatch = createEventDispatcher();
-  const supabase = getSupabaseClient();
 
   let title = test?.title || '';
   let description = test?.description || '';
@@ -81,17 +78,23 @@
       // Upload files if any
       if (files.length > 0) {
         uploadProgress = `Uploading ${files.length} file(s)...`;
-        
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          throw new Error('User not authenticated');
-        }
 
         for (let i = 0; i < files.length; i++) {
           uploadProgress = `Uploading file ${i + 1} of ${files.length}...`;
           
-          const fileData = await uploadFile(files[i], user.id, createdTest.id);
-          await createAttachment(createdTest.id, fileData, user.id);
+          const formData = new FormData();
+          formData.append('file', files[i]);
+
+          const uploadResponse = await fetch(`/api/tests/${createdTest.id}/attachments`, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+          });
+
+          if (!uploadResponse.ok) {
+            const uploadError = await uploadResponse.json();
+            throw new Error(`File upload failed: ${uploadError.error}`);
+          }
         }
       }
 
