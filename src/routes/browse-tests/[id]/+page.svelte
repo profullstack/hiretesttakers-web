@@ -56,7 +56,7 @@
         throw new Error(data.error || 'Failed to delete test');
       }
 
-      goto('/tests/my-tests');
+      goto('/browse-tests/my-tests');
     } catch (err) {
       alert(err.message);
     }
@@ -116,7 +116,7 @@
         </div>
         {#if isOwner}
           <div class="actions">
-            <a href="/tests/{test.id}/edit" class="btn-secondary">Edit</a>
+            <a href="/browse-tests/{test.id}/edit" class="btn-secondary">Edit</a>
             <button on:click={handleDelete} class="btn-danger">Delete</button>
           </div>
         {/if}
@@ -166,7 +166,7 @@
 
       {#if test.status === 'open'}
         <div class="apply-section">
-          <a href="/tests/{test.id}/apply" class="btn-primary">Apply for this Test</a>
+          <a href="/browse-tests/{test.id}/apply" class="btn-primary">Apply for this Test</a>
         </div>
       {/if}
     </article>

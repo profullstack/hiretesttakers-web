@@ -12,7 +12,7 @@
   <section>
     <h2>Creating a Test Listing</h2>
     <ol>
-      <li>Navigate to the <a href="/tests/new">Post a Test</a> page</li>
+      <li>Navigate to the <a href=/browse-tests/new">Post a Test</a> page</li>
       <li>Fill in the test details (title, description, requirements)</li>
       <li>Set your budget and payment cryptocurrency</li>
       <li>Specify the deadline</li>

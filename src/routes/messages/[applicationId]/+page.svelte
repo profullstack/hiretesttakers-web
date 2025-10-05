@@ -80,7 +80,7 @@
       <h1>Conversation</h1>
       {#if application}
         <p class="application-info">
-          Application for: <a href="/tests/{application.test_id}">Test #{application.test_id.slice(0, 8)}</a>
+          Application for: <a href=/browse-tests/{application.test_id}">Test #{application.test_id.slice(0, 8)}</a>
         </p>
       {/if}
     </header>

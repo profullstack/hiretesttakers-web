@@ -33,7 +33,7 @@
 
   function handleSuccess(event) {
     const test = event.detail;
-    goto(`/tests/${test.id}`);
+    goto(`/browse-tests/${test.id}`);
   }
 
   function handleCancel() {

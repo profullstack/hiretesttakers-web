@@ -80,7 +80,7 @@
   <header class="page-header">
     <div class="header-content">
       <h1>Applicants</h1>
-      <a href="/tests/{$page.params.id}" class="back-link">← Back to Test</a>
+      <a href=/browse-tests/{$page.params.id}" class="back-link">← Back to Test</a>
     </div>
     {#if test}
       <h2 class="test-title">{test.title}</h2>
@@ -122,7 +122,7 @@
       <div class="empty-state">
         <h3>No Applicants Yet</h3>
         <p>No one has applied to this test yet. Share your test to get more applicants!</p>
-        <a href="/tests/{$page.params.id}" class="btn-primary">View Test</a>
+        <a href=/browse-tests/{$page.params.id}" class="btn-primary">View Test</a>
       </div>
     {:else}
       <div class="applicants-list">
