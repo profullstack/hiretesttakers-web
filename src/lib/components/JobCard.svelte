@@ -91,9 +91,9 @@
         <span class="label">Price:</span>
         <span class="value price">
           {#if job.max_price}
-            ${job.price.toFixed(2)} - ${job.max_price.toFixed(2)}
+            {job.price} - {job.max_price} {job.cryptocurrency || 'BTC'}
           {:else}
-            ${job.price.toFixed(2)}
+            {job.price} {job.cryptocurrency || 'BTC'}
           {/if}
         </span>
       </div>

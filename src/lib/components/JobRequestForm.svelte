@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
+  import PriceInput from './PriceInput.svelte';
 
   export let assignment = null;
   export let isEdit = false;
@@ -14,9 +15,10 @@
   let citationStyleId = assignment?.citation_style_id || '';
   let wordCount = assignment?.word_count || 1000;
   let deadline = assignment?.deadline ? assignment.deadline.split('T')[0] : '';
+  let cryptocurrency = assignment?.cryptocurrency || 'BTC';
   let price = assignment?.price || 0;
-  let showPriceRange = false;
   let priceMax = assignment?.max_price || null;
+  let showRange = false;
   let plagiarismCheckRequested = assignment?.plagiarism_check_requested || false;
 
   let academicLevels = [];
@@ -59,7 +61,7 @@
     loading = true;
 
     try {
-      const assignmentData = {
+      const jobData = {
         title,
         description,
         topic,
@@ -68,8 +70,9 @@
         citation_style_id: citationStyleId || null,
         word_count: parseInt(wordCount),
         deadline: new Date(deadline).toISOString(),
+        cryptocurrency,
         price: parseFloat(price),
-        max_price: showPriceRange && priceMax ? parseFloat(priceMax) : null,
+        max_price: showRange && priceMax ? parseFloat(priceMax) : null,
         plagiarism_check_requested: plagiarismCheckRequested
       };
 
@@ -81,7 +84,7 @@
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(assignmentData)
+        body: JSON.stringify(jobData)
       });
 
       const data = await response.json();
@@ -221,45 +224,15 @@
     </div>
   </div>
 
-  <div class="price-section">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="price">
-          {showPriceRange ? 'Minimum Price (USD)' : 'Price (USD)'} *
-        </label>
-        <input
-          id="price"
-          type="number"
-          bind:value={price}
-          required
-          min="0"
-          step="0.01"
-          placeholder="0.00"
-        />
-      </div>
-
-      {#if showPriceRange}
-        <div class="form-group">
-          <label for="priceMax">
-            Maximum Price (USD)
-          </label>
-          <input
-            id="priceMax"
-            type="number"
-            bind:value={priceMax}
-            min={price || 0}
-            step="0.01"
-            placeholder="0.00"
-          />
-        </div>
-      {/if}
-    </div>
-
-    <label class="checkbox-label">
-      <input type="checkbox" bind:checked={showPriceRange} />
-      Offer price range
-    </label>
-    <small>Set your budget for this job</small>
+  <div class="form-group">
+    <PriceInput
+      bind:cryptocurrency
+      bind:price
+      bind:priceMax
+      bind:showRange
+      label="Budget"
+      required={true}
+    />
   </div>
 
   <div class="form-group">
