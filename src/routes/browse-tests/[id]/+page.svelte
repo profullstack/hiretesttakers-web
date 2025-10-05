@@ -149,8 +149,7 @@
 
   async function downloadAttachment(attachment) {
     try {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const downloadUrl = `${supabaseUrl}/storage/v1/object/public/test-attachments/${attachment.file_path}`;
+      const downloadUrl = `/api/tests/${test.id}/attachments/${attachment.id}/download`;
       window.open(downloadUrl, '_blank');
     } catch (err) {
       console.error('Failed to download attachment:', err);
