@@ -17,13 +17,13 @@ import {
  */
 export async function GET({ locals }) {
   try {
-    const session = locals.session;
+    const user = locals.user;
 
-    if (!session?.user) {
+    if (!user) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const conversations = await getConversations();
+    const conversations = await getConversations(locals.supabase, user.id);
 
     return json({ conversations });
   } catch (error) {
@@ -38,9 +38,9 @@ export async function GET({ locals }) {
  */
 export async function POST({ request, locals }) {
   try {
-    const session = locals.session;
+    const user = locals.user;
 
-    if (!session?.user) {
+    if (!user) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -50,7 +50,7 @@ export async function POST({ request, locals }) {
       applicationId,
       receiverId,
       content
-    });
+    }, locals.supabase, user.id);
 
     return json({ message }, { status: 201 });
   } catch (error) {

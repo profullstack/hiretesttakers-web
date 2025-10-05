@@ -287,12 +287,13 @@ export async function getSpecialists(serviceType, options = {}) {
 /**
  * Get top performers
  * @param {Object} filters - Filter options (serviceType, limit)
+ * @param {Object} supabaseClient - Supabase client instance
  * @returns {Promise<Array>} Array of top performers
  */
-export async function getTopPerformers(filters = {}) {
+export async function getTopPerformers(filters = {}, supabaseClient = supabase) {
   const { serviceType, limit = 20 } = filters;
 
-  let query = supabase
+  let query = supabaseClient
     .from('user_metrics')
     .select('*')
     .order('reputation_score', { ascending: false })
@@ -300,7 +301,7 @@ export async function getTopPerformers(filters = {}) {
 
   // If filtering by service type, join with expertise_areas
   if (serviceType) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('expertise_areas')
       .select('user_id, user_metrics(*)')
       .eq('service_type', serviceType)

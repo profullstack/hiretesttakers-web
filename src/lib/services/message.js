@@ -13,10 +13,12 @@ import { getSupabaseClient } from '../supabaseClient.js';
  * @param {string} params.applicationId - Application ID
  * @param {string} params.receiverId - Receiver user ID
  * @param {string} params.content - Message content
+ * @param {Object} supabaseClient - Supabase client (optional, for server-side)
+ * @param {string} userId - User ID (optional, for server-side)
  * @returns {Promise<Object>} Created message data
  * @throws {Error} If validation fails or send fails
  */
-export async function sendMessage({ applicationId, receiverId, content }) {
+export async function sendMessage({ applicationId, receiverId, content }, supabaseClient = null, userId = null) {
   if (!applicationId || applicationId.trim() === '') {
     throw new Error('Application ID is required');
   }
@@ -29,17 +31,19 @@ export async function sendMessage({ applicationId, receiverId, content }) {
     throw new Error('Message content is required');
   }
 
-  if (content.trim() === '') {
-    throw new Error('Message content cannot be empty');
-  }
+  const supabase = supabaseClient || getSupabaseClient();
+  let user;
 
-  const supabase = getSupabaseClient();
-
-  // Get current user
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
-  
-  if (userError || !user) {
-    throw new Error('User must be authenticated to send messages');
+  if (userId) {
+    user = { id: userId };
+  } else {
+    // Get current user from client
+    const { data: { user: authUser }, error: userError } = await supabase.auth.getUser();
+    
+    if (userError || !authUser) {
+      throw new Error('User must be authenticated to send messages');
+    }
+    user = authUser;
   }
 
   const { data, error } = await supabase
@@ -90,17 +94,25 @@ export async function getConversation({ applicationId }) {
 
 /**
  * Get all conversations for current user
+ * @param {Object} supabaseClient - Supabase client (optional, for server-side)
+ * @param {string} userId - User ID (optional, for server-side)
  * @returns {Promise<Array>} Array of conversations with metadata
  * @throws {Error} If query fails
  */
-export async function getConversations() {
-  const supabase = getSupabaseClient();
+export async function getConversations(supabaseClient = null, userId = null) {
+  const supabase = supabaseClient || getSupabaseClient();
+  let user;
 
-  // Get current user
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
-  
-  if (userError || !user) {
-    throw new Error('User must be authenticated to get conversations');
+  if (userId) {
+    user = { id: userId };
+  } else {
+    // Get current user from client
+    const { data: { user: authUser }, error: userError } = await supabase.auth.getUser();
+    
+    if (userError || !authUser) {
+      throw new Error('User must be authenticated to get conversations');
+    }
+    user = authUser;
   }
 
   // Get all messages where user is sender or receiver
@@ -126,8 +138,8 @@ export async function getConversations() {
     
     if (!conversationsMap.has(appId)) {
       // Determine the other user in the conversation
-      const otherUserId = message.sender_id === user.id 
-        ? message.receiver_id 
+      const otherUserId = message.sender_id === user.id
+        ? message.receiver_id
         : message.sender_id;
 
       conversationsMap.set(appId, {

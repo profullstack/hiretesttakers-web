@@ -103,7 +103,7 @@
   }
   
   .tagline {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     color: var(--color-text-secondary);
     font-weight: 500;
     max-width: 66%;
@@ -190,7 +190,7 @@
     justify-content: center;
     margin-top: var(--spacing-xl);
     flex-wrap: wrap;
-    position: relative;
+    position: absolute;
     z-index: 1;
   }
   

@@ -11,6 +11,7 @@
   let profile = $state(null);
   let loading = $state(true);
   let error = $state('');
+  let isNotFound = $state(false);
   
   const username = $derived($page.params.username);
   
@@ -24,7 +25,13 @@
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.error || 'Profile not found');
+        if (response.status === 404) {
+          isNotFound = true;
+          error = data.error || 'Profile not found or not public';
+        } else {
+          error = data.error || 'Failed to load profile';
+        }
+        return;
       }
       
       profile = data.profile;
@@ -52,8 +59,20 @@
     <div class="loading">Loading profile...</div>
   {:else if error}
     <div class="error-state">
-      <h2>Profile Not Found</h2>
-      <p>{error}</p>
+      {#if isNotFound}
+        <div class="error-icon">🔒</div>
+        <h2>Profile Not Available</h2>
+        <p class="error-message">
+          This profile is either not found or has been set to private by the user.
+        </p>
+        <p class="error-hint">
+          If this is your profile, you can make it public in your <a href="/settings">settings</a>.
+        </p>
+      {:else}
+        <div class="error-icon">⚠️</div>
+        <h2>Error Loading Profile</h2>
+        <p class="error-message">{error}</p>
+      {/if}
       <a href="/" class="btn-primary">Go Home</a>
     </div>
   {:else if profile}
@@ -182,6 +201,14 @@
   .error-state {
     text-align: center;
     padding: 4rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .error-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
   }
   
   .error-state h2 {
@@ -191,9 +218,27 @@
     color: var(--color-text);
   }
   
-  .error-state p {
+  .error-message {
     color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .error-hint {
+    color: var(--color-text-tertiary);
     margin-bottom: 2rem;
+    font-size: 0.875rem;
+    font-style: italic;
+  }
+  
+  .error-hint a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  
+  .error-hint a:hover {
+    color: var(--color-primary-hover);
   }
   
   .profile-header {

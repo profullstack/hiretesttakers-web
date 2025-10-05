@@ -8,8 +8,23 @@
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
   import UserDropdown from '$lib/components/UserDropdown.svelte';
   import Footer from '$lib/components/Footer.svelte';
+  import NavBar from '$lib/components/NavBar.svelte';
   
-  let session = $state(null);
+  let user = $state(null);
+  
+  // Check session status
+  async function checkSession() {
+    if (!browser) return;
+    
+    try {
+      const response = await fetch('/api/auth/session');
+      const data = await response.json();
+      user = data.user || null;
+    } catch (err) {
+      console.error('Failed to load session:', err);
+      user = null;
+    }
+  }
   
   // Apply theme on mount and reactively update
   onMount(async () => {
@@ -19,14 +34,14 @@
     if (browser) {
       document.documentElement.classList.toggle('dark', $theme === 'dark');
       
-      // Check session
-      try {
-        const response = await fetch('/api/auth/session');
-        const data = await response.json();
-        session = data.session;
-      } catch (err) {
-        console.error('Failed to load session:', err);
-      }
+      // Initial session check
+      await checkSession();
+      
+      // Poll for session changes every 5 seconds
+      const interval = setInterval(checkSession, 5000);
+      
+      // Cleanup
+      return () => clearInterval(interval);
     }
   });
   
@@ -45,16 +60,7 @@
         <img src="/logo.black.svg" alt="HireTestTakers" class="logo-light" />
         <img src="/logo.white.svg" alt="HireTestTakers" class="logo-dark" />
       </a>
-      <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/browse-tests">Browse Tests</a>
-        {#if session?.user}
-          <a href="/browse-tests/my-tests">My Tests</a>
-          <a href="/applications">Applications</a>
-        {/if}
-        <a href="/tools">Free Tools</a>
-        <a href="/services">Services</a>
-      </nav>
+      <NavBar {user} />
       <div class="header-actions">
         <LanguageSelector />
         <ThemeToggle />

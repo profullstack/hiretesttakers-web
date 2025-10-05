@@ -74,42 +74,49 @@
 <style>
   .messages-page {
     min-height: 100vh;
-    background: #f8f9fa;
-    padding: 2rem 0;
+    background: var(--color-bg);
+    padding: var(--spacing-xl) 0;
   }
 
   .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 var(--spacing-md);
   }
 
   .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
   }
 
   h1 {
     margin: 0;
     font-size: 2rem;
-    color: #333;
+    font-weight: 700;
+    color: var(--color-text);
   }
 
   .unread-total {
-    padding: 0.5rem 1rem;
-    background: #007bff;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--color-primary);
     color: white;
-    border-radius: 20px;
+    border-radius: var(--radius-full);
     font-size: 0.875rem;
     font-weight: 600;
+    box-shadow: var(--shadow-sm);
+  }
+
+  :global(.dark) .unread-total {
+    box-shadow: var(--glow-primary);
   }
 
   .conversations-container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
     overflow: hidden;
   }
 
@@ -119,35 +126,48 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-2xl) var(--spacing-md);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
   }
 
   .loading p,
   .error p {
-    margin: 0 0 1rem 0;
-    color: #666;
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--color-text-secondary);
   }
 
   .error button {
-    padding: 0.5rem 1.5rem;
-    background: #007bff;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    background: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     font-weight: 500;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
   }
 
   .error button:hover {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .error button {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .error button:hover {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
   }
 
   @media (max-width: 640px) {
     .messages-page {
-      padding: 1rem 0;
+      padding: var(--spacing-md) 0;
     }
 
     h1 {
@@ -157,7 +177,7 @@
     .page-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1rem;
+      gap: var(--spacing-md);
     }
   }
 </style>

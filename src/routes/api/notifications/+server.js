@@ -14,9 +14,9 @@ import { getNotifications } from '$lib/services/notification.js';
  */
 export async function GET({ locals, url }) {
   try {
-    const session = locals.session;
+    const user = locals.user;
 
-    if (!session?.user) {
+    if (!user) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -38,7 +38,7 @@ export async function GET({ locals, url }) {
       filters.limit = parseInt(limit, 10);
     }
 
-    const notifications = await getNotifications(session.user.id, filters);
+    const notifications = await getNotifications(user.id, filters, locals.supabase);
 
     return json({ notifications });
   } catch (error) {

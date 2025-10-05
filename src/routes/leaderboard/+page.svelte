@@ -250,17 +250,33 @@
     font-size: 1rem;
     font-weight: 500;
     transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
   }
 
   .view-mode-toggle button:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .view-mode-toggle button.active {
     background: var(--color-primary);
     color: white;
     border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  :global(.dark) .view-mode-toggle button {
+    background: var(--color-bg-secondary);
+  }
+
+  :global(.dark) .view-mode-toggle button:hover {
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+
+  :global(.dark) .view-mode-toggle button.active {
+    box-shadow: var(--glow-primary);
   }
 
   .reputation-leaderboard {

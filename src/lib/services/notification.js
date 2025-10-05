@@ -91,12 +91,14 @@ export const createNotification = async (userId, typeName, options) => {
  * @param {boolean} filters.read - Filter by read status
  * @param {string} filters.type - Filter by notification type name
  * @param {number} filters.limit - Limit number of results
+ * @param {Object} supabaseClient - Supabase client (optional, for server-side)
  * @returns {Promise<Array>} - Array of notifications
  */
-export const getNotifications = async (userId, filters = {}) => {
+export const getNotifications = async (userId, filters = {}, supabaseClient = null) => {
   const { read, type, limit = 50 } = filters;
+  const client = supabaseClient || supabase;
 
-  let query = supabase
+  let query = client
     .from('notifications')
     .select('*, notification_types(*)')
     .eq('user_id', userId)

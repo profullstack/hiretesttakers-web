@@ -97,13 +97,6 @@
 <div class="notifications-page">
   <div class="page-header">
     <h1>Notifications</h1>
-    <a href="/notifications/preferences" class="settings-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"></circle>
-        <path d="M12 1v6m0 6v6m5.2-13.2l-4.2 4.2m0 6l4.2 4.2M23 12h-6m-6 0H1m18.2 5.2l-4.2-4.2m0-6l4.2-4.2"></path>
-      </svg>
-      Settings
-    </a>
   </div>
   
   <div class="filter-tabs">
@@ -146,91 +139,78 @@
   .notifications-page {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: var(--spacing-xl) var(--spacing-md);
+    background: var(--color-bg);
+    min-height: calc(100vh - 200px);
   }
   
   .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
   }
   
   .page-header h1 {
     margin: 0;
     font-size: 2rem;
-    font-weight: 600;
-  }
-  
-  .settings-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #007bff;
-    text-decoration: none;
-    font-size: 0.9375rem;
-    transition: color 0.2s;
-  }
-  
-  .settings-link:hover {
-    color: #0056b3;
+    font-weight: 700;
+    color: var(--color-text);
   }
   
   .filter-tabs {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #e0e0e0;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    border-bottom: 2px solid var(--color-border);
   }
   
   .filter-tab {
     background: none;
     border: none;
-    padding: 0.75rem 1.5rem;
+    padding: var(--spacing-md) var(--spacing-xl);
     font-size: 0.9375rem;
     font-weight: 500;
-    color: #666;
+    color: var(--color-text-secondary);
     cursor: pointer;
     border-bottom: 2px solid transparent;
     margin-bottom: -2px;
-    transition: all 0.2s;
+    transition: all var(--transition-base);
   }
   
   .filter-tab:hover {
-    color: #333;
+    color: var(--color-text);
   }
   
   .filter-tab.active {
-    color: #007bff;
-    border-bottom-color: #007bff;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
   }
   
   .notifications-container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
     overflow: hidden;
   }
   
   .loading,
   .error {
-    padding: 3rem 1rem;
+    padding: var(--spacing-2xl) var(--spacing-md);
     text-align: center;
-    color: #666;
+    color: var(--color-text-secondary);
   }
   
   .error {
-    color: #dc3545;
+    color: var(--color-error);
   }
   
   @media (max-width: 640px) {
     .notifications-page {
-      padding: 1rem 0;
+      padding: var(--spacing-md) 0;
     }
     
     .page-header {
-      padding: 0 1rem;
-      margin-bottom: 1rem;
+      padding: 0 var(--spacing-md);
+      margin-bottom: var(--spacing-md);
     }
     
     .page-header h1 {
@@ -238,11 +218,11 @@
     }
     
     .filter-tabs {
-      padding: 0 1rem;
+      padding: 0 var(--spacing-md);
     }
     
     .filter-tab {
-      padding: 0.5rem 1rem;
+      padding: var(--spacing-sm) var(--spacing-lg);
       font-size: 0.875rem;
     }
   }

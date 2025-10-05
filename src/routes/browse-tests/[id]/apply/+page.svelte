@@ -94,7 +94,12 @@
         <h2>{test.title}</h2>
         <div class="test-meta">
           <span class="meta-item">
-            <strong>Payment:</strong> {test.price_fixed || `${test.price_min} - ${test.price_max}`} {test.cryptocurrency}
+            <strong>Payment:</strong>
+            {#if test.price_max}
+              {test.price} - {test.price_max} {test.cryptocurrency}
+            {:else}
+              {test.price} {test.cryptocurrency}
+            {/if}
           </span>
           {#if test.deadline}
             <span class="meta-item">

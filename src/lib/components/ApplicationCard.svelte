@@ -78,121 +78,157 @@
 
 <style>
   .application-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    transition: box-shadow 0.2s;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-base);
   }
 
   .application-card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  :global(.dark) .application-card:hover {
+    box-shadow: var(--glow-primary);
   }
 
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-md);
   }
 
   .test-title {
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #111827;
+    color: var(--color-text);
     flex: 1;
   }
 
   .status-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
   }
 
   .status-pending {
-    background-color: #fef3c7;
-    color: #92400e;
+    background-color: var(--color-warning-light);
+    color: var(--color-warning-dark);
+  }
+
+  :global(.dark) .status-pending {
+    background-color: rgba(251, 191, 36, 0.2);
+    color: var(--color-warning-light);
   }
 
   .status-approved {
-    background-color: #dbeafe;
-    color: #1e40af;
+    background-color: var(--color-info-light);
+    color: var(--color-info-dark);
+  }
+
+  :global(.dark) .status-approved {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: var(--color-info-light);
   }
 
   .status-rejected {
-    background-color: #fee2e2;
-    color: #991b1b;
+    background-color: var(--color-error-light);
+    color: var(--color-error-dark);
+  }
+
+  :global(.dark) .status-rejected {
+    background-color: rgba(255, 0, 85, 0.2);
+    color: var(--color-error-light);
   }
 
   .status-hired {
-    background-color: #d1fae5;
-    color: #065f46;
+    background-color: var(--color-success-light);
+    color: var(--color-success-dark);
+  }
+
+  :global(.dark) .status-hired {
+    background-color: rgba(34, 197, 94, 0.2);
+    color: var(--color-success-light);
   }
 
   .card-body {
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
   }
 
   .message-section {
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
   }
 
   .message-section strong {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #374151;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
   }
 
   .message-text {
     margin: 0;
-    padding: 0.75rem;
-    background-color: #f9fafb;
-    border-radius: 0.375rem;
-    color: #4b5563;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
     line-height: 1.5;
   }
 
   .meta-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--spacing-md);
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--color-text-secondary);
   }
 
   .meta-item strong {
-    color: #374151;
+    color: var(--color-text);
   }
 
   .card-footer {
     display: flex;
     justify-content: flex-end;
-    padding-top: 1rem;
-    border-top: 1px solid #e5e7eb;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
   }
 
   .btn {
-    padding: 0.5rem 1rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border: none;
-    border-radius: 0.375rem;
+    border-radius: var(--radius-md);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
   }
 
   .btn-primary {
-    background-color: #3b82f6;
+    background-color: var(--color-primary);
     color: white;
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover {
-    background-color: #2563eb;
+    background-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .btn-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .btn-primary:hover {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
   }
 
   @media (max-width: 640px) {
@@ -203,7 +239,7 @@
 
     .meta-info {
       flex-direction: column;
-      gap: 0.5rem;
+      gap: var(--spacing-sm);
     }
   }
 </style>

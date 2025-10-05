@@ -5,7 +5,7 @@ import { getTopPerformers } from '$lib/services/reputation.js';
  * GET /api/reputation/top-performers
  * Get top performers by reputation score
  */
-export async function GET({ url }) {
+export async function GET({ url, locals }) {
   try {
     const serviceType = url.searchParams.get('serviceType');
     const limit = parseInt(url.searchParams.get('limit') || '20', 10);
@@ -15,7 +15,7 @@ export async function GET({ url }) {
       filters.serviceType = serviceType;
     }
 
-    const topPerformers = await getTopPerformers(filters);
+    const topPerformers = await getTopPerformers(filters, locals.supabase);
 
     return json({ topPerformers });
   } catch (error) {
