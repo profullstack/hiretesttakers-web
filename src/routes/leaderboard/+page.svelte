@@ -155,37 +155,44 @@
       </div>
     {:else if viewMode === 'reputation'}
       <!-- Reputation-based leaderboard -->
-      <div class="reputation-leaderboard">
-        {#each topPerformers as performer, index}
-          <div class="performer-card">
-            <div class="rank">#{index + 1}</div>
-            <div class="performer-info">
-              <div class="performer-header">
-                <h3>User {performer.user_id.substring(0, 8)}</h3>
-                <ReputationScore score={performer.reputation_score} size="large" />
-              </div>
-              <div class="performer-stats">
-                <div class="stat">
-                  <span class="stat-label">Services:</span>
-                  <span class="stat-value">{performer.total_services_completed}</span>
+      {#if topPerformers.length === 0}
+        <div class="empty-state">
+          <h2>No Top Performers Yet</h2>
+          <p>Be the first to build your reputation and appear on the leaderboard!</p>
+        </div>
+      {:else}
+        <div class="reputation-leaderboard">
+          {#each topPerformers as performer, index}
+            <div class="performer-card">
+              <div class="rank">#{index + 1}</div>
+              <div class="performer-info">
+                <div class="performer-header">
+                  <h3>User {performer.user_id.substring(0, 8)}</h3>
+                  <ReputationScore score={performer.reputation_score} size="large" />
                 </div>
-                <div class="stat">
-                  <span class="stat-label">Rating:</span>
-                  <span class="stat-value">{parseFloat(performer.average_rating).toFixed(1)} ⭐</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-label">Success Rate:</span>
-                  <span class="stat-value">{parseFloat(performer.success_rate).toFixed(0)}%</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-label">Earnings:</span>
-                  <span class="stat-value">${parseFloat(performer.total_earnings).toFixed(2)}</span>
+                <div class="performer-stats">
+                  <div class="stat">
+                    <span class="stat-label">Services:</span>
+                    <span class="stat-value">{performer.total_services_completed}</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Rating:</span>
+                    <span class="stat-value">{parseFloat(performer.average_rating).toFixed(1)} ⭐</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Success Rate:</span>
+                    <span class="stat-value">{parseFloat(performer.success_rate).toFixed(0)}%</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Earnings:</span>
+                    <span class="stat-value">${parseFloat(performer.total_earnings).toFixed(2)}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        {/each}
-      </div>
+          {/each}
+        </div>
+      {/if}
     {:else}
       <LeaderboardTable {leaderboard} {sortBy} onSort={handleSort} />
 
@@ -419,6 +426,27 @@
   .page-info {
     color: var(--color-text);
     font-weight: 600;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    background: var(--color-surface);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .empty-state h2 {
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .empty-state p {
+    margin: 0;
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
   }
 
   @media (max-width: 768px) {

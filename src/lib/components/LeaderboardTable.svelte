@@ -183,21 +183,22 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    border: 1px solid var(--color-border);
   }
 
   thead {
-    background: #f8f9fa;
+    background: var(--color-bg-secondary);
   }
 
   th {
-    padding: 12px;
+    padding: var(--spacing-md);
     text-align: left;
     font-weight: 600;
-    color: #495057;
-    border-bottom: 2px solid #dee2e6;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-border);
   }
 
   th button {
@@ -209,24 +210,26 @@
     padding: 0;
     text-align: left;
     width: 100%;
+    transition: color var(--transition-base);
   }
 
   th button:hover {
-    color: #007bff;
+    color: var(--color-primary);
   }
 
   td {
-    padding: 12px;
-    border-bottom: 1px solid #dee2e6;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
   }
 
-  tr:hover {
-    background: #f8f9fa;
+  tbody tr:hover {
+    background: var(--color-bg-secondary);
   }
 
   .rank {
     font-weight: 600;
-    color: #6c757d;
+    color: var(--color-text-secondary);
   }
 
   .user-info {
@@ -236,7 +239,7 @@
   .user-details {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--spacing-md);
   }
 
   .avatar {
@@ -244,13 +247,14 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid var(--color-border);
   }
 
   .avatar-placeholder {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #007bff;
+    background: var(--color-primary);
     color: white;
     display: flex;
     align-items: center;
@@ -260,13 +264,13 @@
 
   .user-name {
     font-weight: 600;
-    color: #212529;
+    color: var(--color-text);
   }
 
   .user-bio {
     font-size: 0.875rem;
-    color: #6c757d;
-    margin-top: 4px;
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-xs);
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -276,21 +280,22 @@
   .skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: var(--spacing-xs);
   }
 
   .skill-tag {
-    background: #e9ecef;
-    padding: 2px 8px;
-    border-radius: 12px;
+    background: var(--color-bg-secondary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-full);
     font-size: 0.75rem;
-    color: #495057;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
 
   .no-data {
     text-align: center;
-    color: #6c757d;
-    padding: 24px;
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xl);
   }
 
   @media (max-width: 768px) {
@@ -300,7 +305,7 @@
 
     th,
     td {
-      padding: 8px;
+      padding: var(--spacing-sm);
     }
 
     .user-bio {
