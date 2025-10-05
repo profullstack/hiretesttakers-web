@@ -27,7 +27,8 @@
     "supabase:push": "pnpx supabase db push",
     "supabase:reset": "pnpx supabase db reset",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+    "verify:deployment": "node scripts/verify-deployment.js"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.0.0",
