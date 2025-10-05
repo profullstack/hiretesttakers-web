@@ -29,12 +29,15 @@ export async function handle({ event, resolve }) {
     }
   });
 
-  // Get session from Supabase - this will read from cookies
-  const { data: { session }, error } = await event.locals.supabase.auth.getSession();
+  // Get user from Supabase - authenticates with the auth server
+  const { data: { user }, error } = await event.locals.supabase.auth.getUser();
+  
+  // Get session for compatibility
+  const { data: { session } } = await event.locals.supabase.auth.getSession();
   
   // Make session and user available to endpoints via locals
   event.locals.session = session;
-  event.locals.user = session?.user ?? null;
+  event.locals.user = user;
   
   return resolve(event, {
     filterSerializedResponseHeaders(name) {
