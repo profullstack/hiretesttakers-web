@@ -359,10 +359,12 @@
   .btn-secondary {
     background: var(--color-gray-200);
     color: var(--color-text);
+    border: 2px solid var(--color-border);
   }
 
   .btn-secondary:hover:not(:disabled) {
     background: var(--color-gray-300);
+    border-color: var(--color-border-hover);
   }
 
   .spinner {
@@ -395,6 +397,18 @@
 
   :global(.dark) .btn-primary:hover:not(:disabled) {
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
+  }
+
+  /* Dark mode: Better contrast for secondary button */
+  :global(.dark) .btn-secondary {
+    background: var(--color-gray-700);
+    color: var(--color-text);
+    border-color: var(--color-gray-600);
+  }
+
+  :global(.dark) .btn-secondary:hover:not(:disabled) {
+    background: var(--color-gray-600);
+    border-color: var(--color-gray-500);
   }
 
   @media (max-width: 768px) {

@@ -19,8 +19,15 @@
       user = session?.user ?? null;
 
       // Listen for auth changes
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
         user = session?.user ?? null;
+        
+        // Force a re-check of the session on sign in
+        if (event === 'SIGNED_IN' && !user) {
+          const { data: { session: newSession } } = await supabase.auth.getSession();
+          user = newSession?.user ?? null;
+        }
       });
 
       // Cleanup subscription
@@ -107,7 +114,7 @@
     {/if}
   {:else}
     <!-- Not logged in: Show login link -->
-    <a href="/profile" class="login-link">Login</a>
+    <a href="/auth/login" class="login-link">Login</a>
   {/if}
 </div>
 
