@@ -7,7 +7,6 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { getSupabaseClient } from '$lib/supabaseClient.js';
   import AuthForm from '$lib/components/AuthForm.svelte';
 
   // Get redirect URL from query params
@@ -15,23 +14,29 @@
 
   async function handleLogin({ email, password }) {
     try {
-      const supabase = getSupabaseClient();
-      
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include' // Important: include cookies
       });
 
-      if (error) {
+      const data = await response.json();
+
+      if (!data.success) {
         return {
           success: false,
-          error: error.message || 'Failed to log in'
+          error: data.error || 'Failed to log in'
         };
       }
 
       // Redirect to the original page or home after successful login
       setTimeout(() => {
         goto(redirectTo);
+        // Force page reload to update auth state
+        window.location.href = redirectTo;
       }, 500);
       
       return {

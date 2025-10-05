@@ -6,16 +6,15 @@
  */
 
 import { json } from '@sveltejs/kit';
-import { signOut } from '$lib/services/auth.js';
 
-/**
- * Handle POST request for user logout
- * @param {Object} params - Request parameters
- * @returns {Response} JSON response with success status
- */
-export async function POST() {
+/** @type {import('./$types').RequestHandler} */
+export async function POST({ locals }) {
   try {
-    await signOut();
+    const supabase = locals.supabase;
+    
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
 
     return json({
       success: true,

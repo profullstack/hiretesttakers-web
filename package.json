@@ -57,6 +57,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.39.0",
     "pdf-parse": "^2.1.7",
     "svelte-i18n": "^4.0.1"

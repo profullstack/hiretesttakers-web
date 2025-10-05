@@ -2,53 +2,50 @@
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
-  import { getSupabaseClient } from '$lib/supabaseClient.js';
-  import { signOut } from '$lib/services/auth.js';
 
   let user = null;
   let profile = null;
   let isOpen = false;
   let dropdownRef;
 
-  // Get user and profile on mount
-  onMount(async () => {
-    if (browser) {
-      const supabase = getSupabaseClient();
-      
-      // Get initial session and user
-      const { data: { session } } = await supabase.auth.getSession();
-      user = session?.user ?? null;
-      
-      // Load profile if user exists
-      if (user) {
-        await loadProfile();
-      }
-
-      // Listen for auth changes
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email);
-        user = session?.user ?? null;
-        
-        // Load profile on sign in
-        if (event === 'SIGNED_IN' && user) {
-          await loadProfile();
-        } else if (event === 'SIGNED_OUT') {
-          profile = null;
-        }
-        
-        // Force a re-check of the session on sign in
-        if (event === 'SIGNED_IN' && !user) {
-          const { data: { session: newSession } } = await supabase.auth.getSession();
-          user = newSession?.user ?? null;
-          if (user) {
-            await loadProfile();
-          }
-        }
+  // Check auth status via API
+  async function checkAuthStatus() {
+    try {
+      const response = await fetch('/api/auth/session', {
+        credentials: 'include'
       });
+      
+      if (response.ok) {
+        const data = await response.json();
+        user = data.user || null;
+        
+        // Load profile if user exists
+        if (user) {
+          await loadProfile();
+        }
+      } else {
+        user = null;
+        profile = null;
+      }
+    } catch (error) {
+      console.error('Failed to check auth status:', error);
+      user = null;
+      profile = null;
+    }
+  }
 
-      // Cleanup subscription
+  // Get user on mount and poll for changes
+  onMount(() => {
+    if (browser) {
+      // Initial check
+      checkAuthStatus();
+      
+      // Poll every 5 seconds to check auth status
+      const interval = setInterval(checkAuthStatus, 5000);
+      
+      // Cleanup
       return () => {
-        subscription.unsubscribe();
+        clearInterval(interval);
       };
     }
   });
@@ -56,7 +53,9 @@
   // Load user profile
   async function loadProfile() {
     try {
-      const response = await fetch('/api/profile');
+      const response = await fetch('/api/profile', {
+        credentials: 'include'
+      });
       if (response.ok) {
         const data = await response.json();
         profile = data.profile;
@@ -81,7 +80,12 @@
   // Handle logout
   async function handleLogout() {
     try {
-      await signOut();
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      user = null;
+      profile = null;
       isOpen = false;
       goto('/');
     } catch (error) {

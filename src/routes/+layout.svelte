@@ -31,6 +31,7 @@
       <h1 class="logo"><a href="/">HireTestTakers</a></h1>
       <nav class="nav">
         <a href="/">Home</a>
+        <a href="/browse-tests">Browse Tests</a>
         <a href="/tools">Free Tools</a>
         <a href="/services">Services</a>
       </nav>
