@@ -59,10 +59,6 @@
       <a href="/services" class="btn btn-outline">Explore Tools</a>
     </section>
   </main>
-  
-  <footer>
-    <p>&copy; 2024 HireTestTakers.com - All rights reserved</p>
-  </footer>
 </div>
 
 <style>

@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { getExchangeRate } from '$lib/services/tatum.js';
 
   export let cryptocurrency = 'BTC';
   export let price = 0;
@@ -29,7 +28,14 @@
     error = '';
     
     try {
-      exchangeRate = await getExchangeRate(cryptocurrency);
+      const response = await fetch(`/api/exchange-rate/${cryptocurrency}`);
+      const data = await response.json();
+      
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to fetch exchange rate');
+      }
+      
+      exchangeRate = data.rate;
       calculateUsdValue();
     } catch (err) {
       error = 'Failed to fetch exchange rate';
