@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
-  import { getExchangeRate } from '$lib/services/tatum.js';
 
   let test = null;
   let loading = true;
@@ -25,11 +24,20 @@
 
       test = data.test;
       
-      // Calculate USD values
-      const rate = await getExchangeRate(test.cryptocurrency);
-      usdValue = (test.price * rate).toFixed(2);
-      if (test.price_max) {
-        usdValueMax = (test.price_max * rate).toFixed(2);
+      // Calculate USD values using API
+      try {
+        const rateResponse = await fetch(`/api/exchange-rate/${test.cryptocurrency}`);
+        const rateData = await rateResponse.json();
+        
+        if (rateResponse.ok && rateData.success) {
+          const rate = rateData.rate;
+          usdValue = (test.price * rate).toFixed(2);
+          if (test.price_max) {
+            usdValueMax = (test.price_max * rate).toFixed(2);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch exchange rate:', err);
       }
 
       // Check if current user is owner (would need session check)

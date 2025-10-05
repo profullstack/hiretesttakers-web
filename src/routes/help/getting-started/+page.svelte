@@ -40,7 +40,7 @@
           <li>Choose the best candidate</li>
           <li>Pay securely with cryptocurrency</li>
         </ul>
-        <a href=/browse-tests/new" class="btn-secondary">Post a Test</a>
+        <a href="/browse-tests/new" class="btn-secondary">Post a Test</a>
       </div>
 
       <div class="path-card">

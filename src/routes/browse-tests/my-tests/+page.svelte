@@ -56,7 +56,7 @@
 <div class="container">
   <header class="page-header">
     <h1>My Tests</h1>
-    <a href=/browse-tests/new" class="btn-primary">Post a New Test</a>
+    <a href="/browse-tests/new" class="btn-primary">Post a New Test</a>
   </header>
 
   <div class="filter-bar">
@@ -75,7 +75,7 @@
   {:else if tests.length === 0}
     <div class="empty-state">
       <p>You haven't posted any tests yet.</p>
-      <p><a href=/browse-tests/new">Post your first test</a> to get started!</p>
+      <p><a href="/browse-tests/new">Post your first test</a> to get started!</p>
     </div>
   {:else}
     <div class="tests-grid">

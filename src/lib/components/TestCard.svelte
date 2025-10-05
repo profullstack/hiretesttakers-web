@@ -62,7 +62,7 @@
 <article class="test-card">
   <div class="test-header">
     <h3>
-      <a href=/browse-tests/{test.id}">{test.title}</a>
+      <a href="/browse-tests/{test.id}">{test.title}</a>
     </h3>
     <span class="status {getStatusClass(test.status)}">
       {getStatusLabel(test.status)}

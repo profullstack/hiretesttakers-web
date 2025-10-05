@@ -81,13 +81,13 @@
   {:else if error}
     <div class="error-box">
       <p>{error}</p>
-      <a href=/browse-tests/{$page.params.id}" class="btn-secondary">Back to Test</a>
+      <a href="/browse-tests/{$page.params.id}" class="btn-secondary">Back to Test</a>
     </div>
   {:else if test}
     <div class="apply-page">
       <header class="page-header">
         <h1>Apply to Test</h1>
-        <a href=/browse-tests/{$page.params.id}" class="back-link">← Back to Test</a>
+        <a href="/browse-tests/{$page.params.id}" class="back-link">← Back to Test</a>
       </header>
 
       <div class="test-summary">
