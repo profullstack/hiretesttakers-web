@@ -10,17 +10,18 @@ import { createClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
 import { createPaymentWithExchangeRate } from '$lib/services/cryptapi.js';
 
-const supabase = createClient(
-  env.PUBLIC_SUPABASE_URL,
-  env.SUPABASE_SERVICE_ROLE_KEY
-);
-
 /**
  * POST /api/payments/create
  * Create a new cryptocurrency payment
  */
 export async function POST({ request, locals }) {
   try {
+    // Create Supabase client with service role
+    const supabase = createClient(
+      env.PUBLIC_SUPABASE_URL,
+      env.SUPABASE_SERVICE_ROLE_KEY
+    );
+    
     const session = await locals.getSession();
     
     if (!session) {

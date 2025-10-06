@@ -18,16 +18,17 @@ import { json, error } from '@sveltejs/kit';
 import { createClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
 
-const supabase = createClient(
-  env.PUBLIC_SUPABASE_URL,
-  env.SUPABASE_SERVICE_ROLE_KEY
-);
-
 /**
  * POST handler for CryptAPI webhooks
  */
 export async function POST({ request, url }) {
   try {
+    // Create Supabase client with service role
+    const supabase = createClient(
+      env.PUBLIC_SUPABASE_URL,
+      env.SUPABASE_SERVICE_ROLE_KEY
+    );
+    
     // Parse webhook data
     const webhookData = await request.json();
     
