@@ -233,6 +233,18 @@
         </div>
       {/if}
 
+      {#if assignment.plagiarism_reports && assignment.plagiarism_reports.length > 0}
+        <div class="section">
+          <h2>Plagiarism Reports</h2>
+          <p class="reports-summary">
+            {assignment.plagiarism_reports.length} report{assignment.plagiarism_reports.length !== 1 ? 's' : ''} available
+          </p>
+          <button on:click={() => goto(`/jobs/${assignmentId}/plagiarism-reports`)} class="btn-primary">
+            View All Plagiarism Reports
+          </button>
+        </div>
+      {/if}
+
       <div class="actions">
         {#if assignment.status === 'submitted'}
           {#if !showRevisionForm}
@@ -242,6 +254,11 @@
           {/if}
           <button on:click={generateQualityReport} class="btn-secondary">
             Generate Quality Report
+          </button>
+        {/if}
+        {#if assignment.plagiarism_check_requested}
+          <button on:click={() => goto(`/jobs/${assignmentId}/plagiarism-reports`)} class="btn-secondary">
+            📋 Plagiarism Reports
           </button>
         {/if}
       </div>
@@ -409,6 +426,11 @@
     background: white;
     border-radius: 4px;
     font-style: italic;
+  }
+
+  .reports-summary {
+    margin: 0 0 1rem 0;
+    color: #666;
   }
 
   .actions {
