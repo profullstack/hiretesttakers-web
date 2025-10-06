@@ -156,7 +156,7 @@ export async function createPaymentAddress(params) {
 
 /**
  * Get CryptAPI coin code from cryptocurrency
- * 
+ *
  * @param {string} cryptocurrency - Cryptocurrency code
  * @returns {string} CryptAPI coin code (lowercase)
  */
@@ -169,4 +169,89 @@ export function getCoinCode(cryptocurrency) {
   };
   
   return coinMap[cryptocurrency.toUpperCase()] || cryptocurrency.toLowerCase();
+}
+
+/**
+ * Get USD exchange rate for cryptocurrency
+ * Uses CryptAPI's info endpoint to get current exchange rate
+ *
+ * @param {string} cryptocurrency - Cryptocurrency code (BTC, ETH, DOGE, SOL)
+ * @returns {Promise<Object>} Exchange rate information
+ * @throws {Error} If cryptocurrency is unsupported or API call fails
+ */
+export async function getExchangeRate(cryptocurrency) {
+  if (!validateCryptocurrency(cryptocurrency)) {
+    throw new Error(`Unsupported cryptocurrency: ${cryptocurrency}`);
+  }
+  
+  const coin = getCoinCode(cryptocurrency);
+  const url = `${CRYPTAPI_BASE_URL}/${coin}/info/`;
+  
+  try {
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`CryptAPI info endpoint error: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    // CryptAPI returns prices in various currencies
+    const usdPrice = data.prices?.USD || data.price_usd || 0;
+    
+    if (!usdPrice || usdPrice <= 0) {
+      throw new Error('Unable to fetch valid USD exchange rate');
+    }
+    
+    return {
+      cryptocurrency: cryptocurrency.toUpperCase(),
+      usdPrice,
+      lastUpdated: new Date().toISOString(),
+      source: 'CryptAPI'
+    };
+    
+  } catch (error) {
+    if (error.message.includes('CryptAPI')) {
+      throw error;
+    }
+    throw new Error(`Failed to fetch exchange rate: ${error.message}`);
+  }
+}
+
+/**
+ * Convert cryptocurrency amount to USD
+ *
+ * @param {number} amount - Amount in cryptocurrency
+ * @param {string} cryptocurrency - Cryptocurrency code
+ * @returns {Promise<number>} USD equivalent
+ */
+export async function convertToUSD(amount, cryptocurrency) {
+  const rate = await getExchangeRate(cryptocurrency);
+  return Math.round(amount * rate.usdPrice * 100) / 100; // Round to 2 decimal places
+}
+
+/**
+ * Create payment with USD exchange rate included
+ * Enhanced version that includes current USD value
+ *
+ * @param {Object} params - Payment parameters (same as createPaymentAddress)
+ * @returns {Promise<Object>} Payment details with USD exchange rate
+ */
+export async function createPaymentWithExchangeRate(params) {
+  const { cryptocurrency, amount } = params;
+  
+  // Get exchange rate first
+  const exchangeRate = await getExchangeRate(cryptocurrency);
+  const usdEquivalent = await convertToUSD(amount, cryptocurrency);
+  
+  // Create payment address
+  const paymentDetails = await createPaymentAddress(params);
+  
+  // Return enhanced payment details
+  return {
+    ...paymentDetails,
+    exchangeRate: exchangeRate.usdPrice,
+    usdEquivalent,
+    exchangeRateInfo: exchangeRate
+  };
 }
