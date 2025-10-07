@@ -12,6 +12,7 @@
 
   let user = $state(null);
 
+  // removed slot and used children props instead
   let { children } = $props();
 
   // Check session status
