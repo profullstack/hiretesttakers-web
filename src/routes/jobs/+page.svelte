@@ -21,7 +21,7 @@
         params.append('status', statusFilter);
       }
 
-      const response = await fetch(`/api/assignments?${params}`);
+      const response = await fetch(`/api/jobs?${params}`);
       const data = await response.json();
 
       if (!response.ok) {

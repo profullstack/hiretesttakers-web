@@ -159,7 +159,7 @@ export async function createAssignmentRequest({
     .single();
 
   if (error) {
-    throw new Error(`Failed to create assignment request: ${error.message}`);
+    throw new Error(`Failed to create job: ${error.message}`);
   }
 
   return data;

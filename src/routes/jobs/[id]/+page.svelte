@@ -21,7 +21,7 @@
     error = '';
 
     try {
-      const response = await fetch(`/api/assignments/${assignmentId}`);
+      const response = await fetch(`/api/jobs/${assignmentId}`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -44,7 +44,7 @@
 
     submitting = true;
     try {
-      const response = await fetch(`/api/assignments/${assignmentId}/revisions`, {
+      const response = await fetch(`/api/jobs/${assignmentId}/revisions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ notes: revisionNotes })
@@ -69,7 +69,7 @@
 
   async function generateQualityReport() {
     try {
-      const response = await fetch(`/api/assignments/${assignmentId}/quality-report`);
+      const response = await fetch(`/api/jobs/${assignmentId}/quality-report`);
       const data = await response.json();
 
       if (!response.ok) {

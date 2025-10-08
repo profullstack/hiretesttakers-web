@@ -1,8 +1,8 @@
 /**
- * Assignments API Routes
- * 
- * GET /api/assignments - List assignment requests with filters
- * POST /api/assignments - Create new assignment request
+ * Jobs API Routes
+ *
+ * GET /api/jobs - List job requests with filters
+ * POST /api/jobs - Create new job request
  */
 
 import { json } from '@sveltejs/kit';
