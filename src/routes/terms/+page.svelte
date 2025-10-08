@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Terms of Service - HireTestTakers</title>
+  <title>Terms of Service - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
@@ -9,7 +9,7 @@
   <section>
     <h2>1. Acceptance of Terms</h2>
     <p>
-      By accessing and using HireTestTakers, you accept and agree to be bound by the terms and provision of this agreement.
+      By accessing and using TutorLinkup, you accept and agree to be bound by the terms and provision of this agreement.
     </p>
   </section>
 
@@ -56,7 +56,7 @@
   <section>
     <h2>7. Limitation of Liability</h2>
     <p>
-      HireTestTakers is provided "as is" without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages.
+      TutorLinkup is provided "as is" without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages.
     </p>
   </section>
 

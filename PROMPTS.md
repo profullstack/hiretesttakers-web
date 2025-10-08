@@ -1,4 +1,4 @@
-# Development Prompts for HireTestTakers.com
+# Development Prompts for TutorLinkup.com
 
 Use these prompts to continue development in focused sessions. Each prompt is designed to build one complete feature area with TDD.
 
@@ -57,7 +57,7 @@ All core features, integration testing, UI polish, and deployment preparation ha
 ### Context to Provide:
 
 When starting a new session, mention:
-- "Continue HireTestTakers.com development"
+- "Continue TutorLinkup.com development"
 - "Core features (Prompts 1-9) and Integration Testing (Prompt 10) are complete"
 - "Follow existing code patterns"
 - "Use TDD, KISS, DRY principles"
@@ -70,7 +70,7 @@ When starting a new session, mention:
 **Prompt for next session:**
 
 ```
-Continue building HireTestTakers.com. Core features (Prompts 1-9) and Integration Testing (Prompt 10) are complete.
+Continue building TutorLinkup.com. Core features (Prompts 1-9) and Integration Testing (Prompt 10) are complete.
 
 Next task: Build UI Polish & Components (Prompt 11).
 

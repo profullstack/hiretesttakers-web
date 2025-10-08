@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document summarizes the dark mode audit and fixes applied to the HireTestTakers application.
+This document summarizes the dark mode audit and fixes applied to the TutorLinkup application.
 
 ## Completed Work
 

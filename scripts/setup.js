@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Setup Script for HireTestTakers.com
+ * Setup Script for TutorLinkup.com
  * 
  * Uses Supabase CLI for local development.
  * Prompts for API keys and creates working .env file.
@@ -41,7 +41,7 @@ const parseEnvFile = (content) => {
 
 const setup = async () => {
   console.log('\n' + '='.repeat(60));
-  console.log('🎉 HireTestTakers.com - Setup');
+  console.log('🎉 TutorLinkup.com - Setup');
   console.log('='.repeat(60) + '\n');
   
   try {

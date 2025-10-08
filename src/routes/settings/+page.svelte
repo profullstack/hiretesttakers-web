@@ -165,7 +165,7 @@
 </script>
 
 <svelte:head>
-  <title>Settings - HireTestTakers</title>
+  <title>Settings - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

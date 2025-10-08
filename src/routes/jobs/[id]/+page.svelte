@@ -100,7 +100,7 @@
 </script>
 
 <svelte:head>
-  <title>{assignment?.title || 'Job'} - HireTestTakers</title>
+  <title>{assignment?.title || 'Job'} - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

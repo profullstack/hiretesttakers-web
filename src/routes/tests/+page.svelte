@@ -57,7 +57,7 @@
 </script>
 
 <svelte:head>
-  <title>Professional Test Taking Services - HireTestTakers</title>
+  <title>Professional Test Taking Services - TutorLinkup</title>
   <meta name="description" content="Hire verified professional test takers for academic tests, certifications, and entrance exams. Secure payments, reputation system, and quality guarantee." />
 </svelte:head>
 

@@ -1,8 +1,8 @@
-# HireTestTakers.com - Development TODO
+# TutorLinkup.com - Development TODO
 
 ## Project Status: Planning Phase
 
-This document tracks all development tasks for the HireTestTakers.com platform. Tasks are organized by feature area and priority.
+This document tracks all development tasks for the TutorLinkup.com platform. Tasks are organized by feature area and priority.
 
 ---
 

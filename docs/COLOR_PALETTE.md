@@ -1,6 +1,6 @@
 # Color Palette
 
-This document describes the **modernized** color scheme for the HireTestTakers platform (optimized for accessibility and clean light/dark themes).
+This document describes the **modernized** color scheme for the TutorLinkup platform (optimized for accessibility and clean light/dark themes).
 
 ## Primary Colors
 

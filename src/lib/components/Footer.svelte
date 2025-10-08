@@ -1,7 +1,7 @@
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-section">
-      <h3>HireTestTakers</h3>
+      <h3>TutorLinkup</h3>
       <p>The trusted marketplace for academic services and test-taking professionals.</p>
       <div class="social-links">
         <a href="https://twitter.com" aria-label="Twitter" target="_blank" rel="noopener noreferrer">🐦</a>
@@ -51,7 +51,7 @@
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; {new Date().getFullYear()} HireTestTakers.com - All rights reserved</p>
+    <p>&copy; {new Date().getFullYear()} TutorLinkup.com - All rights reserved</p>
     <p class="payment-methods">
       Accepted: BTC • ETH • DOGE • SOL
     </p>

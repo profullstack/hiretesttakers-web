@@ -91,7 +91,7 @@
 </script>
 
 <svelte:head>
-  <title>Notifications - HireTestTakers</title>
+  <title>Notifications - TutorLinkup</title>
 </svelte:head>
 
 <div class="notifications-page">

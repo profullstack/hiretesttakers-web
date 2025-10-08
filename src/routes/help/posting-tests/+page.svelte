@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Posting Tests - Help Center - HireTestTakers</title>
+  <title>Posting Tests - Help Center - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

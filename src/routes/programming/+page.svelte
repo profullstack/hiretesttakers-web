@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Programming Assignment Help - HireTestTakers</title>
+  <title>Programming Assignment Help - TutorLinkup</title>
   <meta name="description" content="Expert programmers ready to help with coding projects and assignments. Multiple languages supported with code review and documentation." />
 </svelte:head>
 

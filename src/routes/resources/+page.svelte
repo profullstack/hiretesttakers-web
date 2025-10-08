@@ -70,7 +70,7 @@
 </script>
 
 <svelte:head>
-  <title>Learning Resources - HireTestTakers</title>
+  <title>Learning Resources - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

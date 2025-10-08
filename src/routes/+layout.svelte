@@ -60,8 +60,8 @@
   <header class="header">
     <div class="header-content">
       <a href="/" class="logo">
-        <img src="/logo.black.svg" alt="HireTestTakers" class="logo-light" />
-        <img src="/logo.white.svg" alt="HireTestTakers" class="logo-dark" />
+        <img src="/logo.black.svg" alt="TutorLinkup" class="logo-light" />
+        <img src="/logo.white.svg" alt="TutorLinkup" class="logo-dark" />
       </a>
       <NavBar {user} />
       <div class="header-actions">

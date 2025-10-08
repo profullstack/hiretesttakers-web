@@ -39,13 +39,13 @@
 </script>
 
 <svelte:head>
-  <title>Sign Up - HireTestTakers</title>
+  <title>Sign Up - TutorLinkup</title>
 </svelte:head>
 
 <div class="signup-page">
   <div class="container">
     <h1>Create Account</h1>
-    <p class="subtitle">Join HireTestTakers and start earning or hiring today</p>
+    <p class="subtitle">Join TutorLinkup and start earning or hiring today</p>
 
     <AuthForm
       type="signup"

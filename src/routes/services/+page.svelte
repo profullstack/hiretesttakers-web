@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-  <title>Our Services - HireTestTakers</title>
+  <title>Our Services - TutorLinkup</title>
   <meta name="description" content="Explore our comprehensive range of academic services including test taking, homework help, programming assignments, and free AI tools." />
 </svelte:head>
 

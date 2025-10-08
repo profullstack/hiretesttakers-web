@@ -7,7 +7,7 @@
 
   const faqs = [
     {
-      question: 'How do I get started on HireTestTakers?',
+      question: 'How do I get started on TutorLinkup?',
       answer: 'Simply sign up for a free account, complete your profile, and you can start posting tests or applying to available opportunities immediately.'
     },
     {
@@ -50,7 +50,7 @@
 </script>
 
 <svelte:head>
-  <title>FAQ - HireTestTakers</title>
+  <title>FAQ - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

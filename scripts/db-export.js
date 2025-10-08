@@ -63,7 +63,7 @@ const exportDatabase = async () => {
     // Generate filename with timestamp
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0] + '_' + 
                      new Date().toISOString().replace(/[:.]/g, '-').split('T')[1].split('.')[0];
-    const filename = `hiretesttakers_${timestamp}.sql`;
+    const filename = `tutorlinkup_${timestamp}.sql`;
     const filepath = path.join(backupsDir, filename);
     
     // Set PGPASSWORD environment variable for pg_dump

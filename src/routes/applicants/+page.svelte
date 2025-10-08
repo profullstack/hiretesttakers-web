@@ -297,7 +297,7 @@
 </script>
 
 <svelte:head>
-  <title>Manage Applicants & Job Offers - HireTestTakers</title>
+  <title>Manage Applicants & Job Offers - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

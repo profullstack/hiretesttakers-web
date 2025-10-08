@@ -87,7 +87,7 @@ View and respond to this offer here:
 ${offerUrl}
 
 Best regards,
-HireTestTakers Team
+TutorLinkup Team
   `.trim();
 
   const html = `
@@ -118,8 +118,8 @@ HireTestTakers Team
       <p>Click the button above to view the full details and respond to this offer.</p>
     </div>
     <div class="footer">
-      <p>Best regards,<br>HireTestTakers Team</p>
-      <p><a href="${siteUrl}">Visit HireTestTakers.com</a></p>
+      <p>Best regards,<br>TutorLinkup Team</p>
+      <p><a href="${siteUrl}">Visit TutorLinkup.com</a></p>
     </div>
   </div>
 </body>
@@ -159,10 +159,10 @@ Hi ${employerName},
 
 ${testTakerName} has ${statusText} your job offer for the position of ${jobTitle}.
 
-${status === 'accepted' ? 'Congratulations! You can now proceed with the next steps.' : 'Thank you for using HireTestTakers. Keep looking for the right candidate!'}
+${status === 'accepted' ? 'Congratulations! You can now proceed with the next steps.' : 'Thank you for using TutorLinkup. Keep looking for the right candidate!'}
 
 Best regards,
-HireTestTakers Team
+TutorLinkup Team
   `.trim();
 
   const html = `
@@ -185,10 +185,10 @@ HireTestTakers Team
     <div class="content">
       <p>Hi ${employerName},</p>
       <p><strong>${testTakerName}</strong> has ${statusText} your job offer for the position of <strong>${jobTitle}</strong>.</p>
-      ${status === 'accepted' ? '<p>Congratulations! You can now proceed with the next steps.</p>' : '<p>Thank you for using HireTestTakers. Keep looking for the right candidate!</p>'}
+      ${status === 'accepted' ? '<p>Congratulations! You can now proceed with the next steps.</p>' : '<p>Thank you for using TutorLinkup. Keep looking for the right candidate!</p>'}
     </div>
     <div class="footer">
-      <p>Best regards,<br>HireTestTakers Team</p>
+      <p>Best regards,<br>TutorLinkup Team</p>
     </div>
   </div>
 </body>

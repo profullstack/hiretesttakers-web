@@ -120,7 +120,7 @@
 </script>
 
 <svelte:head>
-  <title>Edit Profile - HireTestTakers</title>
+  <title>Edit Profile - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

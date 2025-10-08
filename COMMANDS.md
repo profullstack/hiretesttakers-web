@@ -237,7 +237,7 @@ pnpm install
 # 2. Set up Supabase manually (in separate terminal)
 cd ../supabase/docker
 docker compose up -d
-cd ../../hiretesttakers-web
+cd ../../tutorlinkup-web
 
 # 3. Configure environment
 cp .env.example .env
@@ -254,7 +254,7 @@ pnpm run dev
 
 ```bash
 # Morning: Start services
-cd ../supabase/docker && docker compose up -d && cd ../../hiretesttakers-web
+cd ../supabase/docker && docker compose up -d && cd ../../tutorlinkup-web
 pnpm run dev
 
 # During development: Run tests

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides guidelines for implementing dark mode compatible styling across the HireTestTakers application. All pages should use CSS variables from the centralized theme system to ensure consistent dark mode support.
+This document provides guidelines for implementing dark mode compatible styling across the TutorLinkup application. All pages should use CSS variables from the centralized theme system to ensure consistent dark mode support.
 
 ## Theme System
 

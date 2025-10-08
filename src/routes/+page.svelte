@@ -9,11 +9,8 @@
 </script>
 
 <svelte:head>
-  <title>HireTestTakers.com - Marketplace for Test Taking Services</title>
-  <meta
-    name="description"
-    content="Connect with qualified test takers or offer your test-taking services. Secure cryptocurrency payments."
-  />
+  <title>TutorLinkup.com - Marketplace for Test Taking Services</title>
+  <meta name="description" content="Connect with qualified test takers or offer your test-taking services. Secure cryptocurrency payments." />
 </svelte:head>
 
 <div class="container">
@@ -27,7 +24,7 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-text">
-          <h2>Welcome to HireTestTakers</h2>
+          <h2>Welcome to TutorLinkup</h2>
           <p>Connect with qualified test takers or offer your expertise</p>
 
           <div class="cta-buttons">
@@ -38,7 +35,7 @@
         </div>
 
         <div class="hero-image">
-          <img src="/hero.svg" alt="HireTestTakers Platform" class="hero-svg" />
+          <img src="/hero.svg" alt="TutorLinkup Platform" class="hero-svg" />
         </div>
       </div>
     </section>

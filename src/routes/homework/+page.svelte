@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Homework Help Services - HireTestTakers</title>
+  <title>Homework Help Services - TutorLinkup</title>
   <meta name="description" content="Get expert homework help across all subjects. Quick turnaround, quality guaranteed, and affordable rates." />
 </svelte:head>
 

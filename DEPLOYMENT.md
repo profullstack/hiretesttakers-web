@@ -2,7 +2,7 @@
 
 ## Overview
 
-HireTestTakers.com is configured for deployment on Railway.app with persistent volumes for database and file uploads.
+TutorLinkup.com is configured for deployment on Railway.app with persistent volumes for database and file uploads.
 
 ## Prerequisites
 

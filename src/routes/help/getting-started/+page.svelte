@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Getting Started - Help Center - HireTestTakers</title>
+  <title>Getting Started - Help Center - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
@@ -7,12 +7,12 @@
     <a href="/help">Help Center</a> / Getting Started
   </nav>
 
-  <h1>🚀 Getting Started with HireTestTakers</h1>
+  <h1>🚀 Getting Started with TutorLinkup</h1>
 
   <section>
     <h2>Welcome!</h2>
     <p>
-      HireTestTakers is a marketplace connecting students with qualified test takers and academic service providers. This guide will help you get started quickly.
+      TutorLinkup is a marketplace connecting students with qualified test takers and academic service providers. This guide will help you get started quickly.
     </p>
   </section>
 
@@ -60,7 +60,7 @@
   <section>
     <h2>Step 3: Set Up Payments</h2>
     <p>
-      HireTestTakers uses cryptocurrency for secure, fast payments. You'll need:
+      TutorLinkup uses cryptocurrency for secure, fast payments. You'll need:
     </p>
     <ul>
       <li>A cryptocurrency wallet (we support BTC, ETH, DOGE, SOL)</li>

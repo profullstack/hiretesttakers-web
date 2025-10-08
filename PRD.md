@@ -1,8 +1,8 @@
-# Product Requirements Document: HireTestTakers.com
+# Product Requirements Document: TutorLinkup.com
 
 ## 1. Executive Summary
 
-HireTestTakers.com is a marketplace platform connecting individuals who need to hire test-takers with qualified test-takers willing to complete tests for compensation. The platform facilitates secure cryptocurrency payments via CryptAPI.io and provides real-time exchange rate information via Tatum.io.
+TutorLinkup.com is a marketplace platform connecting individuals who need to hire test-takers with qualified test-takers willing to complete tests for compensation. The platform facilitates secure cryptocurrency payments via CryptAPI.io and provides real-time exchange rate information via Tatum.io.
 
 ## 2. Product Overview
 

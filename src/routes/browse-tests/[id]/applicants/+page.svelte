@@ -73,7 +73,7 @@
 </script>
 
 <svelte:head>
-  <title>Applicants - {test ? test.title : 'Test'} - HireTestTakers</title>
+  <title>Applicants - {test ? test.title : 'Test'} - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

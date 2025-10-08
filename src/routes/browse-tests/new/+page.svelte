@@ -42,7 +42,7 @@
 </script>
 
 <svelte:head>
-  <title>Post a Test - HireTestTakers</title>
+  <title>Post a Test - TutorLinkup</title>
 </svelte:head>
 
 <div class="page-wrapper">
