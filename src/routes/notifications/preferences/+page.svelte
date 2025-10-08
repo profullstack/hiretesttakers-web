@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Notification Preferences - HireTestTakers</title>
+  <title>Notification Preferences - TutorLinkup</title>
 </svelte:head>
 
 <div class="preferences-page">

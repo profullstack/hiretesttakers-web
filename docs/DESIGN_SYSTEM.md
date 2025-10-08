@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the design system for HireTestTakers.com, including components, color palette, spacing, typography, and usage guidelines.
+This document describes the design system for TutorLinkup.com, including components, color palette, spacing, typography, and usage guidelines.
 
 ## Color Palette
 

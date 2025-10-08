@@ -1,6 +1,6 @@
 # Internationalization (i18n) Usage Guide
 
-This document explains how to use the translation system in the HireTestTakers platform.
+This document explains how to use the translation system in the TutorLinkup platform.
 
 ## Overview
 

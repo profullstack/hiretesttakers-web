@@ -70,7 +70,7 @@
 </script>
 
 <svelte:head>
-  <title>Conversation - HireTestTakers</title>
+  <title>Conversation - TutorLinkup</title>
 </svelte:head>
 
 <div class="conversation-page">

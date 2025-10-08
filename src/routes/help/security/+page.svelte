@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Security - Help Center - HireTestTakers</title>
+  <title>Security - Help Center - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
@@ -50,7 +50,7 @@
     <p>If you notice suspicious activity or security concerns:</p>
     <ol>
       <li>Change your password immediately</li>
-      <li>Contact our support team at <a href="/contact">support@hiretesttakers.com</a></li>
+      <li>Contact our support team at <a href="/contact">support@tutorlinkup.com</a></li>
       <li>Provide details about the issue</li>
       <li>Follow our team's guidance</li>
     </ol>

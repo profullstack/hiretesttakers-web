@@ -1,5 +1,5 @@
 {
-  "name": "hiretesttakers-web",
+  "name": "tutorlinkup-web",
   "version": "0.1.0",
   "description": "A marketplace platform connecting test hirers with test takers, featuring cryptocurrency payments",
   "type": "module",
@@ -75,10 +75,10 @@
     "sveltekit",
     "supabase"
   ],
-  "author": "HireTestTakers Team",
+  "author": "TutorLinkup Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/hiretesttakers-web.git"
+    "url": "https://github.com/yourusername/tutorlinkup-web.git"
   }
 }

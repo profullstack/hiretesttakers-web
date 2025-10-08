@@ -2,7 +2,7 @@
 
 ## Overview
 
-HireTestTakers.com takes a 3% commission on all payments. The payment flow is designed to be **simple for users** (one payment) while automatically splitting funds between the test taker (97%) and the platform (3%).
+TutorLinkup.com takes a 3% commission on all payments. The payment flow is designed to be **simple for users** (one payment) while automatically splitting funds between the test taker (97%) and the platform (3%).
 
 ## Supported Cryptocurrencies
 
@@ -30,7 +30,7 @@ const testTakerAmount = totalAmount * 0.97; // 0.0097 BTC
 const response = await cryptapi.createForwardingAddress({
   coin: 'btc',
   destination: testTakerWalletAddress, // 97% goes here
-  callback: 'https://hiretesttakers.com/api/webhooks/cryptapi',
+  callback: 'https://tutorlinkup.com/api/webhooks/cryptapi',
   commission: {
     address: platformWalletBTC, // 3% goes here
     percentage: 3 // CryptAPI handles the split

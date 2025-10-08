@@ -23,7 +23,7 @@ cp .env.example .env
 # 3. Start Supabase (if using Docker)
 cd ../supabase/docker
 docker compose up -d
-cd ../../hiretesttakers-web
+cd ../../tutorlinkup-web
 
 # 4. Apply migrations
 pnpx supabase db push

@@ -59,7 +59,7 @@
 </script>
 
 <svelte:head>
-  <title>Payment Status - HireTestTakers</title>
+  <title>Payment Status - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

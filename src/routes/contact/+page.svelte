@@ -22,8 +22,8 @@
 </script>
 
 <svelte:head>
-  <title>Contact Us - HireTestTakers</title>
-  <meta name="description" content="Get in touch with HireTestTakers support team. We're here to help with any questions or concerns." />
+  <title>Contact Us - TutorLinkup</title>
+  <meta name="description" content="Get in touch with TutorLinkup support team. We're here to help with any questions or concerns." />
 </svelte:head>
 
 <div class="container">
@@ -37,7 +37,7 @@
         <div class="icon">📧</div>
         <div>
           <h3>Email</h3>
-          <p>support@hiretesttakers.com</p>
+          <p>support@tutorlinkup.com</p>
         </div>
       </div>
       <div class="info-item">

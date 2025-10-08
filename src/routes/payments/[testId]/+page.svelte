@@ -56,7 +56,7 @@
 </script>
 
 <svelte:head>
-  <title>Initiate Payment - HireTestTakers</title>
+  <title>Initiate Payment - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

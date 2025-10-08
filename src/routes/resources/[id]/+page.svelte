@@ -106,7 +106,7 @@
 </script>
 
 <svelte:head>
-  <title>{resource?.title || 'Resource'} - HireTestTakers</title>
+  <title>{resource?.title || 'Resource'} - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

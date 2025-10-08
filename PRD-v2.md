@@ -1,8 +1,8 @@
-# Product Requirements Document v2: HireTestTakers.com
+# Product Requirements Document v2: TutorLinkup.com
 
 ## 1. Executive Summary
 
-HireTestTakers.com is a comprehensive academic assistance marketplace connecting students with expert tutors and test-takers. The platform offers homework help, programming assistance, assignment writing, and test-taking services with secure cryptocurrency payments via CryptAPI.io and real-time exchange rates via Tatum.io.
+TutorLinkup.com is a comprehensive academic assistance marketplace connecting students with expert tutors and test-takers. The platform offers homework help, programming assistance, assignment writing, and test-taking services with secure cryptocurrency payments via CryptAPI.io and real-time exchange rates via Tatum.io.
 
 ## 2. Product Overview
 

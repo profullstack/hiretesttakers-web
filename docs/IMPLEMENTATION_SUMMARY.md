@@ -1,6 +1,6 @@
 # Implementation Summary
 
-This document summarizes the major features and improvements implemented in the HireTestTakers platform.
+This document summarizes the major features and improvements implemented in the TutorLinkup platform.
 
 ## Completed Features
 

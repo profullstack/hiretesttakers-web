@@ -289,7 +289,7 @@ describe('CryptAPI Enhanced Service', () => {
         amount: 0.01,
         testTakerWallet: 'bc1qtesttaker123',
         platformWallet: 'bc1qplatform123',
-        callbackUrl: 'https://hiretesttakers.com/api/webhooks/cryptapi'
+        callbackUrl: 'https://tutorlinkup.com/api/webhooks/cryptapi'
       };
       
       const payment = await createPaymentWithExchangeRate(params);

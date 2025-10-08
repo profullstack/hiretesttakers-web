@@ -72,7 +72,7 @@
 </script>
 
 <svelte:head>
-  <title>Payment History - HireTestTakers</title>
+  <title>Payment History - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

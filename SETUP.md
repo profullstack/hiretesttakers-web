@@ -1,6 +1,6 @@
-# HireTestTakers.com - Setup Guide
+# TutorLinkup.com - Setup Guide
 
-This guide will walk you through setting up the HireTestTakers.com development environment from scratch.
+This guide will walk you through setting up the TutorLinkup.com development environment from scratch.
 
 ## Prerequisites
 
@@ -19,8 +19,8 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/hiretesttakers-web.git
-cd hiretesttakers-web
+git clone https://github.com/yourusername/tutorlinkup-web.git
+cd tutorlinkup-web
 
 # Install dependencies
 pnpm install
@@ -83,7 +83,7 @@ docker compose logs -f
 ### 2.4 Return to Project Directory
 
 ```bash
-cd ../../hiretesttakers-web
+cd ../../tutorlinkup-web
 ```
 
 ## Step 3: Configure Project Environment
@@ -192,7 +192,7 @@ Backups are saved to `backups/` directory.
 pnpm run db:import
 
 # Or specify a file directly
-pnpm run db:import backups/hiretesttakers_2024-01-01_12-00-00.sql
+pnpm run db:import backups/tutorlinkup_2024-01-01_12-00-00.sql
 ```
 
 ### Create New Migration

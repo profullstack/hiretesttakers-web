@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Help Center - HireTestTakers</title>
+  <title>Help Center - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
@@ -10,7 +10,7 @@
     <a href="/help/getting-started" class="help-card">
       <div class="icon">🚀</div>
       <h3>Getting Started</h3>
-      <p>Learn the basics of using HireTestTakers</p>
+      <p>Learn the basics of using TutorLinkup</p>
     </a>
 
     <a href="/help/posting-tests" class="help-card">

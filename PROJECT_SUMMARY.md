@@ -1,8 +1,8 @@
-# HireTestTakers.com - Project Summary
+# TutorLinkup.com - Project Summary
 
 ## Overview
 
-HireTestTakers.com is a marketplace platform that connects individuals who need test-taking services with qualified test-takers. The platform features secure cryptocurrency payments via CryptAPI.io and real-time exchange rates via Tatum.io.
+TutorLinkup.com is a marketplace platform that connects individuals who need test-taking services with qualified test-takers. The platform features secure cryptocurrency payments via CryptAPI.io and real-time exchange rates via Tatum.io.
 
 ## Documentation Structure
 
@@ -95,7 +95,7 @@ Step-by-step setup guide covering:
 ## Project Structure
 
 ```
-hiretesttakers-web/
+tutorlinkup-web/
 ├── src/                    # Source code
 │   ├── lib/
 │   │   ├── components/     # Svelte components

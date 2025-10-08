@@ -1,14 +1,14 @@
 <svelte:head>
-  <title>About Us - HireTestTakers</title>
-  <meta name="description" content="Learn about HireTestTakers - the trusted marketplace connecting students with qualified test takers and academic service providers." />
+  <title>About Us - TutorLinkup</title>
+  <meta name="description" content="Learn about TutorLinkup - the trusted marketplace connecting students with qualified test takers and academic service providers." />
 </svelte:head>
 
 <div class="container">
-  <h1>About HireTestTakers</h1>
+  <h1>About TutorLinkup</h1>
   
   <section class="intro">
     <p class="lead">
-      HireTestTakers is the premier marketplace connecting students with qualified test takers and academic service providers worldwide.
+      TutorLinkup is the premier marketplace connecting students with qualified test takers and academic service providers worldwide.
     </p>
   </section>
 

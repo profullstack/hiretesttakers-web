@@ -42,7 +42,7 @@
 </script>
 
 <svelte:head>
-  <title>Messages - HireTestTakers</title>
+  <title>Messages - TutorLinkup</title>
 </svelte:head>
 
 <div class="messages-page">

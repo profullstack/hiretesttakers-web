@@ -152,7 +152,7 @@
 </script>
 
 <svelte:head>
-  <title>Plagiarism Reports - HireTestTakers</title>
+  <title>Plagiarism Reports - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

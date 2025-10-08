@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Cookie Policy - HireTestTakers</title>
+  <title>Cookie Policy - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

@@ -1,6 +1,6 @@
 # Integration Tests
 
-This directory contains comprehensive integration tests for HireTestTakers.com.
+This directory contains comprehensive integration tests for TutorLinkup.com.
 
 ## Overview
 

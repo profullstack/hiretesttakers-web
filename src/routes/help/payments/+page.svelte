@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Payments - Help Center - HireTestTakers</title>
+  <title>Payments - Help Center - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
@@ -38,7 +38,7 @@
       <li>Choose a reputable wallet provider</li>
       <li>Create your wallet and secure your private keys</li>
       <li>Copy your wallet address</li>
-      <li>Add it to your HireTestTakers profile</li>
+      <li>Add it to your TutorLinkup profile</li>
     </ol>
   </section>
 

@@ -50,7 +50,7 @@
 </script>
 
 <svelte:head>
-  <title>My Tests - HireTestTakers</title>
+  <title>My Tests - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

@@ -37,7 +37,7 @@
 </script>
 
 <svelte:head>
-  <title>My Applications - HireTestTakers</title>
+  <title>My Applications - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

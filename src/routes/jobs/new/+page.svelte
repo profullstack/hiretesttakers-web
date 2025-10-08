@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-  <title>Request New Job - HireTestTakers</title>
+  <title>Request New Job - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

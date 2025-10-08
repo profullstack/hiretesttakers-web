@@ -110,8 +110,8 @@
 </script>
 
 <svelte:head>
-  <title>Leaderboard - HireTestTakers.com</title>
-  <meta name="description" content="Top test takers on HireTestTakers.com" />
+  <title>Leaderboard - TutorLinkup.com</title>
+  <meta name="description" content="Top test takers on TutorLinkup.com" />
 </svelte:head>
 
 <div class="leaderboard-page">

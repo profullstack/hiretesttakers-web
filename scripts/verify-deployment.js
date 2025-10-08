@@ -271,7 +271,7 @@ For detailed instructions, see DEPLOYMENT.md
 async function main() {
   console.log(`${colors.cyan}
 ╔═══════════════════════════════════════════════════════╗
-║   HireTestTakers.com - Deployment Verification       ║
+║   TutorLinkup.com - Deployment Verification       ║
 ╚═══════════════════════════════════════════════════════╝
 ${colors.reset}`);
 

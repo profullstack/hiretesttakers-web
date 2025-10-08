@@ -53,13 +53,13 @@
 </script>
 
 <svelte:head>
-  <title>Log In - HireTestTakers</title>
+  <title>Log In - TutorLinkup</title>
 </svelte:head>
 
 <div class="login-page">
   <div class="container">
     <h1>Welcome Back</h1>
-    <p class="subtitle">Log in to your HireTestTakers account</p>
+    <p class="subtitle">Log in to your TutorLinkup account</p>
 
     <AuthForm
       type="login"

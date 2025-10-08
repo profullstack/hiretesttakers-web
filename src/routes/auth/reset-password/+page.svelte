@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-  <title>Reset Password - HireTestTakers</title>
+  <title>Reset Password - TutorLinkup</title>
 </svelte:head>
 
 <div class="reset-page">

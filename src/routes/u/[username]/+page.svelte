@@ -51,7 +51,7 @@
 </script>
 
 <svelte:head>
-  <title>{profile?.full_name || username} - HireTestTakers</title>
+  <title>{profile?.full_name || username} - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

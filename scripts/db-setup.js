@@ -329,7 +329,7 @@ const displayInfo = () => {
 // Main setup function
 const setup = async () => {
   try {
-    console.log('\n🏗️  HireTestTakers.com - Database Setup\n');
+    console.log('\n🏗️  TutorLinkup.com - Database Setup\n');
     
     // Check Docker
     console.log('🔍 Checking Docker...');

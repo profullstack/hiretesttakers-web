@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Privacy Policy - HireTestTakers</title>
+  <title>Privacy Policy - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
@@ -64,7 +64,7 @@
     <h2>6. Contact Us</h2>
     <p>
       If you have questions about this Privacy Policy, please contact us at:
-      <a href="/contact">support@hiretesttakers.com</a>
+      <a href="/contact">support@tutorlinkup.com</a>
     </p>
   </section>
 </div>

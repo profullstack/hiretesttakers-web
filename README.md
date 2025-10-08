@@ -1,10 +1,10 @@
-# HireTestTakers.com
+# TutorLinkup.com
 
 A marketplace platform connecting individuals who need test-taking services with qualified test-takers, featuring secure cryptocurrency payments.
 
 ## 🎯 Overview
 
-HireTestTakers.com enables users to:
+TutorLinkup.com enables users to:
 - **Post test-taking opportunities** with cryptocurrency compensation
 - **Apply to complete tests** and earn cryptocurrency
 - **Communicate securely** between hirers and test-takers
@@ -77,8 +77,8 @@ HireTestTakers.com enables users to:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/hiretesttakers-web.git
-cd hiretesttakers-web
+git clone https://github.com/yourusername/tutorlinkup-web.git
+cd tutorlinkup-web
 ```
 
 2. Install dependencies:
@@ -99,7 +99,7 @@ cp .env.example .env
 docker compose up -d
 
 # Return to project directory
-cd ../../hiretesttakers-web
+cd ../../tutorlinkup-web
 ```
 
 4. Run the automated setup script:
@@ -189,7 +189,7 @@ pnpm run preview
 ## 📁 Project Structure
 
 ```
-hiretesttakers-web/
+tutorlinkup-web/
 ├── src/
 │   ├── lib/
 │   │   ├── components/     # Svelte components
@@ -272,7 +272,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📞 Support
 
-For support, email support@hiretesttakers.com or open an issue in the repository.
+For support, email support@tutorlinkup.com or open an issue in the repository.
 
 ## 🗺️ Roadmap
 

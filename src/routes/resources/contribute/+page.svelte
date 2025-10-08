@@ -41,7 +41,7 @@
 </script>
 
 <svelte:head>
-  <title>Contribute Resource - HireTestTakers</title>
+  <title>Contribute Resource - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">

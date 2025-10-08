@@ -100,7 +100,7 @@
 </script>
 
 <svelte:head>
-  <title>{offer ? offer.job_title : 'Job Offer'} - HireTestTakers</title>
+  <title>{offer ? offer.job_title : 'Job Offer'} - TutorLinkup</title>
 </svelte:head>
 
 <div class="container">
