@@ -45,11 +45,15 @@ export async function signUp({ email, password, metadata = {} }) {
 
   const supabase = getSupabaseClient();
 
+  // Get the site URL from environment variables, fallback to localhost for development
+  const siteUrl = process.env.PUBLIC_APP_URL || process.env.PUBLIC_SITE_URL || 'http://localhost:5173';
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: metadata
+      data: metadata,
+      emailRedirectTo: siteUrl
     }
   });
 
