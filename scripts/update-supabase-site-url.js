@@ -3,6 +3,9 @@
 /**
  * Update Supabase Site URL using Management API
  * This fixes email confirmation redirects pointing to localhost
+ *
+ * Usage:
+ *   node scripts/update-supabase-site-url.js
  */
 
 import 'dotenv/config';
