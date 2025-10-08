@@ -152,7 +152,7 @@
   }
 
   .error {
-    color: var(--color-error-dark);
+    color: white;
     background: var(--color-error-light);
     border: 1px solid var(--color-error);
     border-radius: var(--radius-lg);

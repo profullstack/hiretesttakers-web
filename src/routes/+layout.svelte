@@ -9,13 +9,16 @@
   import UserDropdown from '$lib/components/UserDropdown.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import NavBar from '$lib/components/NavBar.svelte';
-  
+
   let user = $state(null);
-  
+
+  // removed slot and used children props instead
+  let { children } = $props();
+
   // Check session status
   async function checkSession() {
     if (!browser) return;
-    
+
     try {
       const response = await fetch('/api/auth/session');
       const data = await response.json();
@@ -25,26 +28,26 @@
       user = null;
     }
   }
-  
+
   // Apply theme on mount and reactively update
   onMount(async () => {
     // Initialize i18n only on client side
     initI18n();
-    
+
     if (browser) {
       document.documentElement.classList.toggle('dark', $theme === 'dark');
-      
+
       // Initial session check
       await checkSession();
-      
+
       // Poll for session changes every 5 seconds
       const interval = setInterval(checkSession, 5000);
-      
+
       // Cleanup
       return () => clearInterval(interval);
     }
   });
-  
+
   // Reactively update theme class when theme changes
   $effect(() => {
     if (browser) {
@@ -68,11 +71,11 @@
       </div>
     </div>
   </header>
-  
+
   <main class="main">
-    <slot />
+    {@render children?.()}
   </main>
-  
+
   <Footer />
 </div>
 
@@ -80,24 +83,26 @@
   :global(html) {
     transition: background-color var(--transition-slow);
   }
-  
+
   :global(.dark) {
     color-scheme: dark;
   }
-  
+
   .app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
-  
+
   .header {
     background-color: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     padding: var(--spacing-md) 0;
-    transition: background-color var(--transition-base), border-color var(--transition-base);
+    transition:
+      background-color var(--transition-base),
+      border-color var(--transition-base);
   }
-  
+
   .header-content {
     max-width: 1280px;
     margin: 0 auto;
@@ -106,7 +111,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .logo {
     display: flex;
     align-items: center;
@@ -137,30 +142,30 @@
   :global(.dark) .logo-dark {
     display: block;
   }
-  
+
   .nav {
     display: flex;
     gap: var(--spacing-lg);
     align-items: center;
   }
-  
+
   .nav a {
     color: var(--color-text);
     text-decoration: none;
     font-weight: 500;
     transition: color var(--transition-base);
   }
-  
+
   .nav a:hover {
     color: var(--color-primary);
   }
-  
+
   .header-actions {
     display: flex;
     gap: var(--spacing-md);
     align-items: center;
   }
-  
+
   .main {
     flex: 1;
     max-width: 1280px;
@@ -168,13 +173,13 @@
     margin: 0 auto;
     padding: var(--spacing-xl) var(--spacing-md);
   }
-  
+
   @media (max-width: 768px) {
     .header-content {
       flex-direction: column;
       gap: var(--spacing-md);
     }
-    
+
     .nav {
       width: 100%;
       justify-content: center;
