@@ -33,6 +33,7 @@ const apiUrl = `https://api.supabase.com/v1/projects/${SUPABASE_PROJECT_REF}/con
 
 const payload = {
 	SITE_URL: SITE_URL,
+	URI_ALLOW_LIST: `${SITE_URL},${SITE_URL}/**,${SITE_URL}/auth/callback`,
 	MAILER_AUTOCONFIRM: !ENABLE_CONFIRMATIONS, // false = confirmations enabled
 	EXTERNAL_EMAIL_ENABLED: true,
 	DISABLE_SIGNUP: false
