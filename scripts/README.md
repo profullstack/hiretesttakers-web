@@ -1,6 +1,56 @@
 # Supabase Setup Scripts
 
-## setup-supabase.sh
+## setup-supabase-cli.sh (Recommended)
+
+This script configures email confirmation settings using the `pnpx supabase` CLI. This is the recommended approach for managing Supabase configuration.
+
+### Prerequisites
+
+1. **Supabase CLI** - Installed via pnpx (no installation needed)
+2. **Project linked** - The script will link your project if not already linked
+3. **Environment variables** - Set in your `.env` file
+
+### Usage
+
+```bash
+# Make the script executable
+chmod +x scripts/setup-supabase-cli.sh
+
+# Run the script (it will read from .env)
+./scripts/setup-supabase-cli.sh
+```
+
+### What It Does
+
+The script:
+1. Loads environment variables from `.env`
+2. Links your Supabase project (if not already linked)
+3. Updates the SITE_URL secret
+4. Provides instructions for completing setup in the Supabase Dashboard
+
+### Manual Dashboard Steps Required
+
+After running the script, you must complete these steps in the Supabase Dashboard:
+
+1. **URL Configuration**: https://supabase.com/dashboard/project/YOUR_PROJECT_REF/auth/url-configuration
+   - Set 'Site URL' to: `https://tutorlinkup.com`
+   - Add redirect URLs:
+     - `https://tutorlinkup.com/**`
+     - `https://tutorlinkup.com/auth/callback`
+
+2. **Email Provider Settings**: https://supabase.com/dashboard/project/YOUR_PROJECT_REF/auth/providers
+   - Under 'Email' provider settings
+   - Enable/Disable 'Confirm email' as needed
+
+### Notes
+
+- The CLI has limited auth configuration capabilities
+- Some settings must be configured via the Dashboard
+- Changes may take a few minutes to propagate
+
+---
+
+## setup-supabase.sh (Legacy - Management API)
 
 This script configures email confirmation settings for your Supabase project using the Supabase Management API.
 
