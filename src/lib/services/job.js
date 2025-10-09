@@ -265,7 +265,7 @@ export async function getJobRequestById(id) {
  * @returns {Promise<Object>} Updated job request
  * @throws {Error} If validation fails or update fails
  */
-export async function updateJobRequest(id, updates) {
+export async function updateJobRequest(id, updates, supabase = null) {
   if (!id || id.trim() === '') {
     throw new Error('Job request ID is required');
   }
@@ -298,10 +298,10 @@ export async function updateJobRequest(id, updates) {
     throw new Error('Price must be non-negative');
   }
 
-  const supabase = getSupabaseClient();
+  const client = supabase || getSupabaseClient();
 
   // First check if job exists and is in pending status
-  const { data: existingJob, error: fetchError } = await supabase
+  const { data: existingJob, error: fetchError } = await client
     .from('jobs')
     .select('status')
     .eq('id', id)
@@ -335,7 +335,7 @@ export async function updateJobRequest(id, updates) {
   if (updates.academic_level_id !== undefined) updateData.academic_level_id = updates.academic_level_id || null;
   if (updates.citation_style_id !== undefined) updateData.citation_style_id = updates.citation_style_id || null;
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('jobs')
     .update(updateData)
     .eq('id', id)

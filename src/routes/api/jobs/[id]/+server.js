@@ -69,7 +69,7 @@ export async function PUT({ params, request, locals }) {
 
     const updates = await request.json();
     
-    const updatedJob = await updateJobRequest(params.id, updates);
+    const updatedJob = await updateJobRequest(params.id, updates, locals.supabase);
 
     return json({ request: updatedJob });
   } catch (error) {
