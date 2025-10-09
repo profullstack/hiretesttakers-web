@@ -14,24 +14,30 @@ import {
 } from '$lib/services/job.js';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ url }) {
+export async function GET({ url, locals }) {
   try {
-    // Check if requesting academic levels
+    // Check if requesting academic levels (no auth required)
     if (url.searchParams.get('academic_levels') === 'true') {
       const levels = await getAcademicLevels();
       return json({ academic_levels: levels });
     }
 
-    // Check if requesting citation styles
+    // Check if requesting citation styles (no auth required)
     if (url.searchParams.get('citation_styles') === 'true') {
       const styles = await getCitationStyles();
       return json({ citation_styles: styles });
     }
 
+    // For job requests, require authentication
+    const session = locals.session;
+    if (!session?.user) {
+      return json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     // Get assignment requests with filters
     const filters = {
       status: url.searchParams.get('status'),
-      user_id: url.searchParams.get('user_id'),
+      user_id: url.searchParams.get('user_id') || session.user.id, // Default to current user
       assigned_to: url.searchParams.get('assigned_to'),
       limit: parseInt(url.searchParams.get('limit') || '20')
     };
