@@ -20,10 +20,34 @@ export async function GET({ locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const profile = await getProfile(session.user.id, locals.supabase);
+    let profile = await getProfile(session.user.id, locals.supabase);
 
+    // If profile doesn't exist, create it
     if (!profile) {
-      return json({ error: 'Profile not found' }, { status: 404 });
+      const { data: { user: authUser } } = await locals.supabase.auth.getUser();
+      
+      if (!authUser) {
+        return json({ error: 'Authentication required' }, { status: 401 });
+      }
+
+      // Create user profile
+      const { data: newProfile, error: insertError } = await locals.supabase
+        .from('users')
+        .insert({
+          id: session.user.id,
+          email: authUser.email,
+          full_name: authUser.user_metadata?.full_name || null,
+          user_type: 'test_taker'
+        })
+        .select()
+        .single();
+
+      if (insertError) {
+        console.error('Failed to create profile:', insertError);
+        return json({ error: 'Failed to create profile' }, { status: 500 });
+      }
+
+      profile = newProfile;
     }
 
     return json({ profile });

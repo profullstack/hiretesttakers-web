@@ -54,15 +54,34 @@ export async function createTest(userId, testData, supabaseClient = null) {
 
   const client = supabaseClient || getSupabaseClient();
 
-  // Ensure user profile exists before creating test
+  // Ensure user profile exists, create if missing
   const { data: userProfile, error: userError } = await client
     .from('users')
     .select('id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
-  if (userError || !userProfile) {
-    throw new Error('User profile not found. Please complete your profile setup before creating a test.');
+  if (!userProfile) {
+    // Get user email from auth
+    const { data: { user: authUser } } = await client.auth.getUser();
+    
+    if (!authUser) {
+      throw new Error('Authentication required to create a test.');
+    }
+
+    // Create user profile
+    const { error: insertError } = await client
+      .from('users')
+      .insert({
+        id: userId,
+        email: authUser.email,
+        full_name: authUser.user_metadata?.full_name || null,
+        user_type: 'hirer'
+      });
+
+    if (insertError) {
+      throw new Error(`Failed to create user profile: ${insertError.message}`);
+    }
   }
 
   const { data, error} = await client
