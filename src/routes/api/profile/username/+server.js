@@ -26,7 +26,32 @@ export async function PUT({ request, locals }) {
       return json({ error: 'Username is required' }, { status: 400 });
     }
 
-    const profile = await updateUsername(session.user.id, username);
+    // Check if profile exists, create if not
+    const { data: existingProfile } = await locals.supabase
+      .from('users')
+      .select('id')
+      .eq('id', session.user.id)
+      .maybeSingle();
+
+    if (!existingProfile) {
+      // Create profile first
+      const { data: { user: authUser } } = await locals.supabase.auth.getUser();
+      
+      if (!authUser) {
+        return json({ error: 'Authentication required' }, { status: 401 });
+      }
+
+      await locals.supabase
+        .from('users')
+        .insert({
+          id: session.user.id,
+          email: authUser.email,
+          full_name: authUser.user_metadata?.full_name || null,
+          user_type: 'test_taker'
+        });
+    }
+
+    const profile = await updateUsername(session.user.id, username, locals.supabase);
 
     return json({ profile });
   } catch (error) {
