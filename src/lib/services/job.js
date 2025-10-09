@@ -340,10 +340,14 @@ export async function updateJobRequest(id, updates) {
     .update(updateData)
     .eq('id', id)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     throw new Error(`Failed to update job request: ${error.message}`);
+  }
+
+  if (!data) {
+    throw new Error('Job request not found after update');
   }
 
   return data;
