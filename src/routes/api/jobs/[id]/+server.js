@@ -8,10 +8,10 @@
 
 import { json } from '@sveltejs/kit';
 import {
-  getAssignmentRequestById,
-  submitAssignment,
+  getJobRequestById,
+  submitJob,
   requestRevision
-} from '$lib/services/assignment.js';
+} from '$lib/services/job.js';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params, locals }) {
@@ -21,7 +21,7 @@ export async function GET({ params, locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const assignment = await getAssignmentRequestById(params.id);
+    const assignment = await getJobRequestById(params.id);
     
     if (!assignment) {
       return json({ error: 'Assignment not found' }, { status: 404 });

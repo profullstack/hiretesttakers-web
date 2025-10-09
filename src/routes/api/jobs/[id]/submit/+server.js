@@ -5,7 +5,7 @@
  */
 
 import { json } from '@sveltejs/kit';
-import { submitAssignment } from '$lib/services/assignment.js';
+import { submitJob } from '$lib/services/job.js';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ params, request, locals }) {
@@ -17,7 +17,7 @@ export async function POST({ params, request, locals }) {
 
     const { content, file_url } = await request.json();
 
-    const submission = await submitAssignment(params.id, {
+    const submission = await submitJob(params.id, {
       content,
       file_url,
       submitted_by: session.user.id

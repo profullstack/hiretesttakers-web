@@ -5,7 +5,7 @@
  */
 
 import { json } from '@sveltejs/kit';
-import { checkPlagiarism } from '$lib/services/assignment.js';
+import { checkPlagiarism } from '$lib/services/job.js';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ params, request, locals }) {

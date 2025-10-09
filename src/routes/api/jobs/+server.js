@@ -7,11 +7,11 @@
 
 import { json } from '@sveltejs/kit';
 import {
-  getAssignmentRequests,
-  createAssignmentRequest,
+  getJobRequests,
+  createJobRequest,
   getAcademicLevels,
   getCitationStyles
-} from '$lib/services/assignment.js';
+} from '$lib/services/job.js';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
@@ -47,7 +47,7 @@ export async function GET({ url }) {
       }
     });
 
-    const requests = await getAssignmentRequests(filters);
+    const requests = await getJobRequests(filters);
     return json({ requests });
   } catch (error) {
     return json({ error: error.message }, { status: 400 });
@@ -65,12 +65,12 @@ export async function POST({ request, locals }) {
     const requestData = await request.json();
 
     // Add user_id from session
-    const assignmentRequest = await createAssignmentRequest({
+    const jobRequest = await createJobRequest({
       ...requestData,
       user_id: session.user.id
     });
 
-    return json({ request: assignmentRequest }, { status: 201 });
+    return json({ request: jobRequest }, { status: 201 });
   } catch (error) {
     return json({ error: error.message }, { status: 400 });
   }

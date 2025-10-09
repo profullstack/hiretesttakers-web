@@ -5,7 +5,7 @@
  */
 
 import { json } from '@sveltejs/kit';
-import { generateQualityReport } from '$lib/services/assignment.js';
+import { generateQualityReport } from '$lib/services/job.js';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params, locals }) {
