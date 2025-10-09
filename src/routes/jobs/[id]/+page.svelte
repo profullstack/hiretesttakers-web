@@ -28,7 +28,7 @@
         throw new Error(data.error || 'Failed to load assignment');
       }
 
-      assignment = data.assignment;
+      assignment = data.job;
     } catch (err) {
       error = err.message;
     } finally {

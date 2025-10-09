@@ -26,7 +26,7 @@
         throw new Error(data.error || 'Failed to load assignment');
       }
 
-      assignment = data.assignment;
+      assignment = data.job;
 
       // Check if job can be edited (only pending jobs)
       if (assignment.status !== 'pending') {

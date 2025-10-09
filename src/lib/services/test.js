@@ -52,7 +52,18 @@ export async function createTest(userId, testData, supabaseClient = null) {
     }
   }
 
-  const client = supabaseClient || supabase;
+  const client = supabaseClient || getSupabaseClient();
+
+  // Ensure user profile exists before creating test
+  const { data: userProfile, error: userError } = await client
+    .from('users')
+    .select('id')
+    .eq('id', userId)
+    .single();
+
+  if (userError || !userProfile) {
+    throw new Error('User profile not found. Please complete your profile setup before creating a test.');
+  }
 
   const { data, error} = await client
     .from('tests')

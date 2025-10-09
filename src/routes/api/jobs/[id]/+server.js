@@ -22,21 +22,21 @@ export async function GET({ params, locals }) {
       return json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const assignment = await getJobRequestById(params.id);
+    const job = await getJobRequestById(params.id);
     
-    if (!assignment) {
-      return json({ error: 'Assignment not found' }, { status: 404 });
+    if (!job) {
+      return json({ error: 'Job not found' }, { status: 404 });
     }
 
-    // Check if user has access to this assignment
+    // Check if user has access to this job
     if (
-      assignment.user_id !== session.user.id &&
-      assignment.assigned_to !== session.user.id
+      job.user_id !== session.user.id &&
+      job.assigned_to !== session.user.id
     ) {
       return json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    return json({ assignment });
+    return json({ job });
   } catch (error) {
     return json({ error: error.message }, { status: 400 });
   }
