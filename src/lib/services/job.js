@@ -305,13 +305,14 @@ export async function updateJobRequest(id, updates) {
     .from('jobs')
     .select('status')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (fetchError) {
-    if (fetchError.code === 'PGRST116') {
-      throw new Error('Job request not found');
-    }
     throw new Error(`Failed to fetch job request: ${fetchError.message}`);
+  }
+
+  if (!existingJob) {
+    throw new Error('Job request not found');
   }
 
   if (existingJob.status !== 'pending') {
