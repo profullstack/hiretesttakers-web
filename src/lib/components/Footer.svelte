@@ -16,7 +16,7 @@
         <li><a href="/browse-tests/">Test Taking</a></li>
         <li><a href="/homework">Homework Help</a></li>
         <li><a href="/programming">Programming</a></li>
-        <li><a href="/assignments">Assignments</a></li>
+        <li><a href="/jobs">Assignments</a></li>
         <li><a href="/tools">Free Tools</a></li>
       </ul>
     </div>

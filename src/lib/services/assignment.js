@@ -1,14 +1,14 @@
 /**
- * Assignment Service
+ * Job Service
  * 
- * Service for managing assignment writing requests using Supabase.
- * Provides functions for creating, reading, updating assignments, submissions, revisions, and quality reports.
+ * Service for managing job writing requests using Supabase.
+ * Provides functions for creating, reading, updating jobs, submissions, revisions, and quality reports.
  */
 
 import { getSupabaseClient } from '../supabaseClient.js';
 
 /**
- * Valid status values for assignment requests
+ * Valid status values for job requests
  */
 const VALID_STATUSES = [
   'pending',
@@ -61,22 +61,22 @@ export async function getCitationStyles() {
 }
 
 /**
- * Create a new assignment request
+ * Create a new job request
  * @param {Object} params - Request parameters
  * @param {string} params.user_id - User ID
- * @param {string} params.title - Assignment title
- * @param {string} params.description - Assignment description
- * @param {string} params.topic - Assignment topic
+ * @param {string} params.title - Job title
+ * @param {string} params.description - Job description
+ * @param {string} params.topic - Job topic
  * @param {string} [params.academic_level_id] - Academic level ID
  * @param {string} [params.citation_style_id] - Citation style ID
  * @param {number} params.word_count - Word count
  * @param {string} params.deadline - Deadline (ISO string)
  * @param {number} params.price - Price
  * @param {boolean} [params.plagiarism_check_requested] - Whether plagiarism check is requested
- * @returns {Promise<Object>} Created assignment request
+ * @returns {Promise<Object>} Created job request
  * @throws {Error} If validation fails or creation fails
  */
-export async function createAssignmentRequest({
+export async function createJobRequest({
   user_id,
   title,
   description,
@@ -166,16 +166,16 @@ export async function createAssignmentRequest({
 }
 
 /**
- * Get assignment requests with optional filters
+ * Get job requests with optional filters
  * @param {Object} [filters] - Filter options
  * @param {string} [filters.status] - Filter by status
  * @param {string} [filters.user_id] - Filter by user
  * @param {string} [filters.assigned_to] - Filter by assigned user
  * @param {number} [filters.limit] - Limit results
- * @returns {Promise<Array>} List of assignment requests
+ * @returns {Promise<Array>} List of job requests
  * @throws {Error} If fetch fails
  */
-export async function getAssignmentRequests(filters = {}) {
+export async function getJobRequests(filters = {}) {
   const supabase = getSupabaseClient();
 
   let query = supabase
@@ -203,33 +203,33 @@ export async function getAssignmentRequests(filters = {}) {
   const { data, error } = await query;
 
   if (error) {
-    throw new Error(`Failed to fetch assignment requests: ${error.message}`);
+    throw new Error(`Failed to fetch job requests: ${error.message}`);
   }
 
   return data;
 }
 
 /**
- * Get assignment request by ID
+ * Get job request by ID
  * @param {string} id - Request ID
- * @returns {Promise<Object|null>} Assignment request or null
+ * @returns {Promise<Object|null>} Job request or null
  * @throws {Error} If validation fails or fetch fails
  */
-export async function getAssignmentRequestById(id) {
+export async function getJobRequestById(id) {
   if (!id || id.trim() === '') {
-    throw new Error('Assignment request ID is required');
+    throw new Error('Job request ID is required');
   }
 
   const supabase = getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { data, error} = await supabase
     .from('jobs')
     .select(`
       *,
       academic_levels(name),
       citation_styles(name),
-      assignment_submissions(*),
-      assignment_revisions(*),
+      job_submissions(*),
+      job_revisions(*),
       quality_reports(*),
       plagiarism_reports(*)
     `)
@@ -240,25 +240,25 @@ export async function getAssignmentRequestById(id) {
     if (error.code === 'PGRST116') {
       return null;
     }
-    throw new Error(`Failed to fetch assignment request: ${error.message}`);
+    throw new Error(`Failed to fetch job request: ${error.message}`);
   }
 
   return data;
 }
 
 /**
- * Submit assignment for a request
- * @param {string} requestId - Assignment request ID
+ * Submit job for a request
+ * @param {string} requestId - Job request ID
  * @param {Object} params - Submission parameters
- * @param {string} params.content - Assignment content
+ * @param {string} params.content - Job content
  * @param {string} params.submitted_by - User ID of submitter
  * @param {string} [params.file_url] - URL to uploaded file
  * @returns {Promise<Object>} Created submission
  * @throws {Error} If validation fails or creation fails
  */
-export async function submitAssignment(requestId, { content, submitted_by, file_url }) {
+export async function submitJob(requestId, { content, submitted_by, file_url }) {
   if (!requestId || requestId.trim() === '') {
-    throw new Error('Assignment request ID is required');
+    throw new Error('Job request ID is required');
   }
 
   if (!content || content.trim() === '') {
@@ -286,16 +286,16 @@ export async function submitAssignment(requestId, { content, submitted_by, file_
   }
 
   const { data, error } = await supabase
-    .from('assignment_submissions')
+    .from('job_submissions')
     .insert(submissionData)
     .select()
     .single();
 
   if (error) {
-    throw new Error(`Failed to submit assignment: ${error.message}`);
+    throw new Error(`Failed to submit job: ${error.message}`);
   }
 
-  // Update assignment request status to submitted
+  // Update job request status to submitted
   await supabase
     .from('jobs')
     .update({ status: 'submitted' })
@@ -305,8 +305,8 @@ export async function submitAssignment(requestId, { content, submitted_by, file_
 }
 
 /**
- * Request revision for an assignment
- * @param {string} requestId - Assignment request ID
+ * Request revision for an job
+ * @param {string} requestId - Job request ID
  * @param {Object} params - Revision parameters
  * @param {string} params.requested_by - User ID of requester
  * @param {string} params.notes - Revision notes
@@ -315,7 +315,7 @@ export async function submitAssignment(requestId, { content, submitted_by, file_
  */
 export async function requestRevision(requestId, { requested_by, notes }) {
   if (!requestId || requestId.trim() === '') {
-    throw new Error('Assignment request ID is required');
+    throw new Error('Job request ID is required');
   }
 
   if (!requested_by || requested_by.trim() === '') {
@@ -336,7 +336,7 @@ export async function requestRevision(requestId, { requested_by, notes }) {
   };
 
   const { data, error } = await supabase
-    .from('assignment_revisions')
+    .from('job_revisions')
     .insert(revisionData)
     .select()
     .single();
@@ -345,7 +345,7 @@ export async function requestRevision(requestId, { requested_by, notes }) {
     throw new Error(`Failed to request revision: ${error.message}`);
   }
 
-  // Update assignment request status to revision_requested
+  // Update job request status to revision_requested
   await supabase
     .from('jobs')
     .update({ status: 'revision_requested' })
@@ -355,17 +355,17 @@ export async function requestRevision(requestId, { requested_by, notes }) {
 }
 
 /**
- * Generate quality report for an assignment
- * @param {string} requestId - Assignment request ID
+ * Generate quality report for an job
+ * @param {string} requestId - Job request ID
  * @returns {Promise<Object>} Generated quality report
  * @throws {Error} If validation fails or creation fails
  */
 export async function generateQualityReport(requestId) {
   if (!requestId || requestId.trim() === '') {
-    throw new Error('Assignment request ID is required');
+    throw new Error('Job request ID is required');
   }
 
-  // In a real implementation, this would analyze the assignment content
+  // In a real implementation, this would analyze the job content
   // For now, we'll generate mock scores
   const grammarScore = Math.floor(Math.random() * 21) + 80; // 80-100
   const citationScore = Math.floor(Math.random() * 21) + 80; // 80-100
@@ -397,15 +397,15 @@ export async function generateQualityReport(requestId) {
 }
 
 /**
- * Check plagiarism for assignment content
- * @param {string} requestId - Assignment request ID
+ * Check plagiarism for job content
+ * @param {string} requestId - Job request ID
  * @param {string} content - Content to check
  * @returns {Promise<Object>} Plagiarism report
  * @throws {Error} If validation fails or creation fails
  */
 export async function checkPlagiarism(requestId, content) {
   if (!requestId || requestId.trim() === '') {
-    throw new Error('Assignment request ID is required');
+    throw new Error('Job request ID is required');
   }
 
   if (!content || content.trim() === '') {

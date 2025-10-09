@@ -25,7 +25,7 @@
       title: 'Assignment Writing',
       description: 'Professional writers for essays, research papers, and academic assignments.',
       icon: '✍️',
-      link: '/assignments',
+      link: '/jobs',
       features: ['Original content', 'Plagiarism-free', 'Citations included']
     },
     {

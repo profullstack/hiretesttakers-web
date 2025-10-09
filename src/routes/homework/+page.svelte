@@ -66,7 +66,7 @@
     <p>Join thousands of students getting homework help</p>
     <div class="cta-buttons">
       <a href="/auth/signup" class="btn btn-primary">Sign Up Free</a>
-      <a href="/assignments" class="btn btn-secondary">Browse Assignments</a>
+      <a href="/jobs" class="btn btn-secondary">Browse Assignments</a>
     </div>
   </section>
 </div>

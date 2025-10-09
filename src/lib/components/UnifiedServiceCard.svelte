@@ -45,7 +45,7 @@
     const links = {
       homework: `/homework/${id}`,
       programming: `/programming/${id}`,
-      assignment: `/assignments/${id}`,
+      assignment: `/jobs/${id}`,
       test: `/browse-tests//${id}`
     };
     return links[service_type] || '#';
