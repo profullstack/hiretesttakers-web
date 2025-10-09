@@ -22,7 +22,8 @@
 
 <nav class="nav">
   <a href="/" on:click={closeDropdowns}>Home</a>
-  <a href="/browse-tests" on:click={closeDropdowns}>Browse Tests</a>
+  <a href="/browse-tests" on:click={closeDropdowns}>Tests</a>
+  <a href="/browse-jobs" on:click={closeDropdowns}>Jobs</a>
   
   {#if user}
     <div class="nav-dropdown">
