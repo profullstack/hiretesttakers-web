@@ -70,13 +70,28 @@ export async function POST({ request, locals }) {
 
     const requestData = await request.json();
 
-    // Add user_id from session
-    const jobRequest = await createJobRequest({
+    // Use the authenticated Supabase client from locals
+    const supabase = locals.supabase;
+    
+    // Prepare job data
+    const jobData = {
       ...requestData,
-      user_id: session.user.id
-    });
+      user_id: session.user.id,
+      status: 'pending'
+    };
 
-    return json({ request: jobRequest }, { status: 201 });
+    // Insert directly using the authenticated client
+    const { data, error } = await supabase
+      .from('jobs')
+      .insert(jobData)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Failed to create job: ${error.message}`);
+    }
+
+    return json({ request: data }, { status: 201 });
   } catch (error) {
     return json({ error: error.message }, { status: 400 });
   }
