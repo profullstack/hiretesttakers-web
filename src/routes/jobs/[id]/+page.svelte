@@ -118,9 +118,16 @@
           <h1>{assignment.title}</h1>
           <span class="status">{formatStatus(assignment.status)}</span>
         </div>
-        <button on:click={() => goto('/jobs')} class="btn-secondary">
-          Back to List
-        </button>
+        <div class="header-actions">
+          {#if assignment.status === 'pending'}
+            <button on:click={() => goto(`/jobs/${assignmentId}/edit`)} class="btn-primary">
+              ✏️ Edit Job
+            </button>
+          {/if}
+          <button on:click={() => goto('/jobs')} class="btn-secondary">
+            Back to List
+          </button>
+        </div>
       </div>
 
       <div class="section">
@@ -332,6 +339,12 @@
     align-items: flex-start;
     padding: var(--spacing-xl);
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
   }
 
   h1 {
@@ -583,6 +596,15 @@
     .header {
       flex-direction: column;
       gap: var(--spacing-md);
+    }
+
+    .header-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .header-actions button {
+      width: 100%;
     }
 
     .details-grid {

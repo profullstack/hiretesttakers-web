@@ -247,6 +247,108 @@ export async function getJobRequestById(id) {
 }
 
 /**
+ * Update a job request
+ * @param {string} id - Job request ID
+ * @param {Object} updates - Fields to update
+ * @param {string} [updates.title] - Job title
+ * @param {string} [updates.description] - Job description
+ * @param {string} [updates.topic] - Job topic
+ * @param {string} [updates.academic_level_id] - Academic level ID
+ * @param {string} [updates.citation_style_id] - Citation style ID
+ * @param {number} [updates.word_count] - Word count
+ * @param {string} [updates.deadline] - Deadline (ISO string)
+ * @param {number} [updates.price] - Price
+ * @param {number} [updates.max_price] - Maximum price for range
+ * @param {string} [updates.cryptocurrency] - Cryptocurrency type
+ * @param {string} [updates.job_type] - Job type
+ * @param {boolean} [updates.plagiarism_check_requested] - Whether plagiarism check is requested
+ * @returns {Promise<Object>} Updated job request
+ * @throws {Error} If validation fails or update fails
+ */
+export async function updateJobRequest(id, updates) {
+  if (!id || id.trim() === '') {
+    throw new Error('Job request ID is required');
+  }
+
+  // Validation for provided fields
+  if (updates.title !== undefined && (!updates.title || updates.title.trim() === '')) {
+    throw new Error('Title cannot be empty');
+  }
+
+  if (updates.description !== undefined && (!updates.description || updates.description.trim() === '')) {
+    throw new Error('Description cannot be empty');
+  }
+
+  if (updates.topic !== undefined && (!updates.topic || updates.topic.trim() === '')) {
+    throw new Error('Topic cannot be empty');
+  }
+
+  if (updates.word_count !== undefined && updates.word_count <= 0) {
+    throw new Error('Word count must be positive');
+  }
+
+  if (updates.deadline !== undefined) {
+    const deadlineDate = new Date(updates.deadline);
+    if (deadlineDate <= new Date()) {
+      throw new Error('Deadline must be in the future');
+    }
+  }
+
+  if (updates.price !== undefined && updates.price < 0) {
+    throw new Error('Price must be non-negative');
+  }
+
+  const supabase = getSupabaseClient();
+
+  // First check if job exists and is in pending status
+  const { data: existingJob, error: fetchError } = await supabase
+    .from('jobs')
+    .select('status')
+    .eq('id', id)
+    .single();
+
+  if (fetchError) {
+    if (fetchError.code === 'PGRST116') {
+      throw new Error('Job request not found');
+    }
+    throw new Error(`Failed to fetch job request: ${fetchError.message}`);
+  }
+
+  if (existingJob.status !== 'pending') {
+    throw new Error('Only pending jobs can be edited');
+  }
+
+  // Prepare update data
+  const updateData = {};
+  
+  if (updates.title !== undefined) updateData.title = updates.title.trim();
+  if (updates.description !== undefined) updateData.description = updates.description.trim();
+  if (updates.topic !== undefined) updateData.topic = updates.topic.trim();
+  if (updates.word_count !== undefined) updateData.word_count = updates.word_count;
+  if (updates.deadline !== undefined) updateData.deadline = updates.deadline;
+  if (updates.price !== undefined) updateData.price = updates.price;
+  if (updates.max_price !== undefined) updateData.max_price = updates.max_price;
+  if (updates.cryptocurrency !== undefined) updateData.cryptocurrency = updates.cryptocurrency;
+  if (updates.job_type !== undefined) updateData.job_type = updates.job_type;
+  if (updates.plagiarism_check_requested !== undefined) updateData.plagiarism_check_requested = updates.plagiarism_check_requested;
+  if (updates.academic_level_id !== undefined) updateData.academic_level_id = updates.academic_level_id || null;
+  if (updates.citation_style_id !== undefined) updateData.citation_style_id = updates.citation_style_id || null;
+
+  const { data, error } = await supabase
+    .from('jobs')
+    .update(updateData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to update job request: ${error.message}`);
+  }
+
+  return data;
+}
+
+/**
  * Submit job for a request
  * @param {string} requestId - Job request ID
  * @param {Object} params - Submission parameters
