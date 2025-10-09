@@ -77,7 +77,7 @@
   {:else}
     <div class="jobs-grid">
       {#each jobs as job (job.id)}
-        <JobCard {job} />
+        <JobCard {job} showApplyButton={true} />
       {/each}
     </div>
   {/if}

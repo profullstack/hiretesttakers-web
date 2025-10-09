@@ -1,6 +1,17 @@
 <script>
+  import { getContext } from 'svelte';
+  import { goto } from '$app/navigation';
+  import ApplicationModal from './ApplicationModal.svelte';
+
   export let job;
   export let showActions = true;
+  export let showApplyButton = false;
+
+  const session = getContext('session');
+
+  let showApplicationModal = false;
+  let applying = false;
+  let applicationError = '';
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -40,6 +51,57 @@
       homework: 'type-homework'
     };
     return typeClasses[jobType] || 'type-homework';
+  }
+
+  function handleApplyClick() {
+    if (!session) {
+      goto('/login?redirect=/browse-jobs');
+      return;
+    }
+    showApplicationModal = true;
+  }
+
+  async function handleApplicationSubmit(event) {
+    const { note } = event.detail;
+    applying = true;
+    applicationError = '';
+
+    try {
+      const response = await fetch('/api/job-applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          job_id: job.id,
+          application_note: note
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit application');
+      }
+
+      showApplicationModal = false;
+      alert('Application submitted successfully!');
+      
+      // Optionally reload or update the UI
+      window.location.reload();
+    } catch (error) {
+      applicationError = error.message;
+      alert(error.message);
+    } finally {
+      applying = false;
+    }
+  }
+
+  function handleModalClose() {
+    if (!applying) {
+      showApplicationModal = false;
+      applicationError = '';
+    }
   }
 </script>
 
@@ -111,9 +173,23 @@
       <a href="/jobs/{job.id}" class="btn-view">
         View Details
       </a>
+      {#if showApplyButton && job.status === 'pending'}
+        <button class="btn-apply" on:click={handleApplyClick}>
+          Apply Now
+        </button>
+      {/if}
     </div>
   {/if}
 </div>
+
+<ApplicationModal
+  isOpen={showApplicationModal}
+  type="job"
+  title={job.title}
+  loading={applying}
+  on:submit={handleApplicationSubmit}
+  on:close={handleModalClose}
+/>
 
 <style>
   .job-card {
@@ -361,12 +437,15 @@
   }
 
   .card-actions {
+    display: flex;
+    gap: var(--spacing-md);
     padding: var(--spacing-md) var(--spacing-lg);
     border-top: 1px solid var(--color-border);
     background: var(--color-bg-secondary);
   }
 
-  .btn-view {
+  .btn-view,
+  .btn-apply {
     display: inline-block;
     padding: var(--spacing-sm) var(--spacing-md);
     background: var(--color-primary);
@@ -379,18 +458,36 @@
     box-shadow: var(--shadow-sm);
   }
 
-  .btn-view:hover {
+  .btn-view:hover,
+  .btn-apply:hover {
     background: var(--color-primary-hover);
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
   }
 
-  :global(.dark) .btn-view {
+  .btn-apply {
+    background: var(--color-success);
+  }
+
+  .btn-apply:hover {
+    background: #059669;
+  }
+
+  :global(.dark) .btn-view,
+  :global(.dark) .btn-apply {
     box-shadow: var(--glow-primary);
   }
 
   :global(.dark) .btn-view:hover {
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
+  }
+
+  :global(.dark) .btn-apply {
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+  }
+
+  :global(.dark) .btn-apply:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6), 0 0 30px rgba(0, 255, 136, 0.4);
   }
 
   @media (max-width: 640px) {
@@ -402,6 +499,16 @@
     .card-meta {
       flex-direction: column;
       gap: var(--spacing-sm);
+    }
+
+    .card-actions {
+      flex-direction: column;
+    }
+
+    .btn-view,
+    .btn-apply {
+      width: 100%;
+      text-align: center;
     }
   }
 </style>
