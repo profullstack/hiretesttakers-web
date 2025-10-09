@@ -261,11 +261,28 @@ export async function updateUsername(userId, username, supabase) {
   const client = supabase || getSupabaseClient();
 
   try {
-    // Check if username is available
-    const available = await checkUsernameAvailability(username, client);
-    
-    if (!available) {
-      throw new Error('Username is already taken');
+    // First check if user exists
+    const { data: existingUser, error: fetchError } = await client
+      .from('users')
+      .select('id, username')
+      .eq('id', userId)
+      .maybeSingle();
+
+    if (fetchError) {
+      throw fetchError;
+    }
+
+    if (!existingUser) {
+      throw new Error('User profile not found');
+    }
+
+    // Check if username is available (skip if it's the same as current)
+    if (existingUser.username !== username) {
+      const available = await checkUsernameAvailability(username, client);
+      
+      if (!available) {
+        throw new Error('Username is already taken');
+      }
     }
 
     // Update username
