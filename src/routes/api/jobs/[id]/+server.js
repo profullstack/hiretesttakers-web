@@ -1,9 +1,9 @@
 /**
- * Individual Assignment API Routes
- * 
- * GET /api/assignments/[id] - Get assignment request by ID
- * PUT /api/assignments/[id] - Update assignment request
- * DELETE /api/assignments/[id] - Delete assignment request
+ * Individual Job API Routes
+ *
+ * GET /api/jobs/[id] - Get job request by ID
+ * PUT /api/jobs/[id] - Update job request
+ * DELETE /api/jobs/[id] - Delete job request
  */
 
 import { json } from '@sveltejs/kit';

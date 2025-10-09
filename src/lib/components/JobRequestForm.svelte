@@ -33,7 +33,7 @@
 
   async function loadAcademicLevels() {
     try {
-      const response = await fetch('/api/assignments?academic_levels=true');
+      const response = await fetch('/api/jobs?academic_levels=true');
       const data = await response.json();
       if (response.ok) {
         academicLevels = data.academic_levels;
@@ -45,7 +45,7 @@
 
   async function loadCitationStyles() {
     try {
-      const response = await fetch('/api/assignments?citation_styles=true');
+      const response = await fetch('/api/jobs?citation_styles=true');
       const data = await response.json();
       if (response.ok) {
         citationStyles = data.citation_styles;
@@ -76,7 +76,7 @@
         plagiarism_check_requested: plagiarismCheckRequested
       };
 
-      const url = isEdit ? `/api/assignments/${assignment.id}` : '/api/assignments';
+      const url = isEdit ? `/api/jobs/${assignment.id}` : '/api/jobs';
       const method = isEdit ? 'PUT' : 'POST';
 
       const response = await fetch(url, {

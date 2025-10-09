@@ -1,7 +1,7 @@
 /**
- * Assignment Plagiarism Check API Route
- * 
- * POST /api/assignments/[id]/plagiarism-check - Check assignment for plagiarism
+ * Job Plagiarism Check API Route
+ *
+ * POST /api/jobs/[id]/plagiarism-check - Check job for plagiarism
  */
 
 import { json } from '@sveltejs/kit';

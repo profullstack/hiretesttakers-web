@@ -1,7 +1,7 @@
 /**
  * Assignment Submission API Route
  * 
- * POST /api/assignments/[id]/submit - Submit completed assignment
+ * POST /api/jobs/[id]/submit - Submit completed assignment
  */
 
 import { json } from '@sveltejs/kit';

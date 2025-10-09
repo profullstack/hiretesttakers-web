@@ -1,7 +1,7 @@
 /**
  * Assignment Revisions API Route
  * 
- * POST /api/assignments/[id]/revisions - Request revision for assignment
+ * POST /api/jobs/[id]/revisions - Request revision for assignment
  */
 
 import { json } from '@sveltejs/kit';

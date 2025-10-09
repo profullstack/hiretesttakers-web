@@ -1,7 +1,7 @@
 /**
  * Assignment Quality Report API Route
  * 
- * GET /api/assignments/[id]/quality-report - Get quality report for assignment
+ * GET /api/jobs/[id]/quality-report - Get quality report for assignment
  */
 
 import { json } from '@sveltejs/kit';
