@@ -262,42 +262,49 @@
   }
 
   h2 {
-    margin: 0 0 2rem 0;
+    margin: 0 0 var(--spacing-xl) 0;
     font-size: 1.75rem;
     font-weight: 600;
+    color: var(--color-text);
   }
 
   .error-message {
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    color: #721c24;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    background: var(--color-error-light);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
+    color: var(--color-error-dark);
+  }
+
+  :global(.dark) .error-message {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--color-error-light);
   }
 
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
   }
 
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
     font-weight: 500;
-    color: #333;
+    color: var(--color-text);
   }
 
   .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
     cursor: pointer;
+    color: var(--color-text);
   }
 
   .checkbox-label input[type='checkbox'] {
@@ -311,11 +318,14 @@
   textarea,
   select {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-family: inherit;
+    background: var(--color-surface);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   }
 
   input[type='text']:focus,
@@ -324,7 +334,16 @@
   textarea:focus,
   select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 232, 0.1);
+  }
+
+  :global(.dark) input[type='text']:focus,
+  :global(.dark) input[type='number']:focus,
+  :global(.dark) input[type='date']:focus,
+  :global(.dark) textarea:focus,
+  :global(.dark) select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2);
   }
 
   textarea {
@@ -333,28 +352,42 @@
 
   small {
     display: block;
-    margin-top: 0.25rem;
-    color: #666;
+    margin-top: var(--spacing-xs);
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
+  }
+
+  small a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  small a:hover {
+    text-decoration: underline;
+  }
+
+  :global(.dark) small a {
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   }
 
   .form-actions {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
     justify-content: flex-end;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e0e0e0;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-border);
   }
 
   button {
-    padding: 0.75rem 1.5rem;
+    padding: var(--spacing-md) var(--spacing-lg);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all var(--transition-base);
   }
 
   button:disabled {
@@ -363,21 +396,39 @@
   }
 
   .btn-primary {
-    background: #007bff;
+    background: var(--color-primary);
     color: white;
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: #0056b3;
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  :global(.dark) .btn-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  :global(.dark) .btn-primary:hover:not(:disabled) {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
   }
 
   .btn-secondary {
-    background: #6c757d;
-    color: white;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background: #545b62;
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-hover);
+  }
+
+  :global(.dark) .btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   }
 
   @media (max-width: 640px) {
